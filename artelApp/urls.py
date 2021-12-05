@@ -30,9 +30,10 @@ permission_classes=(permissions.AllowAny,),
 )
 
 
-# JWT
-from rest_framework_jwt.views import \
-                    obtain_jwt_token, refresh_jwt_token
+# Simple JWT
+from rest_framework_simplejwt.views import (
+                    TokenObtainPairView,
+                    TokenRefreshView,)
 
 
 # urls for API   
@@ -68,8 +69,8 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         # JWT
-    path('token/', obtain_jwt_token, name='token_obtain_pair'),
-    path('token/refresh/', refresh_jwt_token, name='token_refresh'),
+    path('token/', TokenObtainPairView, name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView, name='token_refresh'),
         # view
     path('index/', index, name='index'),
     path('report/', report, name='report'),

@@ -10,9 +10,10 @@ django-imagefield = "*"
 djangorestframework = "*"
 django-rest-swagger = "*"
 djangorestframework-simplejwt = "*"
-djangorestframework-jwt = "*"
 drf-yasg = "*"
 dj-rest-auth = "*"
+gunicorn = "*"
+whitenoise = "*"
 django-allauth = "*"
 
 [dev-packages]
