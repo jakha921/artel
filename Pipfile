@@ -18,6 +18,7 @@ django-allauth = "*"
 environs = "*"
 psycopg2-binary = "*"
 dj-database-url = "*"
+django-heroku = "*"
 
 [dev-packages]
 
