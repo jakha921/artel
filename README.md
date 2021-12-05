@@ -1,2 +1,0 @@
-# Artel_app
-Catalog
