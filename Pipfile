@@ -19,6 +19,7 @@ environs = "*"
 psycopg2-binary = "*"
 dj-database-url = "*"
 django-heroku = "*"
+django-environ = "*"
 
 [dev-packages]
 
