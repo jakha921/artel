@@ -1,0 +1,41 @@
+{% extends 'artelApp/base.html' %}
+{% block title %}
+Update
+{% endblock title %}
+
+
+<!-- main -->
+{% block main %}
+  
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+  <h2>Good</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th class="font-weight-bold">Good name</th>
+        </tr>
+
+        <!-- category input -->
+        <tr>
+          <th>
+            <form method="POST">
+              {% csrf_token %}
+                {{ form.cat_id }} <br>
+                {{ form.title }} <br>
+                {{ form.specif }} <br>
+                {{ form.good_info }} <br>
+                <input type="submit" value="Update" class="btn btn-info">
+            </form> 
+          </th>
+        </tr>
+
+      </thead>
+    </table>
+
+  </div>
+</main>
+{% endblock main %}

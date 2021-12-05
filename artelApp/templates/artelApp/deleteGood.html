@@ -1,0 +1,46 @@
+{% extends 'artelApp/base.html' %}
+{% block title %}
+Delete
+{% endblock title %}
+
+
+<!-- main -->
+{% block main %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+  <h2>Delete item</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th class="font-weight-bold">Delete item name</th>
+          <th class="font-weight-bold"></th>
+        </tr>
+
+        <!-- category input -->
+        <tr>
+          <td>
+            <p>Are you want to delete <strong>"{{ good }}"</strong></p>
+          </td>
+          <td>
+            <a href="{% url 'good' %}">Cancel</a> 
+            <form method="POST">
+              {% csrf_token %}
+              {{ form.cat_id }}
+              {{ form.title }} 
+              {{ form.specif }}
+              {{ form.good_info }}
+              <input type="submit" value="Confirm">
+            </form>
+          </td>
+        </tr>
+
+      </thead>
+    </table>
+
+  </div>
+</main>
+{% endblock main %}

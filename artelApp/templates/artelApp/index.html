@@ -1,0 +1,92 @@
+{% extends 'artelApp/base.html' %}
+{% block title %}
+Dashboard Template for Bootstrap
+{% endblock title %}
+
+
+<!-- sidebar -->
+{% block sidebar %}
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'index' %}">
+      <span data-feather="home"></span>
+      Dashboard <span class="sr-only">(current)</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="{% url 'category' %}">
+      <span data-feather="file"></span>
+      Category
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="{% url 'good' %}">
+      <span data-feather="shopping-cart"></span>
+      Products(goods)
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'feedbacks' %}">
+      <span data-feather="users"></span>
+      Customers(feedback)
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'report' %}">
+      <span data-feather="bar-chart-2"></span>
+      Reports
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'index' %}">
+      <span data-feather="layers"></span>
+      Integrations
+    </a>
+  </li>
+</ul>
+{% endblock sidebar %}
+
+<!-- main -->
+{% block main %}
+  
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+  <h2>Section title</h2>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1,001</td>
+          <td>Lorem</td>
+          <td>ipsum</td>
+          <td>dolor</td>
+          <td>sit</td>
+        </tr>
+        <tr>
+          <td>1,002</td>
+          <td>amet</td>
+          <td>consectetur</td>
+          <td>adipiscing</td>
+          <td>elit</td>
+        </tr>
+        <tr>
+          <td>1,003</td>
+          <td>Integer</td>
+          <td>nec</td>
+          <td>odio</td>
+          <td>Praesent</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock main %}
