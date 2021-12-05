@@ -15,6 +15,9 @@ dj-rest-auth = "*"
 gunicorn = "*"
 whitenoise = "*"
 django-allauth = "*"
+environs = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

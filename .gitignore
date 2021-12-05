@@ -1,0 +1,5 @@
+.env
+artel.zip
+.vs
+.pytest_cache
+db.sqlite3
