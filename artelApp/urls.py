@@ -64,7 +64,7 @@ router.register('usersAPI', userAPIView, basename="usersAPI")
 
 urlpatterns = [
         # APIs urls
-    path('', include(router.urls)),
+    path('api', include(router.urls)),
         # drf
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
@@ -74,7 +74,7 @@ urlpatterns = [
         # view
     path('index/', index, name='index'),
     path('report/', report, name='report'),
-    path('category/', category, name='category'),
+    path('', category, name='category'),
     path('category/update/<int:pk>/', updateCategorie, name='updateCategory'),
     path('category/delete/<int:pk>/', deleteCategorie, name='deleteCategory'),
     path('good/', good, name='good'),
