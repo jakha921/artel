@@ -39,7 +39,7 @@ class categories(models.Model):
 
 # sub categories
 class goods(models.Model):
-    cat_id = models.ForeignKey(categories, on_delete=models.CASCADE)
+    cat_id = models.ForeignKey(categories, on_delete=models.CASCADE, blank=True)
     good_img = ImageField(upload_to='goods/')
     title_uz = models.CharField(max_length=200)
     title_ru = models.CharField(max_length=200, blank=True)
@@ -269,7 +269,7 @@ class stocks(models.Model):
     icon = models.ImageField(upload_to="stocks/icon/")
     banner = models.ImageField(upload_to="stocks/banner/",)
     description = models.TextField()
-    date = models.DateField(auto_now=True, auto_now_add=False)
+    date = models.DateField()
     class Meta:
         verbose_name = "Отчет по продукту"
         verbose_name_plural = "4.3 Отчеты по продуктам"

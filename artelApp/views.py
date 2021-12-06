@@ -63,11 +63,18 @@ def good(request):
     if request.method == 'POST':
         error = ''
         form = goodForm(request.POST, request.FILES) 
+        cat = request.POST['cats'] # Biza oldin select ni tanlangan optionini topishimiz kere
+        print(f"{cat=}")
         if form.is_valid():
-            form.save()
+            f = form.save(commit=False) # Keyin SAVE qilamiz
+            f.cat_id = categories.objects.get(id=int(cat)) # Form ni CATEGORIY fieldini (FK) belgilimiz
+            f.save() # Keyin SAVE qilamiz
             return redirect('good') 
         else:
             error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
             
     form = goodForm()
     categorie = categories.objects.all()        
@@ -86,7 +93,7 @@ def updateGoods(request, pk):
     good = goods.objects.get(id = pk)
     form = goodForm(instance=good)
     if request.method == 'POST':
-        form = goodForm(request.POST, instance=good)
+        form = goodForm(request.POST,  request.FILES, instance=good)
         if form.is_valid():
             form.save()
             return redirect('good')
@@ -104,8 +111,52 @@ def deleteGoods(request, pk):
 
 # feedbacks
 def feedbacks(request):
-    dataFeedback = feedbacks.objects.all()
+    dataFeedback = feedback.objects.all()
     return render(request, 'artelApp/feedback.html', {'dataFeedback' : dataFeedback},)
+
+
+# stocks
+def stock(request):
+    stock = stocks.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = stockForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('stock') 
+        else:
+            error = "Форма было неверной"
+            
+    form = stockForm()
+            
+    dataStock = {
+        'stock' : stock,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/stock.html', {'dataStock' : dataStock})
+
+
+# update button for categorie
+def updateCategorie(request, pk):
+    categorie = categories.objects.get(id = pk)
+    form = categoryForm(instance=categorie)
+    if request.method == 'POST':
+        form = categoryForm(request.POST, request.FILES, instance=categorie)
+        if form.is_valid():
+            form.save()
+            return redirect('category')
+    return render(request, 'artelApp/update.html', {'form': form, 'categorie': categorie})
+
+
+# delete button for categorie
+def deleteCategorie(request, pk):
+    categorie = categories.objects.get(id = pk)
+    if request.method == 'POST':
+        categorie.delete()
+        return redirect('category')
+    return render(request, 'artelApp/delete.html', {'categorie': categorie})
+
 
 
 # reports

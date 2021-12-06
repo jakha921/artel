@@ -1,5 +1,5 @@
 from .models import *
-from django.forms import ModelForm, TextInput, Textarea, ImageField
+from django.forms import ModelForm, TextInput, Textarea, Select, DateField
 
 
 class categoryForm(ModelForm):
@@ -25,7 +25,7 @@ class goodForm(ModelForm):
                     "good_info_uz", "good_info_ru", "good_info_us", "good_info_tr",
                     "good_img"]
         widgets = {
-            "cat_id": TextInput(attrs={
+            "cat_id": Select(attrs={
                 'class': 'form-control',
             }),   
             "title": TextInput(attrs={
@@ -37,9 +37,19 @@ class goodForm(ModelForm):
                 'placeholder': 'specification'
             }),   
             "good_info": Textarea(attrs={
-                "class" : "form-control",
-                'placeholder': 'Enter the category name',
-                'rows':4,
+                'rows':1,
                 'cols':15
             }),    
+        }
+
+
+class stockForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = stocks
+        fields = ["title", "icon", "banner", "description", "date"] 
+        widgets = {
+            "title": TextInput(attrs={                
+                'placeholder': 'Enter the stock name'
+            }),  
         }

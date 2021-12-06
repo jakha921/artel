@@ -81,4 +81,7 @@ urlpatterns = [
     path('good/update/<int:pk>/', updateGoods, name='updateGood'),
     path('good/delete/<int:pk>/', deleteGoods, name='deleteGood'),
     path('feedbacks/', feedbacks, name='feedbacks'),
+    path('stock/', stock, name='stock'),
+    # path('stock/update/<int:pk>/', updateStocks, name='updateStocks'),
+    # path('good/delete/<int:pk>/', deleteStocks, name='deleteStocks'),
 ]
