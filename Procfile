@@ -1,0 +1,1 @@
+web: gunicorn artel.wsgi --log-file -
