@@ -7,10 +7,18 @@ from .seriallizers import *
 from .forms import *
 from .permissions import IsAuthenticatedOrReadOnly
 
+# template
+from django.shortcuts import render
+from django.template import loader
+from django.http import HttpResponse
+
+
 
 # main
 def index(request):
-    return render(request, 'artelApp/index.html')
+    context = {}
+    template = loader.get_template('app/index.html')
+    return HttpResponse(template.render(context, request))
 
 
 # categorie

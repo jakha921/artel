@@ -1,5 +1,5 @@
-.env
+# .env
 artel.zip
 .vscode
 .pytest_cache
-db.sqlite3
+# db.sqlite3

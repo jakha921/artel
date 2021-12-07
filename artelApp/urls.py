@@ -72,9 +72,9 @@ urlpatterns = [
     path('token/', TokenObtainPairView, name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView, name='token_refresh'),
         # view
-    path('index/', index, name='index'),
+    path('', index, name='index'),
     path('report/', report, name='report'),
-    path('', category, name='category'),
+    path('category', category, name='category'),
     path('category/update/<int:pk>/', updateCategorie, name='updateCategory'),
     path('category/delete/<int:pk>/', deleteCategorie, name='deleteCategory'),
     path('good/', good, name='good'),
