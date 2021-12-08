@@ -1,115 +1,119 @@
-{% extends 'artelApp/base.html' %}
-{% block title %}
-Categorie
-{% endblock title %}
-
-
-<!-- sidebar -->
-{% block sidebar %}
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link " href="{% url 'index' %}">
-      <span data-feather="home"></span>
-      Dashboard <span class="sr-only">(current)</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="{% url 'category' %}">
-      <span data-feather="file"></span>
-      Category
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link " href="{% url 'good' %}">
-      <span data-feather="shopping-cart"></span>
-      Products(goods)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'feedbacks' %}">
-      <span data-feather="users"></span>
-      Customers(feedback)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'report' %}">
-      <span data-feather="bar-chart-2"></span>
-      Reports
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'stock' %}">
-      <span data-feather="dollar-sign"></span>
-      Stocks
-    </a>
-  </li>
-</ul>
-{% endblock sidebar %}
-
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Category {% endblock title %}
 
 <!-- main -->
-{% block main %}
+{% block content %}
   
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="right_col" role="main">
 
-  <h2>Category</h2>
+  <h2>Categories</h2>
   <div class="table-responsive">
 
     <!-- Category -->
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th class="font-weight-bold">Category name</th>
-        </tr>
-
-        <!-- category input -->
-        <tr>
-          <th>
-            <form method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Categories table </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>UZ</th>
+                  <th>RU</th>
+                  <th>US</th>
+                  <th>TR</th>
+                  <th>Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for categorie in dataCategory.categorie  %}
+                <tr>
+                  <td>{{ categorie.cat_name_uz }}</td>
+                  <td>{{ categorie.cat_name_ru }}</td>
+                  <td>{{ categorie.cat_name_us }}</td>
+                  <td>{{ categorie.cat_name_tr }}</td>
+                  <td>{{ categorie.cat_img }}</td>
+                  <td>
+                    <a href="{% url 'updateCategory' categorie.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deleteCategory' categorie.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a category</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <div class="row">
-                <div class="col-6 input-wigth">
-                  UZ {{ dataCategory.form.cat_name_uz }} <br><br>
-                  RU {{ dataCategory.form.cat_name_ru }} <br><br>
-                  US {{ dataCategory.form.cat_name_us }} <br><br>
-                  TR {{ dataCategory.form.cat_name_tr }}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_uz">UZ <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  
+                  {{ dataCategory.form.cat_name_uz }}
                 </div>
-                <div class="col-4">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_ru">RU <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  
+                  {{ dataCategory.form.cat_name_ru }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_us">US <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  
+                  {{ dataCategory.form.cat_name_us }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_tr">TR <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  
+                  {{ dataCategory.form.cat_name_tr }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_img">Image <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  
                   {{ dataCategory.form.cat_img }}
                 </div>
-                <div class="col-2">
-                  <input type="submit" value="ADD" class="btn btn-info">
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="button">Cancel</button>
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
                 </div>
               </div>
               <p><span>{{ dataCategory.error }}</span></p>
-            </form>    
-          </th>
-        </tr>
-
-      </thead>
-      <tbody>
-        {% for categorie in dataCategory.categorie  %}
-        <tr>
-          <td> 
-            <div class="row">
-              <div class="col-6">
-                UZ {{ categorie.cat_name_uz }} <br><br>
-                RU {{ categorie.cat_name_ru }} <br><br>
-                US {{ categorie.cat_name_us }} <br><br>
-                TR {{ categorie.cat_name_tr }}
-              </div>
-              <div class="col-3">{{ categorie.cat_img }}</div>
-              <div class="col-3">
-                <a href="{% url 'updateCategory' categorie.id %}" class='btn btn-info'>Update</a>
-                <a href="{% url 'deleteCategory' categorie.id %}" class='btn btn-danger'>Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</main>
-{% endblock main %}
+</div>
+{% endblock content %}

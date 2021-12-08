@@ -74,7 +74,7 @@ urlpatterns = [
         # view
     path('', index, name='index'),
     path('report/', report, name='report'),
-    path('category', category, name='category'),
+    path('category/', category, name='category'),
     path('category/update/<int:pk>/', updateCategorie, name='updateCategory'),
     path('category/delete/<int:pk>/', deleteCategorie, name='deleteCategory'),
     path('good/', good, name='good'),

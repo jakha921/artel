@@ -1,136 +1,205 @@
-{% extends 'artelApp/base.html' %}
-{% block title %}
-Good
-{% endblock title %}
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Products / Goods {% endblock title %}
 
-<!-- sidebar -->
-{% block sidebar %}
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link " href="{% url 'index' %}">
-      <span data-feather="home"></span>
-      Dashboard <span class="sr-only">(current)</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'category' %}">
-      <span data-feather="file"></span>
-      Category
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="{% url 'good' %}">
-      <span data-feather="shopping-cart"></span>
-      Products(goods)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'feedbacks' %}">
-      <span data-feather="users"></span>
-      Customers(feedback)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'report' %}">
-      <span data-feather="bar-chart-2"></span>
-      Reports
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'stock' %}">
-      <span data-feather="dollar-sign"></span>
-      Stocks
-    </a>
-  </li>
-</ul>
-{% endblock sidebar %}
 
 <!-- main -->
-{% block main %}
+{% block content %}
   
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="right_col" role="main">
 
-  <h2>Good</h2>
+  <h2>Products / Goods</h2>
   <div class="table-responsive">
 
-    <!-- Category -->
-    <table class="table table-hover">
-      <thead class="thead-light">
+    <!-- Products / Goods -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Categories table </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Goods name</th>
+                  <th>Title</th>
+                  <th>Specification</th>
+                  <th>Info</th>
+                  <th>Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for good in dataGood.good  %}
+                <tr>
+                  <td>{{ good.cat_id }}</td>
+                  <td>{{ good.title_uz }}</td>
+                  <td>{{ good.specif_uz }}</td>
+                  <td>{{ good.good_info_uz }}</td>
+                  <td>{{ good.good_img }}</td>
+                  <td>
+                    <a href="{% url 'updateGood' good.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deleteGood' good.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a product</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="cats">Choose a category:</label>
+                    <select name="cats" id="cats" class="form-control" required>
+                      <option value="" disabled selected>Choose..</option>
+                      {% for cat in dataGood.categorie %}
+                      <option value="{{ cat.id }}">{{ cat }} </option>
+                      {% endfor %}
+                    </select>
+              </div>
 
-        <tr>
-          <th>Goods name</th>
-          <th>title</th>
-          <th>specification</th>
-          <th>info</th>
-          <th>image</th>
-          <th></th>
-          <th></th>
-        </tr>
+              <div class="ln_solid"></div>
+              <h3>Add a title</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.title_uz }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">RU <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.title_ru }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">EN <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.title_us }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">TR <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.title_tr }}
+                  </div>
+              </div>
 
-        <!-- input to the good  -->
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <tr>
-              <th>            
-                <select id="cats" name="cats" class="wrap-input100 validate-input form-control ">
-                  <option value="" disabled selected>Choose category</option>
-                  {% for cat in dataGood.categorie %}
-                  <option value="{{ cat.id }}">{{ cat }} </option>
-                  {% endfor %}
-                </select>
-              </th>
-              <th>
-                UZ {{ dataGood.form.title_uz }} <br> <br> 
-                RU {{ dataGood.form.title_ru }} <br> <br>
-                US {{ dataGood.form.title_us }} <br> <br>
-                TR {{ dataGood.form.title_tr }}
-              </th>  
-              <th>
-                UZ {{ dataGood.form.specif_uz }} <br> <br>
-                RU {{ dataGood.form.specif_ru }} <br> <br>
-                US {{ dataGood.form.specif_us }} <br> <br>
-                TR {{ dataGood.form.specif_tr }}
-              </th>
-              <th>
-                UZ {{ dataGood.form.good_info_uz }}
-                <!-- RU {{ dataGood.form.good_info_ru }} <br> -->
-                <!-- US {{ dataGood.form.good_info_us }} <br> -->
-                <!-- TR {{ dataGood.form.good_info_tr }} <br> -->
-              </th>
-              <th>
-                {{ dataGood.form.good_img }}
-              </th>
-              <th><input type="submit" value="ADD" class="btn btn-info"></th>
-              <th></th>                
-              <!-- <p><span>{{ good.error }}</span></p>  -->        
-            </tr>
-          </form>   
+              <div class="ln_solid"></div>
+              <h3>Add a specification</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.specif_uz }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >RU <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.specif_ru }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >EN <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.specif_us }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >TR <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.specif_tr }}
+                  </div>
+              </div>
 
-      </thead>
-      <tbody>
-        {% for good in dataGood.good  %}
-          <tr>
-            <td>{{ good.cat_id }}</td>
-            <td>{{ good.title_uz }}</td>
-            <!-- <td>{{ good.title_ru }}</td> -->
-            <!-- <td>{{ good.title_us }}</td> -->
-            <!-- <td>{{ good.title_tr }}</td> -->
-            <td>{{ good.specif_uz }}</td>
-            <!-- <td>{{ good.specif_ru }}</td> -->
-            <!-- <td>{{ good.specif_us }}</td> -->
-            <!-- <td>{{ good.specif_tr }}</td> -->
-            <td>{{ good.good_info_uz }}</td>
-            <!-- <td>{{ good.good_info_ru }}</td> -->
-            <!-- <td>{{ good.good_info_us }}</td> -->
-            <!-- <td>{{ good.good_info_tr }}</td> -->
-            <td>{{ good.good_img }}</td>
-            <td><a href="{% url 'updateGood' good.id %}" class='btn btn-info'>Update</a></td>
-            <td><a href="{% url 'deleteGood' good.id %}" class='btn btn-danger'>Delete</a></td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+              <div class="ln_solid"></div>
+              <h3>Add info</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >UZ <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.good_info_uz }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >RU <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.good_info_ru }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >EN <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.good_info_us }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >TR <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.good_info_tr }}
+                  </div>
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_img">Image <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGood.form.good_img }}
+                  </div>
+              </div>
 
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="button">Cancel</button>
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+              <p><span>{{ good.error }}</span></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</main>
-{% endblock main %}
+</div>
+{% endblock content %}
