@@ -32,11 +32,11 @@
               <tbody>
                 {% for categorie in dataCategory.categorie  %}
                 <tr>
-                  <td>{{ categorie.cat_name_uz }}</td>
-                  <td>{{ categorie.cat_name_ru }}</td>
-                  <td>{{ categorie.cat_name_us }}</td>
-                  <td>{{ categorie.cat_name_tr }}</td>
-                  <td>{{ categorie.cat_img }}</td>
+                  <td>{{ categorie.category_name_uz }}</td>
+                  <td>{{ categorie.category_name_ru }}</td>
+                  <td>{{ categorie.category_name_us }}</td>
+                  <td>{{ categorie.category_name_tr }}</td>
+                  <td>{{ categorie.category_img }}</td>
                   <td>
                     <a href="{% url 'updateCategory' categorie.id %}" class='btn btn-info'>Update</a>
                     <a href="{% url 'deleteCategory' categorie.id %}" class='btn btn-danger'>Delete</a>
@@ -61,43 +61,38 @@
             <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_uz">UZ <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_uz">UZ <span class="required">*</span>
                 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  
-                  {{ dataCategory.form.cat_name_uz }}
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataCategory.form.category_name_uz }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_ru">RU <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_ru">RU <span class="required">*</span>
                 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  
-                  {{ dataCategory.form.cat_name_ru }}
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataCategory.form.category_name_ru }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_us">US <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_us">US <span class="required">*</span>
                 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  
-                  {{ dataCategory.form.cat_name_us }}
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataCategory.form.category_name_us }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_name_tr">TR <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_tr">TR <span class="required">*</span>
                 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  
-                  {{ dataCategory.form.cat_name_tr }}
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataCategory.form.category_name_tr }}
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_img">Image <span class="required">*</span>
                 </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  
-                  {{ dataCategory.form.cat_img }}
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataCategory.form.category_img }}
                 </div>
               </div>
               <div class="ln_solid"></div>

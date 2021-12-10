@@ -6,21 +6,21 @@ class categoryForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = categories
-        fields = ["cat_name_uz", "cat_name_ru", "cat_name_us", "cat_name_tr", "cat_img"]     # "cat_img" do not work add with this 
+        fields = ["category_name_uz", "category_name_ru", "category_name_us", "category_name_tr", "category_img"]     # "cat_img" do not work add with this 
         widgets = {
-            "cat_name_uz": TextInput(attrs={
+            "category_name_uz": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter the category name in Uzbek'
             }),
-            "cat_name_ru": TextInput(attrs={
+            "category_name_ru": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter the category name in Russian'
             }),
-            "cat_name_us": TextInput(attrs={
+            "category_name_us": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter the category name in English'
             }),
-            "cat_name_tr": TextInput(attrs={
+            "category_name_tr": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter the category name in Turkish'
             }),
@@ -31,13 +31,13 @@ class goodForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = goods
-        fields = ["cat_id", 
-                    "title_uz", "title_ru", "title_us", "title_tr", 
-                    "specif_uz", "specif_ru", "specif_us", "specif_tr", 
-                    "good_info_uz", "good_info_ru", "good_info_us", "good_info_tr",
-                    "good_img"]
+        fields = ["category_id", 
+                    "title_uz", "title_ru", "title_us", "title_tr",
+                    "section_name_uz_list", "section_name_ru_list", "section_name_us_list", "section_name_tr_list",
+                    "section_description_uz_list", "section_description_ru_list", "section_description_us_list", "section_description_tr_list",
+                    ]
         widgets = {
-            "cat_id": Select(attrs={
+            "category_id": Select(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
             }),   
             "title_uz": TextInput(attrs={
@@ -56,42 +56,43 @@ class goodForm(ModelForm):
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter title of good'
             }),  
-            "specif_uz": TextInput(attrs={
+            "section_name_uz_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification'
+                'placeholder': 'specification (list ex: func, size and etc)'
             }),  
-            "specif_ru": TextInput(attrs={
+            "section_name_ru_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification'
+                'placeholder': 'specification (list ex: func, size and etc)'
             }),   
-            "specif_us": TextInput(attrs={
+            "section_name_us_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification'
+                'placeholder': 'specification (list ex: func, size and etc)'
             }),   
-            "specif_tr": TextInput(attrs={
+            "section_name_tr_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification'
+                'placeholder': 'specification (list ex: func, size and etc)'
             }),    
-            "good_info_uz": Textarea(attrs={
+            "section_description_uz_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'rows':1,
-                'cols':15
-            }),   
-            "good_info_ru": Textarea(attrs={
+                'placeholder': 'description (list ex: quality, easy and etc)'
+            }),    
+            "section_description_ru_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'rows':1,
-                'cols':15
-            }),   
-            "good_info_us": Textarea(attrs={
+                'placeholder': 'description (list ex: quality, easy and etc)'
+            }),    
+            "section_description_us_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'rows':1,
-                'cols':15
-            }),   
-            "good_info_tr": Textarea(attrs={
+                'placeholder': 'description (list ex: quality, easy and etc)'
+            }),    
+            "section_description_tr_list": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
-                'rows':1,
-                'cols':15
-            }),
+                'placeholder': 'description (list ex: quality, easy and etc)'
+            }),    
+            # "good_info_uz": Textarea(attrs={
+            #     'class': 'form-control col-md-7 col-xs-12',
+            #     'rows':1,
+            #     'cols':15
+            # }),   
         }
 
 
@@ -99,9 +100,60 @@ class stockForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = stocks
-        fields = ["title", "icon", "banner", "description", "date"] 
+        fields = ["title_uz", "title_ru", "title_us", "title_tr",
+                    "icon", "banner", 
+                    "description_uz", "description_ru", "description_us", "description_tr", 
+                    "start_date", "end_date"] 
         widgets = {
-            "title": TextInput(attrs={                
-                'placeholder': 'Enter the stock name'
+            "title_uz": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'title'
+            }),
+            "title_ru": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'title'
+            }),
+            "title_us": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'title'
+            }),
+            "title_tr": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'title'
+            }),
+            "description_uz": Textarea(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }), 
+            "description_ru": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
             }),  
+            "description_us": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),  
+            "description_tr": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+            "start_date": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'stock start date',
+                'type' :"date"
+            }),
+            "start_date": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'stock start date',
+                'type' :"date"
+            }),
+            "end_date": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'stock end date',
+                'type' :"date"
+            }),
         }

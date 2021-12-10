@@ -15,23 +15,34 @@ class languageSerializer(serializers.ModelSerializer):
 # categories serializer
 class categorySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "cat_name_uz", "cat_name_ru", "cat_name_us", "cat_name_tr", "cat_img")
+        fields = ('id', 
+                    "category_name_uz", "category_name_ru", "category_name_us", "category_name_tr",
+                    "category_img", "counter_total_product")
         model = categories
 
 
 # goods serializer
 class goodSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "cat_id", "title_uz", "title_ru", "title_us", "title_tr", 
-                    "specif_uz", "specif_ru", "specif_us", "specif_tr", 
-                    "good_info_uz", "good_info_ru", "good_info_us", "good_info_tr", "good_img")
+        fields = ('id', "category_id", 
+                    "title_uz", "title_ru", "title_us", "title_tr", 
+                    "section_name_uz_list", "section_name_ru_list", 
+                    "section_name_us_list", "section_name_tr_list", 
+                    "section_description_uz_list", "section_description_ru_list", 
+                    "section_description_us_list", "section_description_tr_list", 
+                    )
         model = goods
 
+
+class goodImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('good_id', 'good_img', 'good_badge')
+        model = good_images
 
 # companies serializer
 class companySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "company_icon", "short_info", "company_info",)
+        fields = ('id', "company_icon", "company_short_info", "company_info",)
         model = company
 
 
@@ -45,14 +56,15 @@ class infoSerializer(serializers.ModelSerializer):
 # partners serializer
 class partnerSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "partner_name", "partner_img")
+        fields = ('id', "partner_img")
         model = partners
 
 
 # export serializer
 class exportSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "country", "export_img", "export_data", "export_year")
+        fields = ('id', "country", "country_icon", "export_percent_before", 
+                    "export_percent_after", "export_year_before", "export_year_after")
         model = exports
 
 
@@ -87,26 +99,26 @@ class productBaseSerializer(serializers.ModelSerializer):
 # services serializer
 class serviceSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "service_city", "service_address", "service_phone")
+        fields = ('id', "service_city", "service_address_list", "service_phone")
         model = services
 
 
 # reports serializer
 class reportOfLanguageSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'lang_id', 'clc_lang',)
+        fields = ('id', 'language_id', 'click_language',)
         model = reportsOfLanguage
 
 
 class reportsOfCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('cat_id', 'clc_cat',)
+        fields = ('category_id', 'click_category',)
         model = reportsOfCategory
 
 
 class reportsOfGoodSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('good_id', 'clc_good',)
+        fields = ('good_id', 'click_good',)
         model = reportsOfGood
 
 

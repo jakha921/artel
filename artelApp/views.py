@@ -138,24 +138,24 @@ def stock(request):
 
 
 # update button for categorie
-def updateCategorie(request, pk):
-    categorie = categories.objects.get(id = pk)
-    form = categoryForm(instance=categorie)
+def updateStocks(request, pk):
+    stock = stocks.objects.get(id = pk)
+    form = stockForm(instance=stock)
     if request.method == 'POST':
-        form = categoryForm(request.POST, request.FILES, instance=categorie)
+        form = categoryForm(request.POST, request.FILES, instance=stock)
         if form.is_valid():
             form.save()
-            return redirect('category')
-    return render(request, 'artelApp/update.html', {'form': form, 'categorie': categorie})
+            return redirect('stock')
+    return render(request, 'artelApp/updateStock.html', {'form': form, 'stock': stock})
 
 
 # delete button for categorie
-def deleteCategorie(request, pk):
-    categorie = categories.objects.get(id = pk)
+def deleteStocks(request, pk):
+    stock = stocks.objects.get(id = pk)
     if request.method == 'POST':
-        categorie.delete()
-        return redirect('category')
-    return render(request, 'artelApp/delete.html', {'categorie': categorie})
+        stock.delete()
+        return redirect('stock')
+    return render(request, 'artelApp/deleteStock.html', {'stock': stock})
 
 
 
@@ -176,53 +176,47 @@ def report(request):
 class languageAPIView(ModelViewSet):
     queryset = languages.objects.all()
     serializer_class = languageSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class categorieAPIView(ModelViewSet):
     queryset = categories.objects.all()
     serializer_class = categorySerializer
-    # permission_classes = (IsAuthenticated)
-    # permission_classes = (IsAuthenticatedOrReadOnly, )        # from permisstion.py
 
 
 class goodAPIView(ModelViewSet):
     queryset = goods.objects.all()
     serializer_class = goodSerializer
-    # permission_classes = (IsAuthenticated)
+
+class goodImageAPIView(ModelViewSet):
+    queryset = good_images.objects.all()
+    serializer_class = goodImageSerializer
     
     
 class companiesAPIView(ModelViewSet):
     queryset = company.objects.all()
     serializer_class = companySerializer
-    # permission_classes = (IsAuthenticated)
     
     
 class infoAPIView(ModelViewSet):
     queryset = info.objects.all()
     serializer_class = infoSerializer
-    # permission_classes = (IsAuthenticated)
     
     
 class partnersAPIView(ModelViewSet):
     queryset = partners.objects.all()
     serializer_class = partnerSerializer
-    # permission_classes = (IsAuthenticated)
 
 class exportsAPIView(ModelViewSet):
     queryset = exports.objects.all()
     serializer_class = exportSerializer
-    # permission_classes = (IsAuthenticated)
 
 class ecologiesAPIView(ModelViewSet):
     queryset = ecology.objects.all()
     serializer_class = ecologySerializer
-    # permission_classes = (IsAuthenticated)
 
 class innovationsAPIView(ModelViewSet):
     queryset = innovations.objects.all()
     serializer_class = innovationSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class feedbacksAPIView(ModelViewSet):
@@ -234,19 +228,16 @@ class feedbacksAPIView(ModelViewSet):
 class productBasesAPIView(ModelViewSet):
     queryset = product_bases.objects.all()
     serializer_class = productBaseSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class servicesAPIView(ModelViewSet):
     queryset = services.objects.all()
     serializer_class = serviceSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class reportOfLanguageAPIView(ModelViewSet):
     queryset = reportsOfLanguage.objects.all()
     serializer_class = reportOfLanguageSerializer
-    # permission_classes = (IsAuthenticated)
     
     
 class reportOfCategoryAPIView(ModelViewSet):
@@ -258,15 +249,15 @@ class reportOfCategoryAPIView(ModelViewSet):
 class reportOfGoodAPIView(ModelViewSet):
     queryset = reportsOfGood.objects.all()
     serializer_class = reportsOfGoodSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class stocksAPIView(ModelViewSet):
     queryset = stocks.objects.all()
     serializer_class = stockSerializer
-    # permission_classes = (IsAuthenticated)
 
 
 class userAPIView(ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = userSerializer
+    # permission_classes = (IsAuthenticated)
+    

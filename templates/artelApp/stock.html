@@ -1,124 +1,168 @@
-{% extends 'artelApp/base.html' %}
-{% block title %}
-Categorie
-{% endblock title %}
-
-
-<!-- sidebar -->
-{% block sidebar %}
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link " href="{% url 'index' %}">
-      <span data-feather="home"></span>
-      Dashboard <span class="sr-only">(current)</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'category' %}">
-      <span data-feather="file"></span>
-      Category
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link " href="{% url 'good' %}">
-      <span data-feather="shopping-cart"></span>
-      Products(goods)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'feedbacks' %}">
-      <span data-feather="users"></span>
-      Customers(feedback)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'report' %}">
-      <span data-feather="bar-chart-2"></span>
-      Reports
-    </a>
-  </li>
-  <li class="nav-item active">
-    <a class="nav-link" href="{% url 'stock' %}">
-      <span data-feather="dollar-sign"></span>
-      Stocks
-    </a>
-  </li>
-</ul>
-{% endblock sidebar %}
-
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Stocks {% endblock title %}
 
 <!-- main -->
-{% block main %}
+{% block content %}
   
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="right_col" role="main">
 
   <h2>Stocks</h2>
   <div class="table-responsive">
 
-    <!-- Stock -->
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th class="font-weight-bold">Stock name</th>
-          <th class="font-weight-bold">icon</th>
-          <th class="font-weight-bold">banner</th>
-          <th class="font-weight-bold">description</th>
-          <th class="font-weight-bold">date</th>
-          <th></th>
-        </tr>
-
-        <!-- Stock input -->
-        <tr>
-            <form method="POST" enctype="multipart/form-data">
+    <!-- Category -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Stocks table</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Icon</th>
+                  <th>Banner</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for stock in dataStock.stock  %}
+                <tr>
+                  <td>{{ stock.title_uz }}</td>
+                  <td>{{ stock.icon }}</td>
+                  <td>{{ stock.banner }}</td>
+                  <td>{{ stock.description_uz }}</td>
+                  <td>{{ stock.start_date }}</td>
+                  <td>{{ stock.end_date }}</td>
+                  <td>
+                    <a href="{% url 'updateStocks' stock.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deleteStocks' stock.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a stocks</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <div class="row">
-                <th class="col-3">
-                  {{ dataStock.form.title }}
-                </th>
-                <th class="col-2">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_uz">UZ <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.title_uz }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_ru">RU <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.title_ru }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_us">US <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.title_us }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_tr">TR <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.title_tr }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_icon">Icon <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
                   {{ dataStock.form.icon }}
-                </th>
-                <th class="col-2">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_banner">Banner <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
                   {{ dataStock.form.banner }}
-                </th>
-                <th class="col-2">
-                  {{ dataStock.form.description }}
-                </th>
-                <th class="col-2">
-                  {{ dataStock.form.date }}
-                </th>
-                <th class="col-1">
-                  <input type="submit" value="ADD" class="btn btn-info">
-                </th>
+                </div>
+              </div>
+
+              
+              <div class="ln_solid"></div>
+              <h3>Add a description</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.description_uz }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">RU <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.description_ru }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">US <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.description_us }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">TR <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.description_tr }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_start_date">Start date of stock <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.start_date }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_start_date">Start date of stock <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataStock.form.end_date }}
+                </div>
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="button">Cancel</button>
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
               </div>
               <p><span>{{ dataStock.error }}</span></p>
-            </form>    
-        </tr>
-
-      </thead>
-      <tbody>
-        {% for categorie in dataCategory.categorie  %}
-        <tr>
-          <td> 
-            <div class="row">
-              <div class="col-6">
-                UZ {{ categorie.cat_name_uz }} <br><br>
-                RU {{ categorie.cat_name_ru }} <br><br>
-                US {{ categorie.cat_name_us }} <br><br>
-                TR {{ categorie.cat_name_tr }}
-              </div>
-              <div class="col-3">{{ categorie.cat_img }}</div>
-              <div class="col-3">
-                <a href="{% url 'updateCategory' categorie.id %}" class='btn btn-info'>Update</a>
-                <a href="{% url 'deleteCategory' categorie.id %}" class='btn btn-danger'>Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</main>
-{% endblock main %}
+</div>
+{% endblock content %}

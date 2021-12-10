@@ -1,5 +1,5 @@
 .env
-artel.zip
+artelApp.zip
 .vscode
 .pytest_cache
 db.sqlite3

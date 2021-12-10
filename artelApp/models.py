@@ -1,17 +1,21 @@
 from django.db import models
 from django.db.models.fields.files import ImageField
+from django.contrib.postgres.fields import ArrayField
 import datetime
+
+
 
 # choose lang for choices
 lang = (
-    ('uzbek', "O`zbek tili"),
-    ('english', "English"),
-    ('russian', "Русский язык"),
-    ('turkey', 'Turk dili'),
+    ('Uzbek', "O`zbek tili"),
+    ('English', "English"),
+    ('Russian', "Русский язык"),
+    ('Turkey', 'Turk dili'),
 )
 
 class languages(models.Model):
     choose_lang = models.CharField(max_length=20, choices=lang)
+    language_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Язык"
@@ -23,90 +27,79 @@ class languages(models.Model):
 
 # categories
 class categories(models.Model):
-    cat_name_uz = models.CharField(max_length=200)
-    cat_name_ru = models.CharField(max_length=200, blank=True)
-    cat_name_us = models.CharField(max_length=200, blank=True)
-    cat_name_tr = models.CharField(max_length=200, blank=True)
-    cat_img = ImageField(upload_to='categories/')
+    category_name_uz = models.CharField(max_length=200)
+    category_name_ru = models.CharField(max_length=200)
+    category_name_us = models.CharField(max_length=200, blank=True)
+    category_name_tr = models.CharField(max_length=200, blank=True)
+    category_img = ImageField(upload_to='categories/')
+    counter_total_product = models.IntegerField(default=0)
+    category_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "2. Категории"
 
     def __str__(self):
-        return self.cat_name_uz
+        return self.category_name_uz
+    
+    
 
-
-# sub categories
+# goods
 class goods(models.Model):
-    cat_id = models.ForeignKey(categories, on_delete=models.CASCADE, blank=True)
-    good_img = ImageField(upload_to='goods/')
-    title_uz = models.CharField(max_length=200)
-    title_ru = models.CharField(max_length=200, blank=True)
-    title_us = models.CharField(max_length=200, blank=True)
-    title_tr = models.CharField(max_length=200, blank=True)
-    specif_uz = models.CharField(max_length=50)
-    specif_ru = models.CharField(max_length=50, blank=True)
-    specif_us = models.CharField(max_length=50, blank=True)
-    specif_tr = models.CharField(max_length=50, blank=True)
-    good_info_uz = models.TextField()
-    good_info_ru = models.TextField(blank=True)
-    good_info_us = models.TextField(blank=True)
-    good_info_tr = models.TextField(blank=True)
+    category_id = models.ForeignKey(categories, on_delete=models.CASCADE)
+    title_uz = models.CharField(max_length=150)
+    title_ru = models.CharField(max_length=150)
+    title_us = models.CharField(max_length=150, blank=True)
+    title_tr = models.CharField(max_length=150, blank=True)
+    section_name_uz_list = ArrayField(models.CharField(max_length=150))
+    section_name_ru_list = ArrayField(models.CharField(max_length=150))
+    section_name_us_list = ArrayField(models.CharField(max_length=150), blank=True)
+    section_name_tr_list = ArrayField(models.CharField(max_length=150), blank=True)
+    section_description_uz_list = ArrayField(models.CharField(max_length=150))
+    section_description_ru_list = ArrayField(models.CharField(max_length=150))
+    section_description_us_list = ArrayField(models.CharField(max_length=150), blank=True)
+    section_description_tr_list = ArrayField(models.CharField(max_length=150), blank=True)
+    good_create_date = models.DateField(auto_now=True)
 
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "2.1 Товары"
 
     def __str__(self):
-        return str(self.cat_id) + " -> " + str(self.title_uz)
-
-
-# about 
-# class about(models.Model):
-#     section = models.CharField(max_length=50)
+        return str(self.category_id) + " -> " + str(self.title_uz)
     
-#     class Meta:
-#         verbose_name = "О нас"
-#         verbose_name_plural = "3. О нас"
     
-#     def __str__(self):
-#         return str(self.section)
+# good_sections 
+class good_images(models.Model):
+    good_id = models.ForeignKey(goods, on_delete=models.CASCADE)
+    good_img = models.ImageField(upload_to='goods/')
+    good_badge = models.ImageField(upload_to='badges/')
+
+    class Meta:
+        verbose_name = "Картина Товара"
+        verbose_name_plural = "2.2 Картинки Товара"
 
 
 # about -> company
 class company(models.Model):
-    # about_id = models.ForeignKey(about, on_delete=models.CASCADE)
     company_icon = models.ImageField(upload_to="company/")
-    short_info = models.CharField(max_length=150)
+    company_short_info = models.CharField(max_length=150)
     company_info = models.TextField()
+    company_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Компания"
         verbose_name_plural = "3.1 Компании"
     
     def __str__(self):
-        return str(self.short_info)
+        return str(self.company_short_info)
 
 
-# about -> collections
-# class collections(models.Model):
-#     about_id = models.ForeignKey(about, on_delete=models.CASCADE)
-#     cat_id = models.ForeignKey(categories, on_delete=models.CASCADE)
-    
-#     class Meta:
-#         verbose_name = "Колекция"
-#         verbose_name_plural = "3.2 Колекции"
-    
-#     def __str__(self):
-#         return str(self.about_id) + " -> " + str(self.cat_id)
-
-
-# about -> info (addition information)
+# ! check it 
 class info(models.Model):
-    # about_id = models.ForeignKey(about, on_delete=models.CASCADE)
     sub_section = models.CharField(max_length=150)
     comp_icon = models.ImageField(upload_to="info/")
+    info_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Информация"
@@ -118,60 +111,55 @@ class info(models.Model):
 
 # about -> info -> partners (LOGO)
 class partners(models.Model):
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
-    partner_name = models.CharField(max_length=150)
     partner_img = models.ImageField(upload_to="partners/")
+    partner_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Партнер"
         verbose_name_plural = "3.3.1 Партнеры"
     
-    def __str__(self):
-        return str(self.info_id) + " -> " + str(self.par_name)
 
 
 # about -> info -> export (countries & info about export)
 class exports(models.Model):
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
     country = models.CharField(max_length=50)
-    export_img = models.ImageField(upload_to="exports/")
-    export_data = models.IntegerField(default=0)
-    export_year = models.DateField(default=datetime.date.today())
+    country_icon = models.ImageField(upload_to="exports/")
+    export_percent_before = models.FloatField(default=0, max_length=100)
+    export_percent_after = models.FloatField(default=0, max_length=100)
+    export_year_before = models.CharField(max_length=4)
+    export_year_after = models.CharField(max_length=4)
+    export_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Экспорт"
         verbose_name_plural = "3.3.2 Экспорты"
     
     def __str__(self):
-        return str(self.info_id) + " -> " + str(self.country)
+        return str(self.country)
     
 
 # about -> info -> ecology (posts img & desc)
 class ecology(models.Model):
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
     ecology_img = models.ImageField(upload_to="ecology/")
     ecology_desc = models.TextField()
+    ecology_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Экология"
         verbose_name_plural = "3.3.3 Экологии"
     
-    def __str__(self):
-        return str(self.info_id) + " -> " + str(self.eco_desc)
     
     
 # about -> info -> innovation (posts img & desc)
 class innovations(models.Model):
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
     innovation_img = models.ImageField(upload_to="innovations/")
-    innovation_desc = models.CharField(max_length=150)
+    innovation_desc = models.TextField()
+    innovation_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Инноватция"
         verbose_name_plural = "3.3.4 Инноватции"
     
-    def __str__(self):
-        return str(self.info_id) + " -> " + str(self.inno_desc)
 
 
 # about -> info -> feedback (from clients get feedback to base)
@@ -179,8 +167,9 @@ class feedback(models.Model):
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     phone  = models.IntegerField()      # max_length=12
-    starts = models.FloatField()
+    starts = models.IntegerField()
     comment = models.TextField()
+    feedback_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Отзыв"
@@ -192,24 +181,23 @@ class feedback(models.Model):
 
 # about -> info -> product base (posts img & desc)
 class product_bases(models.Model):
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
     product_bases_img = models.ImageField(upload_to="ecology/")
     product_bases_desc = models.CharField(max_length=150)
+    product_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "База продукта"
         verbose_name_plural = "3.3.6 База продуктов"
     
     def __str__(self):
-        return str(self.info_id) + " -> " + str(self.prod_desc)
+        return str(self.product_bases_desc)
 
 
 # about -> info -> services
 class services(models.Model):
     """give info about centers from regions it is addres & phone number"""
-    # info_id = models.ForeignKey(info, on_delete=models.CASCADE)
     service_city = models.CharField(max_length=150)
-    service_address = models.CharField(max_length=150)
+    service_address_list = ArrayField(models.CharField(max_length=150, blank=True))
     service_phone = models.IntegerField()
     
     class Meta:
@@ -217,63 +205,76 @@ class services(models.Model):
         verbose_name_plural = "3.3.7 Сервисы"
     
     def __str__(self):
-        return str(self.info_id) + " -> " + str(self.ser_city)
+        return str(self.service_city) + " -> " + str(self.service_address_list)
 
 
 # reports count click from users
 class reportsOfLanguage(models.Model):
     """count every click from user and write to the base
     for showing most popular thinds"""
-    lang_id = models.ForeignKey(languages, on_delete=models.CASCADE,)
-    clc_lang = models.IntegerField(default=0)
+    language_id = models.ForeignKey(languages, on_delete=models.CASCADE,)
+    click_language = models.IntegerField(default=0)
+    lang_rep_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Отчет по языку"
         verbose_name_plural = "4.1 Отчеты по языкам"
     
     def __str__(self):
-        return str(self.lang_id) + " " + str(self.clc_lang)
+        return str(self.language_id) + " " + str(self.click_language)
 
 
 class reportsOfCategory(models.Model):
     """count every click from user and write to the base
     for showing most popular thinds"""
-    cat_id = models.ForeignKey(categories, on_delete=models.CASCADE,)
-    clc_cat = models.IntegerField(default=0)
+    category_id = models.ForeignKey(categories, on_delete=models.CASCADE,)
+    click_category = models.IntegerField(default=0)
+    cat_rep_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Отчет по категорие"
         verbose_name_plural = "4.2 Отчеты по категории"
     
     def __str__(self):
-        return str(self.cat_id) + " " + str(self.clc_cat)
+        return str(self.category_id) + " " + str(self.click_category)
 
 
 class reportsOfGood(models.Model):
     """count every click from user and write to the base
     for showing most popular thinds"""
     good_id = models.ForeignKey(goods, on_delete=models.CASCADE, )
-    clc_good = models.IntegerField(default=0)
+    click_good = models.IntegerField(default=0)
+    good_rep_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
         verbose_name = "Отчет по продукту"
         verbose_name_plural = "4.3 Отчеты по продуктам"
     
     def __str__(self):
-        return str(self.good_id) + " " + str(self.clc_good)
+        return str(self.good_id) + " " + str(self.click_good)
 
 
 # stocks
 class stocks(models.Model):    
-    title = models.CharField( max_length=150)
+    title_uz = models.CharField( max_length=150)
+    title_ru = models.CharField( max_length=150)
+    title_us = models.CharField( max_length=150, blank=True)
+    title_tr = models.CharField( max_length=150, blank=True)
     icon = models.ImageField(upload_to="stocks/icon/")
     banner = models.ImageField(upload_to="stocks/banner/",)
-    description = models.TextField()
-    date = models.DateField()
+    description_uz = models.TextField()
+    description_ru = models.TextField()
+    description_us = models.TextField(blank=True)
+    description_tr = models.TextField(blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    stock_category_create_date = models.DateField(auto_now=True)
     class Meta:
-        verbose_name = "Отчет по продукту"
-        verbose_name_plural = "4.3 Отчеты по продуктам"
+        verbose_name = "Акция"
+        verbose_name_plural = "4.4 Акции"
     
     def __str__(self):
-        return str(self.good_id) + " " + str(self.good_id)
+        return str(self.title_uz)
+
+
 

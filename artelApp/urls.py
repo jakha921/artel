@@ -59,12 +59,13 @@ router.register('reportsLanguageAPI', reportOfLanguageAPIView, basename="reports
 router.register('reportsCategoryAPI', reportOfCategoryAPIView, basename="reportsOfCategoryAPI")
 router.register('reportsOfGoodAPI', reportOfGoodAPIView, basename="reportsOfGoodAPI")
 router.register('stocksAPI', stocksAPIView, basename="stocksAPI")
+router.register('goodImageAPI', goodImageAPIView, basename="goodImageAPI")
 router.register('usersAPI', userAPIView, basename="usersAPI")
 
 
 urlpatterns = [
         # APIs urls
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
         # drf
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
@@ -82,6 +83,6 @@ urlpatterns = [
     path('good/delete/<int:pk>/', deleteGoods, name='deleteGood'),
     path('feedbacks/', feedbacks, name='feedbacks'),
     path('stock/', stock, name='stock'),
-    # path('stock/update/<int:pk>/', updateStocks, name='updateStocks'),
-    # path('good/delete/<int:pk>/', deleteStocks, name='deleteStocks'),
+    path('stock/update/<int:pk>/', updateStocks, name='updateStocks'),
+    path('stock/delete/<int:pk>/', deleteStocks, name='deleteStocks'),
 ]

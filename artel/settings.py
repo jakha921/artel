@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
+    'storages', 
     
     'artelApp',
 ]
@@ -123,6 +124,8 @@ DATABASES = {
 }
 
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -159,11 +162,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# Amazon s3
+AWS_ACCESS_KEY_ID = 'AKIAUSHWTCSY2B7UY4U4'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'artel-catalog'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'artel.storage_backends.MediaStorage'
+
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 # whitenose
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
