@@ -21,7 +21,8 @@ dj-database-url = "*"
 django-heroku = "*"
 django-environ = "*"
 django-storages = "*"
-boto = "*"
+pytz = "*"
+boto3 = "*"
 
 [dev-packages]
 

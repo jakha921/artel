@@ -77,12 +77,16 @@ def good(request):
                 print(f"Field Error: {field.name} | {field.errors}")
             
     form = goodForm()
-    categorie = categories.objects.all()        
+    categorie = categories.objects.all()
+    goodImage = good_images
+    formGoodImage =  goodImagesForm()    
                 
     dataGood = {
         'good' : good,
         'form': form,
         'categorie' : categorie,
+        'goodImage' : goodImage,
+        'formGoodImage' : formGoodImage,
         # 'error': error,
     }
     return render(request, 'artelApp/good.html', {'dataGood' : dataGood})

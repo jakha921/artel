@@ -94,6 +94,18 @@ class goodForm(ModelForm):
             #     'cols':15
             # }),   
         }
+        
+
+class goodImagesForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = good_images
+        fields = ["good_id", "good_img", "good_badge"] 
+        widgets = {
+            "good_id": Select(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+            }),   
+        }
 
 
 class stockForm(ModelForm):

@@ -33,11 +33,11 @@
               <tbody>
                 {% for good in dataGood.good  %}
                 <tr>
-                  <td>{{ good.cat_id }}</td>
+                  <td>{{ good.category_id }}</td>
                   <td>{{ good.title_uz }}</td>
-                  <td>{{ good.specif_uz }}</td>
-                  <td>{{ good.good_info_uz }}</td>
-                  <td>{{ good.good_img }}</td>
+                  <td>{{ good.section_name_uz_list }}</td>
+                  <td>{{ good.section_description_uz_list }}</td>
+                  <!-- <td>{{ good.good_img }}</td> -->
                   <td>
                     <a href="{% url 'updateGood' good.id %}" class='btn btn-info'>Update</a>
                     <a href="{% url 'deleteGood' good.id %}" class='btn btn-danger'>Delete</a>
@@ -78,12 +78,12 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
                   
               </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-6 col-sm-6 col-xs-12" for="id_title_uz">
                     {{ dataGood.form.title_uz }}
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">RU <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_ru">RU <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -91,7 +91,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">EN <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_us">EN <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -99,7 +99,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">TR <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_tr">TR <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -110,7 +110,7 @@
               <div class="ln_solid"></div>
               <h3>Add a specification</h3>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_uz_list">UZ <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -118,7 +118,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >RU <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_ru_list">RU <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -126,7 +126,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >EN <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_us_list">EN <span class="required">*</span>
                   
               </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -134,7 +134,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >TR <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_tr_list">TR <span class="required">*</span>
                   
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -145,7 +145,7 @@
               <div class="ln_solid"></div>
               <h3>Add info</h3>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >UZ <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_uz_list">UZ <span class="required">*</span>
                   
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -153,7 +153,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >RU <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_ru_list">RU <span class="required">*</span>
                   
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
@@ -164,12 +164,12 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >EN <span class="required">*</span>
                   
                 </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-6 col-sm-6 col-xs-12" for="id_section_description_us_list">
                     {{ dataGood.form.section_description_us_list }}
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >TR <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_tr_list">TR <span class="required">*</span>
                   
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">

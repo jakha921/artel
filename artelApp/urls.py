@@ -32,8 +32,8 @@ permission_classes=(permissions.AllowAny,),
 
 # Simple JWT
 from rest_framework_simplejwt.views import (
-                    TokenObtainPairView,
-                    TokenRefreshView,)
+    TokenObtainPairView,
+    TokenRefreshView,)
 
 
 # urls for API   
@@ -46,6 +46,7 @@ router = DefaultRouter()
 router.register('languagesAPI', languageAPIView, basename="languagesAPI")
 router.register('categoriesAPI', categorieAPIView, basename="categoriesAPI")
 router.register('goodsAPI', goodAPIView, basename="goodsAPI")
+router.register('goodImageAPI', goodImageAPIView, basename="goodImageAPI")
 router.register('companiesAPI', companiesAPIView, basename="companiesAPI")
 router.register('infoAPI', infoAPIView, basename="infoAPI")
 router.register('partnersAPI', partnersAPIView, basename="partnersAPI")
@@ -59,7 +60,6 @@ router.register('reportsLanguageAPI', reportOfLanguageAPIView, basename="reports
 router.register('reportsCategoryAPI', reportOfCategoryAPIView, basename="reportsOfCategoryAPI")
 router.register('reportsOfGoodAPI', reportOfGoodAPIView, basename="reportsOfGoodAPI")
 router.register('stocksAPI', stocksAPIView, basename="stocksAPI")
-router.register('goodImageAPI', goodImageAPIView, basename="goodImageAPI")
 router.register('usersAPI', userAPIView, basename="usersAPI")
 
 
@@ -70,8 +70,8 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         # JWT
-    path('token/', TokenObtainPairView, name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView, name='token_refresh'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
         # view
     path('', index, name='index'),
     path('report/', report, name='report'),

@@ -49,8 +49,9 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework_swagger',
-    'drf_yasg',
+    'rest_framework_simplejwt',
     'rest_framework.authtoken',
+    'drf_yasg',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'allauth',
@@ -119,10 +120,19 @@ WSGI_APPLICATION = 'artel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': env.dj_db_url("DATABASE_URL")
+# }
 DATABASES = {
-    'default': env.dj_db_url("DATABASE_URL")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'artel',
+                'USER': 'postgres',
+                'PASSWORD': 'admin',
+                'HOST': 'localhost',
+                'PORT': '5434',
+    }
 }
-
 
 
 
