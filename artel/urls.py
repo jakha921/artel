@@ -15,3 +15,8 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# change admin panel name
+admin.site.site_header = 'Admin Panel for Artel'
+admin.site.site_title = 'Artel catalog'

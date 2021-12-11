@@ -6,7 +6,7 @@
   
 <div class="right_col" role="main">
 
-  <h2>Stock Delete</h2>
+  <h2>Company Delete</h2>
   <div class="table-responsive">
 
     <!-- Category -->
@@ -14,7 +14,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Stocks Delete table </h2>
+            <h2>Companies Delete table </h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -26,12 +26,13 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><p>Are you want to delete <strong>"{{ stock }}"</strong></p></td>
+                  <td><p>Are you want to delete <strong>"{{ companies }}"</strong></p></td>
                   <td>
-                    <a href="{% url 'stock' %}">Cancel</a> 
+                    <a href="{% url 'companies' %}">Cancel</a> 
                     <form method="POST">
                       {% csrf_token %}
-                      {{form.title_uz}}
+                      {{form.company_short_info}}
+                      {{form.company_info}}
                       <input type="submit" value="Confirm">
                     </form>
                   </td>

@@ -169,3 +169,36 @@ class stockForm(ModelForm):
                 'type' :"date"
             }),
         }
+
+
+# company
+class companiesForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = company
+        fields = ["company_icon", "company_short_info", "company_info"] 
+        widgets = {
+            "company_short_info": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'about company short info'
+            }),
+            "company_info": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+        }
+        
+        
+# Info
+class infosForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = info
+        fields = ["sub_section", "comp_icon"] 
+        widgets = {
+            "sub_section": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'about company short info'
+            }),
+        }

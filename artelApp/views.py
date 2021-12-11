@@ -162,7 +162,6 @@ def deleteStocks(request, pk):
     return render(request, 'artelApp/deleteStock.html', {'stock': stock})
 
 
-
 # reports
 def report(request):
     languages = reportsOfLanguage.objects.all()
@@ -175,6 +174,92 @@ def report(request):
         'goods': goods,
     }
     return render(request, 'artelApp/report.html', {'reports' : reports},)
+
+
+# company
+def companies(request):
+    companies = company.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = companiesForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('companies') 
+        else:
+            error = "Форма было неверной"
+            
+    form = companiesForm()
+            
+    dataCompanies = {
+        'companies' : companies,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/companies.html', {'dataCompanies' : dataCompanies})
+
+
+# update button for companies
+def updateCompanies(request, pk):
+    companies = company.objects.get(id = pk)
+    form = companiesForm(instance=companies)
+    if request.method == 'POST':
+        form = companiesForm(request.POST, request.FILES, instance=companies)
+        if form.is_valid():
+            form.save()
+            return redirect('companies')
+    return render(request, 'artelApp/updateCompanies.html', {'form': form, 'companies': companies})
+
+
+# delete button for categorie
+def deleteCompanies(request, pk):
+    companies = company.objects.get(id = pk)
+    if request.method == 'POST':
+        companies.delete()
+        return redirect('companies')
+    return render(request, 'artelApp/deleteCompanies.html', {'companies': companies})
+
+
+# Info
+def infos(request):
+    infos = info.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = infosForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('infos') 
+        else:
+            error = "Форма было неверной"
+            
+    form = infosForm()
+            
+    dataInfos = {
+        'infos' : infos,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/infos.html', {'dataInfos' : dataInfos})
+
+
+# update button for companies
+def updateInfos(request, pk):
+    infos = info.objects.get(id = pk)
+    form = infosForm(instance=infos)
+    if request.method == 'POST':
+        form = infosForm(request.POST, request.FILES, instance=infos)
+        if form.is_valid():
+            form.save()
+            return redirect('infos')
+    return render(request, 'artelApp/updateInfos.html', {'form': form, 'infos': infos})
+
+
+# delete button for categorie
+def deleteInfos(request, pk):
+    infos = info.objects.get(id = pk)
+    if request.method == 'POST':
+        infos.delete()
+        return redirect('companies')
+    return render(request, 'artelApp/deleteInfos.html', {'infos': infos})
 
 
 class languageAPIView(ModelViewSet):

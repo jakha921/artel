@@ -22,38 +22,24 @@
             <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_uz">UZ <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_company_icon">Icon <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ form.category_name_uz }}
+                  {{ form.company_icon }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_ru">RU <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_company_short_info">Short info <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ form.category_name_ru }}
+                  {{ form.company_short_info }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_us">US <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_company_info">Info <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ form.category_name_us }}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_category_name_tr">TR <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ form.category_name_tr }}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_img">Image <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ form.category_img }}
+                  {{ form.company_info }}
                 </div>
               </div>
               <div class="ln_solid"></div>
@@ -62,7 +48,7 @@
                   <button type="submit" class="btn btn-success">Update</button>
                 </div>
               </div>
-              <p><span>{{ dataCategory.error }}</span></p>
+              <!-- <p><span>{{ dataCategory.error }}</span></p> -->
             </form>
           </div>
         </div>

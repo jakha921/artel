@@ -14,7 +14,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Stocks Delete table </h2>
+            <h2>Informations Delete table </h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -26,12 +26,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><p>Are you want to delete <strong>"{{ stock }}"</strong></p></td>
+                  <td><p>Are you want to delete <strong>"{{ infos }}"</strong></p></td>
                   <td>
-                    <a href="{% url 'stock' %}">Cancel</a> 
+                    <a href="{% url 'infos' %}">Cancel</a> 
                     <form method="POST">
                       {% csrf_token %}
-                      {{form.title_uz}}
+                      {{form.sub_section}}
                       <input type="submit" value="Confirm">
                     </form>
                   </td>

@@ -74,7 +74,6 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
         # view
     path('', index, name='index'),
-    path('report/', report, name='report'),
     path('category/', category, name='category'),
     path('category/update/<int:pk>/', updateCategorie, name='updateCategory'),
     path('category/delete/<int:pk>/', deleteCategorie, name='deleteCategory'),
@@ -82,7 +81,14 @@ urlpatterns = [
     path('good/update/<int:pk>/', updateGoods, name='updateGood'),
     path('good/delete/<int:pk>/', deleteGoods, name='deleteGood'),
     path('feedbacks/', feedbacks, name='feedbacks'),
+    path('report/', report, name='report'),
     path('stock/', stock, name='stock'),
     path('stock/update/<int:pk>/', updateStocks, name='updateStocks'),
     path('stock/delete/<int:pk>/', deleteStocks, name='deleteStocks'),
+    path('companies/', companies, name='companies'),
+    path('companies/update/<int:pk>/', updateCompanies, name='updateCompanies'),
+    path('companies/delete/<int:pk>/', deleteCompanies, name='deleteCompanies'),
+    path('info/', infos, name='infos'),
+    path('info/update/<int:pk>/', updateInfos, name='updateInfos'),
+    path('info/delete/<int:pk>/', deleteInfos, name='deleteInfos'),
 ]
