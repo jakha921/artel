@@ -91,4 +91,14 @@ urlpatterns = [
     path('info/', infos, name='infos'),
     path('info/update/<int:pk>/', updateInfos, name='updateInfos'),
     path('info/delete/<int:pk>/', deleteInfos, name='deleteInfos'),
+    path('partner/', partner, name='partner'),
+    path('partner/update/<int:pk>/', updatePartner, name='updatePartner'),    
+    path('partner/delete/<int:pk>/', deletePartner, name='deletePartner'),
+    path('export/', export, name='export'),
+    path('export/update/<int:pk>/', updateExport, name='updateExport'),    
+    path('export/delete/<int:pk>/', deleteExport, name='deleteExport'),
+    path('ecologies/', ecologies, name='ecologies'),
+    path('ecologies/update/<int:pk>/', updateEcology, name='updateEcology'),    
+    path('ecologies/delete/<int:pk>/', deleteEcology, name='deleteEcology'),    
+
 ]

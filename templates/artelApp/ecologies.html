@@ -1,0 +1,86 @@
+{% extends 'artelApp/base_site.html' %}
+{% block title %} ecology {% endblock title %}
+
+<!-- main -->
+{% block content %}
+  
+<div class="right_col" role="main">
+
+  <h2>ecology</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>ecology table </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ecology img</th>
+                  <th>ecology desc</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ecologies in dataEcology.ecologies  %}
+                <tr>
+                  <td>{{ ecologies.ecology_img }}</td>
+                  <td>{{ ecologies.ecology_desc }}</td>
+                  <td>
+                    <a href="{% url 'updateEcology' ecologies.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deleteEcology' ecologies.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a ecologies</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_ecology_img">Icon <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataEcology.form.ecology_img }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_ecology_desc">desc <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataEcology.form.ecology_desc }}
+                </div>
+              </div>
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+              <p><span>{{ dataEcology.error }}</span></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,76 @@
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Partner {% endblock title %}
+
+<!-- main -->
+{% block content %}
+  
+<div class="right_col" role="main">
+
+  <h2>Partners</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Partners table</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Icon</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for partner in dataPartner.partner  %}
+                <tr>
+                  <td>{{ partner.partner_img }}</td>
+                  <td>
+                    <a href="{% url 'updatePartner' partner.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deletePartner' partner.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a partners</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_partner_img">partner logo <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataPartner.form.partner_img }}
+                </div>
+              </div>
+              
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+              <p><span>{{ dataPartner.error }}</span></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -202,3 +202,65 @@ class infosForm(ModelForm):
                 'placeholder': 'about company short info'
             }),
         }
+
+
+# partners
+class partnerForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = partners
+        fields = ["partner_img"] 
+
+
+# exports
+class exportForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = exports
+        fields = ["country", "country_icon", 
+                    "export_percent_before", "export_percent_after", 
+                    "export_year_before", "export_year_after"
+                    ]
+        widgets = {
+            "country": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'Enter country name'
+            }),
+            "export_percent_before": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'Export number',
+                'type' :"number"
+            }),
+            "export_percent_after": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'stock start date',
+                'type' :"number"
+            }),
+            "export_year_before": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'export year before',
+                'type' :"number"
+            }),
+            "export_year_after": TextInput(attrs={
+                'class': 'date-picker form-control col-md-7 col-xs-12',
+                'placeholder': 'export year before',
+                'type' :"number"
+            }),
+        }
+
+
+# ecology
+class ecologyForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = ecology
+        fields = ["ecology_img", "ecology_desc"]
+        widgets = {
+            "ecology_desc": Textarea(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+        }
+
+

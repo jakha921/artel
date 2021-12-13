@@ -262,6 +262,135 @@ def deleteInfos(request, pk):
     return render(request, 'artelApp/deleteInfos.html', {'infos': infos})
 
 
+# partners
+def partner(request):
+    partner = partners.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = partnerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('partner') 
+        else:
+            error = "Форма было неверной"
+            
+    form = partnerForm()
+            
+    dataPartner = {
+        'partner' : partner,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/partner.html', {'dataPartner' : dataPartner})
+
+
+# update button for partner
+def updatePartner(request, pk):
+    partner = partners.objects.get(id = pk)
+    form = partnerForm(instance=partner)
+    if request.method == 'POST':
+        form = partnerForm(request.POST, request.FILES, instance=partner)
+        if form.is_valid():
+            form.save()
+            return redirect('partner')
+    return render(request, 'artelApp/updatePartner.html', {'form': form, 'partner': partner})
+
+
+# delete button for partner
+def deletePartner(request, pk):
+    partner = partners.objects.get(id = pk)
+    if request.method == 'POST':
+        partner.delete()
+        return redirect('partner')
+    return render(request, 'artelApp/deletePartner.html', {'partner': partner})
+
+
+# exports
+def export(request):
+    export = exports.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = exportForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('export') 
+        else:
+            error = "Форма было неверной"
+            
+    form = exportForm()
+            
+    dataExport = {
+        'export' : export,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/export.html', {'dataExport' : dataExport})
+
+
+# update button for export
+def updateExport(request, pk):
+    export = exports.objects.get(id = pk)
+    form = exportForm(instance=export)
+    if request.method == 'POST':
+        form = exportForm(request.POST, request.FILES, instance=export)
+        if form.is_valid():
+            form.save()
+            return redirect('export')
+    return render(request, 'artelApp/updateExport.html', {'form': form, 'export': export})
+
+
+# delete button for export
+def deleteExport(request, pk):
+    export = exports.objects.get(id = pk)
+    if request.method == 'POST':
+        export.delete()
+        return redirect('export')
+    return render(request, 'artelApp/deleteExport.html', {'export': export})
+
+
+# ecology
+def ecologies(request):
+    ecologies = ecology.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = ecologyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ecologies') 
+        else:
+            error = "Форма было неверной"
+            
+    form = ecologyForm()
+            
+    dataEcology = {
+        'ecologies' : ecologies,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/ecologies.html', {'dataEcology' : dataEcology})
+
+
+# update button for ecology
+def updateEcology(request, pk):
+    ecologies = ecology.objects.get(id = pk)
+    form = ecologyForm(instance=ecologies)
+    if request.method == 'POST':
+        form = ecologyForm(request.POST, request.FILES, instance=ecologies)
+        if form.is_valid():
+            form.save()
+            return redirect('ecologies')
+    return render(request, 'artelApp/updateEcology.html', {'form': form, 'ecologies': ecologies})
+
+
+# delete button for ecology
+def deleteEcology(request, pk):
+    ecologies = ecology.objects.get(id = pk)
+    if request.method == 'POST':
+        ecologies.delete()
+        return redirect('ecologies')
+    return render(request, 'artelApp/deleteEcology.html', {'ecologies': ecologies})
+
+
 class languageAPIView(ModelViewSet):
     queryset = languages.objects.all()
     serializer_class = languageSerializer
