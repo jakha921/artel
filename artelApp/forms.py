@@ -264,3 +264,56 @@ class ecologyForm(ModelForm):
         }
 
 
+# innovation
+class innovationForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = innovations
+        fields = ["innovation_img", "innovation_desc"]
+        widgets = {
+            "innovation_desc": Textarea(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+        }
+
+
+# productBases
+class productBaseForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = product_bases
+        fields = ["product_bases_img", "product_bases_desc"]
+        widgets = {
+            "product_bases_desc": Textarea(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+        }
+
+
+# services
+class serviceForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = services
+        fields = ["service_city", "service_address_list", "service_phone"]
+        widgets = {
+            "service_city": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'service city name'
+            }), 
+            "service_address_list": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'service region name(exp: "Chilonzor, Oqtepa and etc")'
+            }),
+            "service_phone": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'Service number',
+                'type' :"number"
+            }),   
+        }
+
+

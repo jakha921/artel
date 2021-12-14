@@ -63,7 +63,7 @@ def good(request):
     if request.method == 'POST':
         error = ''
         form = goodForm(request.POST, request.FILES) 
-        cat = request.POST['cats'] # Biza oldin select ni tanlangan optionini topishimiz kere
+        cat = request.POST['category_id'] # Biza oldin select ni tanlangan optionini topishimiz kere
         print(f"{cat=}")
         if form.is_valid():
             f = form.save(commit=False) # Keyin SAVE qilamiz
@@ -77,16 +77,12 @@ def good(request):
                 print(f"Field Error: {field.name} | {field.errors}")
             
     form = goodForm()
-    categorie = categories.objects.all()
-    goodImage = good_images
-    formGoodImage =  goodImagesForm()    
+    categorie = categories.objects.all() 
                 
     dataGood = {
         'good' : good,
         'form': form,
         'categorie' : categorie,
-        'goodImage' : goodImage,
-        'formGoodImage' : formGoodImage,
         # 'error': error,
     }
     return render(request, 'artelApp/good.html', {'dataGood' : dataGood})
@@ -389,6 +385,137 @@ def deleteEcology(request, pk):
         ecologies.delete()
         return redirect('ecologies')
     return render(request, 'artelApp/deleteEcology.html', {'ecologies': ecologies})
+
+
+# innovations
+def innovation(request):
+    innovation = innovations.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = innovationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('innovation') 
+        else:
+            error = "Форма было неверной"
+            
+    form = innovationForm()
+            
+    dataInnovation = {
+        'innovation' : innovation,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/innovation.html', {'dataInnovation' : dataInnovation})
+
+
+# update button for innovations
+def updateInnovation(request, pk):
+    innovation = innovations.objects.get(id = pk)
+    form = innovationForm(instance=innovation)
+    if request.method == 'POST':
+        form = innovationForm(request.POST, request.FILES, instance=innovation)
+        if form.is_valid():
+            form.save()
+            return redirect('innovation')
+    return render(request, 'artelApp/updateInnovation.html', {'form': form, 'innovation': innovation})
+
+
+# delete button for innovation
+def deleteInnovation(request, pk):
+    innovation = innovations.objects.get(id = pk)
+    if request.method == 'POST':
+        innovation.delete()
+        return redirect('innovation')
+    return render(request, 'artelApp/deleteInnovation.html', {'innovation': innovation})
+
+
+# productBases
+def productBases(request):
+    productBases = product_bases.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = productBaseForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('productBases') 
+        else:
+            error = "Форма было неверной"
+            
+    form = productBaseForm()
+            
+    dataProductBases = {
+        'productBases' : productBases,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/productBases.html', {'dataProductBases' : dataProductBases})
+
+
+# update button for productBases
+def updateProductBases(request, pk):
+    productBases = product_bases.objects.get(id = pk)
+    form = productBaseForm(instance=productBases)
+    if request.method == 'POST':
+        form = productBaseForm(request.POST, request.FILES, instance=productBases)
+        if form.is_valid():
+            form.save()
+            return redirect('productBases')
+    return render(request, 'artelApp/updateProductBases.html', {'form': form, 'productBases': productBases})
+
+
+# delete button for productBase
+def deleteProductBases(request, pk):
+    productBase = product_bases.objects.get(id = pk)
+    if request.method == 'POST':
+        productBase.delete()
+        return redirect('productBases')
+    return render(request, 'artelApp/deleteProductBases.html', {'productBase': productBase})
+
+
+# services
+def service(request):
+    service = services.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = serviceForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('service') 
+        else:
+            error = "Форма было неверной"
+            
+    form = serviceForm()
+            
+    dataService = {
+        'service' : service,
+        'form': form,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/service.html', {'dataService' : dataService})
+
+
+# update button for service
+def updateService(request, pk):
+    service = services.objects.get(id = pk)
+    form = serviceForm(instance=service)
+    if request.method == 'POST':
+        form = serviceForm(request.POST, request.FILES, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('service')
+    return render(request, 'artelApp/updateService.html', {'form': form, 'service': service})
+
+
+# delete button for service
+def deleteService(request, pk):
+    service = services.objects.get(id = pk)
+    if request.method == 'POST':
+        service.delete()
+        return redirect('service')
+    return render(request, 'artelApp/deleteService.html', {'service': service})
+
+
 
 
 class languageAPIView(ModelViewSet):

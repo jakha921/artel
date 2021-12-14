@@ -1,0 +1,96 @@
+{% extends 'artelApp/base_site.html' %}
+{% block title %} service {% endblock title %}
+
+<!-- main -->
+{% block content %}
+  
+<div class="right_col" role="main">
+
+  <h2>service</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>service table </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>service city</th>
+                  <th>service address</th>
+                  <th>service phone</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for service in dataService.service  %}
+                <tr>
+                  <td>{{ service.service_city }}</td>
+                  <td>{{ service.service_address_list }}</td>
+                  <td>{{ service.service_phone }}</td>
+                  <td>
+                    <a href="{% url 'updateService' service.id %}" class='btn btn-info'>Update</a>
+                    <a href="{% url 'deleteService' service.id %}" class='btn btn-danger'>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a service</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_service_city">City <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataService.form.service_city }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_service_address_list">Addres <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataService.form.service_address_list }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_service_phone">service phone <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataService.form.service_phone }}
+                </div>
+              </div>
+
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+              <p><span>{{ dataService.error }}</span></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

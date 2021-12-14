@@ -64,7 +64,7 @@
               {% csrf_token %}
               <div class="form-group">
                 <label for="cats">Choose a category:</label>
-                    <select name="cats" id="cats" class="form-control" required>
+                    <select name="category_id" id="cats" class="form-control" required>
                       <option value="" disabled selected>Choose..</option>
                       {% for cat in dataGood.categorie %}
                       <option value="{{ cat.id }}">{{ cat }} </option>
@@ -174,15 +174,6 @@
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     {{ dataGood.form.section_description_tr_list }}
-                  </div>
-              </div>
-              <div class="ln_solid"></div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_cat_img">Image <span class="required">*</span>
-                  
-                </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{ dataGood.form.good_img }}
                   </div>
               </div>
 

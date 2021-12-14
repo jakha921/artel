@@ -26,24 +26,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><p>Are you want to delete <strong>"{{ good }}"</strong></p></td>
+                  <td><p>Are you want to delete <strong>"{{ ecologies }}"</strong></p></td>
                   <td>
-                    <a href="{% url 'good' %}">Cancel</a> 
+                    <a href="{% url 'innovation' %}">Cancel</a> 
                     <form method="POST">
                       {% csrf_token %}
-                      {{form.category_id}}
-                      {{form.title_uz}}
-                      {{form.title_ru}}
-                      {{form.title_us}}
-                      {{form.title_tr}}
-                      {{form.section_name_uz_list}}
-                      {{form.section_name_ru_list}}
-                      {{form.section_name_us_list}}
-                      {{form.section_name_tr_list}}
-                      {{form.section_description_uz_list}}
-                      {{form.section_description_ru_list}}
-                      {{form.section_description_us_list}}
-                      {{form.section_description_tr_list}}
+                      {{form.ecology_desc}}
                       <input type="submit" value="Confirm">
                     </form>
                   </td>

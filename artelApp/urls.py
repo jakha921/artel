@@ -100,5 +100,14 @@ urlpatterns = [
     path('ecologies/', ecologies, name='ecologies'),
     path('ecologies/update/<int:pk>/', updateEcology, name='updateEcology'),    
     path('ecologies/delete/<int:pk>/', deleteEcology, name='deleteEcology'),    
+    path('innovation/', innovation, name='innovation'),
+    path('innovation/update/<int:pk>/', updateInnovation, name='updateInnovation'),    
+    path('innovation/delete/<int:pk>/', deleteInnovation, name='deleteInnovation'),    
+    path('productBases/', productBases, name='productBases'),
+    path('productBases/update/<int:pk>/', updateProductBases, name='updateProductBases'),    
+    path('productBases/delete/<int:pk>/', deleteProductBases, name='deleteProductBases'),    
+    path('service/', service, name='service'),
+    path('service/update/<int:pk>/', updateService, name='updateService'),    
+    path('service/delete/<int:pk>/', deleteService, name='deleteService'),    
 
 ]

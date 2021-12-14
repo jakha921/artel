@@ -6,7 +6,7 @@
   
 <div class="right_col" role="main">
 
-  <h2>Stock Delete</h2>
+  <h2>service Delete</h2>
   <div class="table-responsive">
 
     <!-- Category -->
@@ -14,7 +14,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Stocks Delete table </h2>
+            <h2>service Delete table </h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -26,24 +26,14 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><p>Are you want to delete <strong>"{{ good }}"</strong></p></td>
+                  <td><p>Are you want to delete <strong>"{{ service }}"</strong></p></td>
                   <td>
-                    <a href="{% url 'good' %}">Cancel</a> 
+                    <a href="{% url 'service' %}">Cancel</a> 
                     <form method="POST">
                       {% csrf_token %}
-                      {{form.category_id}}
-                      {{form.title_uz}}
-                      {{form.title_ru}}
-                      {{form.title_us}}
-                      {{form.title_tr}}
-                      {{form.section_name_uz_list}}
-                      {{form.section_name_ru_list}}
-                      {{form.section_name_us_list}}
-                      {{form.section_name_tr_list}}
-                      {{form.section_description_uz_list}}
-                      {{form.section_description_ru_list}}
-                      {{form.section_description_us_list}}
-                      {{form.section_description_tr_list}}
+                      {{form.service_city}}
+                      {{form.service_address_list}}
+                      {{form.service_phone}}
                       <input type="submit" value="Confirm">
                     </form>
                   </td>

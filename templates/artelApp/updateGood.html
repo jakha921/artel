@@ -1,65 +1,153 @@
-{% extends 'artelApp/base.html' %}
-{% block title %}
-Update
-{% endblock title %}
-
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Update {% endblock title %}
 
 <!-- main -->
-{% block main %}
+{% block content %}
   
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div class="right_col" role="main">
 
-  <h2>Good</h2>
+  <h2>Update</h2>
   <div class="table-responsive">
 
-    <!-- Category -->
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th>Goods name</th>
-          <th>title</th>
-          <th>specification</th>
-          <th>info</th>
-          <th>image</th>
-          <th></th>
-          <th></th>
-        </tr>
+    <!-- Update -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Add a Update</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
 
-        <!-- category input -->
-        <tr>
-          <form method="POST">
-            {% csrf_token %}
+              <div class="form-group">
+                <label for="cats">Choose a category:</label>
+                    <select name="category_id" id="cats" class="form-control" required>
+                      <option value="" disabled selected>Choose..</option>
+                      {% for cat in dataGood.categorie %}
+                      <option value="{{ cat.id }}">{{ cat }} </option>
+                      {% endfor %}
+                    </select>
+              </div>
 
-                <th>{{ form.cat_id }}</th> <br>
-                <th>
-                  UZ {{ form.title_uz }} <br> <br> 
-                  RU {{ form.title_ru }} <br> <br>
-                  US {{ form.title_us }} <br> <br>
-                  TR {{ form.title_tr }}
-                </th>  
-                <th>
-                  UZ {{ form.specif_uz }} <br> <br>
-                  RU {{ form.specif_ru }} <br> <br>
-                  US {{ form.specif_us }} <br> <br>
-                  TR {{ form.specif_tr }}
-                </th>
-                <th>
-                  UZ {{ form.good_info_uz}}
-                  <!-- RU {{ form.good_info_ru }} <br> -->
-                  <!-- US {{ form.good_info_us }} <br> -->
-                  <!-- TR {{ form.good_info_tr }} <br> -->
-                </th>
-                <th>
-                  {{ form.good_img }}
-                </th>
-                <th><input type="submit" value="Update" class="btn btn-info"></th>
+              <div class="ln_solid"></div>
+              <h3>Add a title</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">UZ <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12" for="id_title_uz">
+                    {{ form.title_uz }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_ru">RU <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.title_ru }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_us">EN <span class="required"></span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.title_us }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_title_tr">TR <span class="required"></span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.title_tr }}
+                  </div>
+              </div>
 
-          </form> 
-        </tr>
+              <div class="ln_solid"></div>
+              <h3>Add a specification</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_uz_list">UZ <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_name_uz_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_ru_list">RU <span class="required">*</span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_name_ru_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_us_list">EN <span class="required"></span>
+                  
+              </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_name_us_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_tr_list">TR <span class="required"></span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_name_tr_list }}
+                  </div>
+              </div>
 
-      </thead>
-    </table>
+              <div class="ln_solid"></div>
+              <h3>Add info</h3>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_uz_list">UZ <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_description_uz_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_ru_list">RU <span class="required">*</span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_description_ru_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >EN <span class="required"></span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12" for="id_section_description_us_list">
+                    {{ form.section_description_us_list }}
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_description_tr_list">TR <span class="required"></span>
+                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form.section_description_tr_list }}
+                  </div>
+              </div>
 
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button type="submit" class="btn btn-success">Update</button>
+                </div>
+              </div>
+              <!-- <p><span>{{ form.error }}</span></p> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</main>
-{% endblock main %}
+</div>
+{% endblock content %}
