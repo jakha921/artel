@@ -6,14 +6,18 @@ from .models import *
 from .seriallizers import *
 from .forms import *
 from .permissions import IsAuthenticatedOrReadOnly
+from django.contrib.auth.decorators import login_required
+
 
 
 # main
+@login_required(login_url='/admin/login/')
 def index(request):
     return render(request, 'artelApp/index.html')
 
 
 # categorie
+@login_required(login_url='/admin/login/')
 def category(request):
     categorie = categories.objects.all()
     if request.method == 'POST':
@@ -36,6 +40,7 @@ def category(request):
 
 
 # update button for categorie
+@login_required(login_url='/admin/login/')
 def updateCategorie(request, pk):
     categorie = categories.objects.get(id = pk)
     form = categoryForm(instance=categorie)
@@ -48,6 +53,7 @@ def updateCategorie(request, pk):
 
 
 # delete button for categorie
+@login_required(login_url='/admin/login/')
 def deleteCategorie(request, pk):
     categorie = categories.objects.get(id = pk)
     if request.method == 'POST':
@@ -58,6 +64,7 @@ def deleteCategorie(request, pk):
 
 
 # goods
+@login_required(login_url='/admin/login/')
 def good(request):
     good = goods.objects.all()
     if request.method == 'POST':
@@ -89,18 +96,39 @@ def good(request):
 
 
 # update button for goods
+@login_required(login_url='/admin/login/')
 def updateGoods(request, pk):
     good = goods.objects.get(id = pk)
     form = goodForm(instance=good)
     if request.method == 'POST':
         form = goodForm(request.POST,  request.FILES, instance=good)
+        cat = request.POST['category_id']
+        print(f"{cat=}") 
         if form.is_valid():
+            f = form.save(commit=False)
+            f.cat_id = categories.objects.get(id=int(cat))
             form.save()
             return redirect('good')
-    return render(request, 'artelApp/updateGood.html', {'form': form, 'good': good})
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+                
+    form = goodForm()
+    categorie = categories.objects.all() 
+                
+    dataGood = {
+        'good' : good,
+        'form': form,
+        'categorie' : categorie,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/updateGood.html', {'dataGood' : dataGood})
 
 
 # delete button for categorie
+@login_required(login_url='/admin/login/')
 def deleteGoods(request, pk):
     good = goods.objects.get(id = pk)
     if request.method == 'POST':
@@ -109,13 +137,47 @@ def deleteGoods(request, pk):
     return render(request, 'artelApp/deleteGood.html', {'good': good})
 
 
+# good_image
+@login_required(login_url='/admin/login/')
+def goodImage(request):
+    goodImage = good_images.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = goodImageForm(request.POST, request.FILES) 
+        good = request.POST['good_id']
+        print(f"{good=}")
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.good_id = goods.objects.get(id=int(good))
+            f.save()
+            return redirect('goodImage') 
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+            
+    form = goodImageForm()
+    good = goods.objects.all() 
+                
+    dataGoodImage = {
+        'goodImage' : goodImage,
+        'form': form,
+        'good' : good,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/goodImage.html', {'dataGoodImage' : dataGoodImage})
+
+
 # feedbacks
+@login_required(login_url='/admin/login/')
 def feedbacks(request):
     dataFeedback = feedback.objects.all()
     return render(request, 'artelApp/feedback.html', {'dataFeedback' : dataFeedback},)
 
 
 # stocks
+@login_required(login_url='/admin/login/')
 def stock(request):
     stock = stocks.objects.all()
     if request.method == 'POST':
@@ -138,6 +200,7 @@ def stock(request):
 
 
 # update button for categorie
+@login_required(login_url='/admin/login/')
 def updateStocks(request, pk):
     stock = stocks.objects.get(id = pk)
     form = stockForm(instance=stock)
@@ -150,6 +213,7 @@ def updateStocks(request, pk):
 
 
 # delete button for categorie
+@login_required(login_url='/admin/login/')
 def deleteStocks(request, pk):
     stock = stocks.objects.get(id = pk)
     if request.method == 'POST':
@@ -159,6 +223,7 @@ def deleteStocks(request, pk):
 
 
 # reports
+@login_required(login_url='/admin/login/')
 def report(request):
     languages = reportsOfLanguage.objects.all()
     categories = reportsOfCategory.objects.all()
@@ -173,6 +238,7 @@ def report(request):
 
 
 # company
+@login_required(login_url='/admin/login/')
 def companies(request):
     companies = company.objects.all()
     if request.method == 'POST':
@@ -195,6 +261,7 @@ def companies(request):
 
 
 # update button for companies
+@login_required(login_url='/admin/login/')
 def updateCompanies(request, pk):
     companies = company.objects.get(id = pk)
     form = companiesForm(instance=companies)
@@ -207,6 +274,7 @@ def updateCompanies(request, pk):
 
 
 # delete button for categorie
+@login_required(login_url='/admin/login/')
 def deleteCompanies(request, pk):
     companies = company.objects.get(id = pk)
     if request.method == 'POST':
@@ -216,6 +284,7 @@ def deleteCompanies(request, pk):
 
 
 # Info
+@login_required(login_url='/admin/login/')
 def infos(request):
     infos = info.objects.all()
     if request.method == 'POST':
@@ -238,6 +307,7 @@ def infos(request):
 
 
 # update button for companies
+@login_required(login_url='/admin/login/')
 def updateInfos(request, pk):
     infos = info.objects.get(id = pk)
     form = infosForm(instance=infos)
@@ -250,6 +320,7 @@ def updateInfos(request, pk):
 
 
 # delete button for categorie
+@login_required(login_url='/admin/login/')
 def deleteInfos(request, pk):
     infos = info.objects.get(id = pk)
     if request.method == 'POST':
@@ -259,6 +330,7 @@ def deleteInfos(request, pk):
 
 
 # partners
+@login_required(login_url='/admin/login/')
 def partner(request):
     partner = partners.objects.all()
     if request.method == 'POST':
@@ -281,6 +353,7 @@ def partner(request):
 
 
 # update button for partner
+@login_required(login_url='/admin/login/')
 def updatePartner(request, pk):
     partner = partners.objects.get(id = pk)
     form = partnerForm(instance=partner)
@@ -293,6 +366,7 @@ def updatePartner(request, pk):
 
 
 # delete button for partner
+@login_required(login_url='/admin/login/')
 def deletePartner(request, pk):
     partner = partners.objects.get(id = pk)
     if request.method == 'POST':
@@ -302,6 +376,7 @@ def deletePartner(request, pk):
 
 
 # exports
+@login_required(login_url='/admin/login/')
 def export(request):
     export = exports.objects.all()
     if request.method == 'POST':
@@ -324,6 +399,7 @@ def export(request):
 
 
 # update button for export
+@login_required(login_url='/admin/login/')
 def updateExport(request, pk):
     export = exports.objects.get(id = pk)
     form = exportForm(instance=export)
@@ -336,6 +412,7 @@ def updateExport(request, pk):
 
 
 # delete button for export
+@login_required(login_url='/admin/login/')
 def deleteExport(request, pk):
     export = exports.objects.get(id = pk)
     if request.method == 'POST':
@@ -345,6 +422,7 @@ def deleteExport(request, pk):
 
 
 # ecology
+@login_required(login_url='/admin/login/')
 def ecologies(request):
     ecologies = ecology.objects.all()
     if request.method == 'POST':
@@ -367,6 +445,7 @@ def ecologies(request):
 
 
 # update button for ecology
+@login_required(login_url='/admin/login/')
 def updateEcology(request, pk):
     ecologies = ecology.objects.get(id = pk)
     form = ecologyForm(instance=ecologies)
@@ -379,6 +458,7 @@ def updateEcology(request, pk):
 
 
 # delete button for ecology
+@login_required(login_url='/admin/login/')
 def deleteEcology(request, pk):
     ecologies = ecology.objects.get(id = pk)
     if request.method == 'POST':
@@ -388,6 +468,7 @@ def deleteEcology(request, pk):
 
 
 # innovations
+@login_required(login_url='/admin/login/')
 def innovation(request):
     innovation = innovations.objects.all()
     if request.method == 'POST':
@@ -410,6 +491,7 @@ def innovation(request):
 
 
 # update button for innovations
+@login_required(login_url='/admin/login/')
 def updateInnovation(request, pk):
     innovation = innovations.objects.get(id = pk)
     form = innovationForm(instance=innovation)
@@ -422,6 +504,7 @@ def updateInnovation(request, pk):
 
 
 # delete button for innovation
+@login_required(login_url='/admin/login/')
 def deleteInnovation(request, pk):
     innovation = innovations.objects.get(id = pk)
     if request.method == 'POST':
@@ -431,6 +514,7 @@ def deleteInnovation(request, pk):
 
 
 # productBases
+@login_required(login_url='/admin/login/')
 def productBases(request):
     productBases = product_bases.objects.all()
     if request.method == 'POST':
@@ -453,6 +537,7 @@ def productBases(request):
 
 
 # update button for productBases
+@login_required(login_url='/admin/login/')
 def updateProductBases(request, pk):
     productBases = product_bases.objects.get(id = pk)
     form = productBaseForm(instance=productBases)
@@ -465,6 +550,7 @@ def updateProductBases(request, pk):
 
 
 # delete button for productBase
+@login_required(login_url='/admin/login/')
 def deleteProductBases(request, pk):
     productBase = product_bases.objects.get(id = pk)
     if request.method == 'POST':
@@ -474,6 +560,7 @@ def deleteProductBases(request, pk):
 
 
 # services
+@login_required(login_url='/admin/login/')
 def service(request):
     service = services.objects.all()
     if request.method == 'POST':
@@ -496,6 +583,7 @@ def service(request):
 
 
 # update button for service
+@login_required(login_url='/admin/login/')
 def updateService(request, pk):
     service = services.objects.get(id = pk)
     form = serviceForm(instance=service)
@@ -508,6 +596,7 @@ def updateService(request, pk):
 
 
 # delete button for service
+@login_required(login_url='/admin/login/')
 def deleteService(request, pk):
     service = services.objects.get(id = pk)
     if request.method == 'POST':

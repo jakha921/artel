@@ -96,7 +96,7 @@ class goodForm(ModelForm):
         }
         
 
-class goodImagesForm(ModelForm):
+class goodImageForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = good_images
@@ -315,5 +315,3 @@ class serviceForm(ModelForm):
                 'type' :"number"
             }),   
         }
-
-
