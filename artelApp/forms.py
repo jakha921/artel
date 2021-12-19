@@ -88,11 +88,6 @@ class goodForm(ModelForm):
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'description (list ex: quality, easy and etc)'
             }),    
-            # "good_info_uz": Textarea(attrs={
-            #     'class': 'form-control col-md-7 col-xs-12',
-            #     'rows':1,
-            #     'cols':15
-            # }),   
         }
         
 
@@ -218,6 +213,7 @@ class exportForm(ModelForm):
     class Meta:
         model = exports
         fields = ["country", "country_icon", 
+                    "description_uz", "description_ru", "description_us", "description_tr",
                     "export_percent_before", "export_percent_after", 
                     "export_year_before", "export_year_after"
                     ]
@@ -225,6 +221,26 @@ class exportForm(ModelForm):
             "country": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter country name'
+            }),
+            "description_uz": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+            "description_ru": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+            "description_us": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
+            }),
+            "description_tr": Textarea(attrs={                
+                'class': 'form-control col-md-7 col-xs-12',
+                'rows':1,
+                'cols':15
             }),
             "export_percent_before": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',

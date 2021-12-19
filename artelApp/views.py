@@ -169,6 +169,37 @@ def goodImage(request):
     return render(request, 'artelApp/goodImage.html', {'dataGoodImage' : dataGoodImage})
 
 
+# update button for goods
+@login_required(login_url='/admin/login/')
+def updateGoodImage(request, pk):
+    goodImage = good_images.objects.get(id = pk)
+    form = goodImageForm(instance=goodImage)
+    if request.method == 'POST':
+        form = goodImageForm(request.POST,  request.FILES, instance=goodImage)
+        cat = request.POST['good_id']
+        print(f"{cat=}") 
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.cat_id = goods.objects.get(id=int(cat))
+            f.save()
+            return redirect('goodImage')
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+                
+    form = goodImageForm()
+    good = goods.objects.all() 
+                
+    dataGoodImage = {
+        'goodImage' : goodImage,
+        'form': form,
+        'good' : good,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/updateGoodImage.html', {'dataGoodImage' : dataGoodImage})
+
 # feedbacks
 @login_required(login_url='/admin/login/')
 def feedbacks(request):

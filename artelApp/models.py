@@ -124,6 +124,10 @@ class partners(models.Model):
 class exports(models.Model):
     country = models.CharField(max_length=50)
     country_icon = models.ImageField(upload_to="exports/")
+    description_uz = models.TextField(blank=True)
+    description_ru = models.TextField(blank=True)
+    description_us = models.TextField(blank=True)
+    description_tr = models.TextField(blank=True)
     export_percent_before = models.FloatField(default=0, max_length=100)
     export_percent_after = models.FloatField(default=0, max_length=100)
     export_year_before = models.CharField(max_length=4)

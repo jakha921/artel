@@ -63,8 +63,10 @@ class partnerSerializer(serializers.ModelSerializer):
 # export serializer
 class exportSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "country", "country_icon", "export_percent_before", 
-                    "export_percent_after", "export_year_before", "export_year_after")
+        fields = ('id', "country", "country_icon", 
+                    "description_uz", "description_ru", "description_us", "description_tr",
+                    "export_percent_before", "export_percent_after", 
+                    "export_year_before", "export_year_after")
         model = exports
 
 
@@ -124,7 +126,10 @@ class reportsOfGoodSerializer(serializers.ModelSerializer):
 
 class stockSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'title', 'icon', 'banner', 'description', 'date')
+        fields = ('id', 'title_uz', 'title_ru', 'title_us', 'title_tr',
+                    'icon', 'banner', 
+                    'description_uz', 'description_ru', 'description_us', 'description_tr',
+                    'start_date', 'end_date')
         model = stocks
 
 

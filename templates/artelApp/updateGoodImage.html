@@ -9,43 +9,6 @@
 
   <h2>Products / Good Images </h2>
   <div class="table-responsive">
-
-    <!-- Products / Goods -->
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Good Images table </h2>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Goods name</th>
-                  <th>Image</th>
-                  <th>Badges</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for image in dataGoodImage.goodImage  %}
-                <tr>
-                  <td>{{ image.good_id }}</td>
-                  <td>{{ image.good_img }}</td>
-                  <td>{{ image.good_badge }}</td>
-                  <td>
-                    <a href="{% url 'updateGoodImage' image.id %}" class='btn btn-info'>Update</a>
-                    <a href="{% url 'deleteGood' image.id %}" class='btn btn-danger'>Delete</a>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -60,7 +23,7 @@
               {% csrf_token %}
               <div class="form-group">
                 <label for="cats">Choose a good :</label>
-                    <select name="good_id" id="cats" class="form-control" required>
+                    <select name="good_id" id="cat" class="form-control" required>
                       <option value="" disabled selected>Choose..</option>
                       {% for good in dataGoodImage.good %}
                       <option value="{{ good.id }}">{{ good }} </option>
@@ -69,11 +32,12 @@
               </div>
 
               <div class="ln_solid"></div>
-              <h3>Add a title</h3>
+              <h3>Add a images</h3>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_good_img">Image <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataGoodImage.goodImage.good_img }} <br>
                   {{ dataGoodImage.form.good_img }}
                 </div>
               </div>
@@ -82,6 +46,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_good_badge">Badges <span class="required">*</span>                  
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGoodImage.goodImage.good_badge }}
                     {{ dataGoodImage.form.good_badge }}
                   </div>
               </div>
@@ -89,6 +54,7 @@
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <a href="{% url 'goodImage' %}">Cancel</a>
                   <button type="submit" class="btn btn-success">Submit</button>
                 </div>
               </div>
