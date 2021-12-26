@@ -115,7 +115,6 @@ def updateGoods(request, pk):
             for field in form:
                 print(f"Field Error: {field.name} | {field.errors}")
                 
-    form = goodForm()
     categorie = categories.objects.all() 
                 
     dataGood = {
@@ -189,7 +188,8 @@ def updateGoodImage(request, pk):
             for field in form:
                 print(f"Field Error: {field.name} | {field.errors}")
                 
-    form = goodImageForm()
+
+
     good = goods.objects.all() 
                 
     dataGoodImage = {
@@ -199,6 +199,164 @@ def updateGoodImage(request, pk):
         # 'error': error,
     }
     return render(request, 'artelApp/updateGoodImage.html', {'dataGoodImage' : dataGoodImage})
+
+
+# delete button for goodImage
+@login_required(login_url='/admin/login/')
+def deleteGoodImage(request, pk):
+    goodImage = good_images.objects.get(id = pk)
+    if request.method == 'POST':
+        goodImage.delete()
+        return redirect('goodImage')
+    return render(request, 'artelApp/deleteGoodImage.html', {'goodImage': goodImage})
+
+
+# GoodSection
+@login_required(login_url='/admin/login/')
+def goodSections(request):
+    goodSection = good_section.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = goodSectionForm(request.POST, request.FILES)
+        good = request.POST['good_id']
+        print(f"{good=}")
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.good_id = goods.objects.get(id=int(good))
+            f.save()
+            return redirect('goodSections') 
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+            
+    form = goodSectionForm()
+    good = goods.objects.all() 
+                
+    dataGoodSection = {
+        'goodSection' : goodSection,
+        'form': form,
+        'good' : good,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/goodSection.html', {'dataGoodSection' : dataGoodSection})
+
+
+# update button for goods
+@login_required(login_url='/admin/login/')
+def updateGoodSections(request, pk):
+    goodSection = good_section.objects.get(id = pk)
+    form = goodSectionForm(instance=goodSection)
+    if request.method == 'POST':
+        form = goodSectionForm(request.POST,  request.FILES, instance=goodSection)
+        cat = request.POST['good_id']
+        print(f"{cat=}") 
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.cat_id = goods.objects.get(id=int(cat))
+            f.save()
+            return redirect('goodSections')
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+                
+    good = goods.objects.all() 
+                
+    dataGoodSection = {
+        'goodSection' : goodSection,
+        'form': form,
+        'good' : good,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/updateGoodSection.html', {'dataGoodSection' : dataGoodSection})
+
+
+# delete button for goodImage
+@login_required(login_url='/admin/login/')
+def deleteGoodSections(request, pk):
+    goodSection = good_section.objects.get(id = pk)
+    if request.method == 'POST':
+        goodSection.delete()
+        return redirect('goodSections')
+    return render(request, 'artelApp/deleteGoodSection.html', {'goodSection': goodSection})
+
+
+# GoodSection
+@login_required(login_url='/admin/login/')
+def goodSectionDescriptions(request):
+    goodSectionDescription = good_section_description.objects.all()
+    if request.method == 'POST':
+        error = ''
+        form = goodSectionDescriptionForm(request.POST, request.FILES)
+        good = request.POST['good_section_id']
+        print(f"{good=}")
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.good_section_id = good_section.objects.get(id=int(good))
+            f.save()
+            return redirect('goodSectionDescriptions') 
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+            
+    form = goodSectionDescriptionForm()
+    goodSection = good_section.objects.all() 
+                
+    dataGoodSectionDescription = {
+        'goodSectionDescription' : goodSectionDescription,
+        'form': form,
+        'goodSection' : goodSection,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/goodSectionDescription.html', {'dataGoodSectionDescription' : dataGoodSectionDescription})
+
+
+# update button for goods
+@login_required(login_url='/admin/login/')
+def updateGoodSectionDescriptions(request, pk):
+    goodSectionDescription = good_section_description.objects.get(id = pk)
+    form = goodSectionDescriptionForm(instance=goodSectionDescription)
+    if request.method == 'POST':
+        form = goodSectionDescriptionForm(request.POST,  request.FILES, instance=goodSectionDescription)
+        cat = request.POST['good_section_id']
+        print(f"{cat=}") 
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.cat_id = good_section.objects.get(id=int(cat))
+            f.save()
+            return redirect('goodSectionDescriptions')
+        else:
+            error = "Форма было неверной"
+            print(f"{error=}")
+            for field in form:
+                print(f"Field Error: {field.name} | {field.errors}")
+                
+    goodSection = good_section.objects.all() 
+                
+    dataGoodSectionDescription = {
+        'goodSectionDescription' : goodSectionDescription,
+        'form': form,
+        'goodSection' : goodSection,
+        # 'error': error,
+    }
+    return render(request, 'artelApp/updateGoodSectionDescription.html', {'dataGoodSectionDescription' : dataGoodSectionDescription})
+
+
+# delete button for goodImage
+@login_required(login_url='/admin/login/')
+def deleteGoodSectionDescriptions(request, pk):
+    goodSectionDescription = good_section_description.objects.get(id = pk)
+    if request.method == 'POST':
+        goodSectionDescription.delete()
+        return redirect('goodSectionDescriptions')
+    
+    return render(request, 'artelApp/deleteGoodSectionDescription.html', {'goodSectionDescription': goodSectionDescription})
+
 
 # feedbacks
 @login_required(login_url='/admin/login/')
@@ -655,6 +813,14 @@ class goodAPIView(ModelViewSet):
 class goodImageAPIView(ModelViewSet):
     queryset = good_images.objects.all()
     serializer_class = goodImageSerializer
+
+class goodSectionAPIView(ModelViewSet):
+    queryset = good_section.objects.all()
+    serializer_class = goodSectionSerializer
+
+class goodSectionDescriptionAPIView(ModelViewSet):
+    queryset = good_section_description.objects.all()
+    serializer_class = goodSectionDescriptionSerializer
     
     
 class companiesAPIView(ModelViewSet):

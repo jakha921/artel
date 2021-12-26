@@ -1,5 +1,5 @@
 {% extends 'artelApp/base_site.html' %}
-{% block title %} Products / goodImage {% endblock title %}
+{% block title %} Products / Good Section {% endblock title %}
 
 
 <!-- main -->
@@ -7,41 +7,57 @@
   
 <div class="right_col" role="main">
 
-  <h2>Products / Good Images </h2>
+  <h2>Products / Good Section </h2>
   <div class="table-responsive">
     
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Add a good image</h2>
+            <h2>Add a Good Section</h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
             <br />
             <form data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              
+
               <div class="form-group">
                 <label for="cats">Choose a good :</label>
-                {{ dataGoodImage.form.good_id }}
+                    {{ dataGoodSection.form.good_id }}
               </div>
 
               <div class="ln_solid"></div>
-              <h3>Add a images</h3>
+              <h3>Add a Section name</h3>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_good_img">Image <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_uz">UZ <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">                  
-                  {{ dataGoodImage.form.good_img }}
+                  {{ dataGoodSection.form.section_name_uz }}
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_good_badge">Badges <span class="required">*</span>                  
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_ru">RU <span class="required">*</span>                  
                 </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{ dataGoodImage.form.good_badge }}
+                    {{ dataGoodSection.form.section_name_ru }}
+                  </div>
+                </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_us">US <span class="required"></span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">                  
+                  {{ dataGoodSection.form.section_name_us }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_section_name_tr">TR <span class="required"></span>                  
+                </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ dataGoodSection.form.section_name_tr }}
                   </div>
               </div>
 

@@ -15,14 +15,14 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Good Images table </h2>
+            <h2>Product Images table </h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Goods name</th>
+                  <th>Products name</th>
                   <th>Image</th>
                   <th>Badges</th>
                   <th>Actions</th>
@@ -36,7 +36,7 @@
                   <td>{{ image.good_badge }}</td>
                   <td>
                     <a href="{% url 'updateGoodImage' image.id %}" class='btn btn-info'>Update</a>
-                    <a href="{% url 'deleteGood' image.id %}" class='btn btn-danger'>Delete</a>
+                    <a href="{% url 'deleteGoodImage' image.id %}" class='btn btn-danger'>Delete</a>
                   </td>
                 </tr>
                 {% endfor %}

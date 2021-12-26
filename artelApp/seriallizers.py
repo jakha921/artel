@@ -26,10 +26,6 @@ class goodSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', "category_id", 
                     "title_uz", "title_ru", "title_us", "title_tr", 
-                    "section_name_uz_list", "section_name_ru_list", 
-                    "section_name_us_list", "section_name_tr_list", 
-                    "section_description_uz_list", "section_description_ru_list", 
-                    "section_description_us_list", "section_description_tr_list", 
                     )
         model = goods
 
@@ -38,6 +34,25 @@ class goodImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('good_id', 'good_img', 'good_badge')
         model = good_images
+
+
+class goodSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('good_id',
+                    "section_name_uz", "section_name_ru", 
+                    "section_name_us", "section_name_tr", 
+                    )
+        model = good_section
+
+
+class goodSectionDescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('good_section_id',
+                    "section_description_uz", "section_description_ru", 
+                    "section_description_us", "section_description_tr", 
+                    )
+        model = good_section_description
+
 
 # companies serializer
 class companySerializer(serializers.ModelSerializer):

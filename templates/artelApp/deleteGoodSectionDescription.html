@@ -1,0 +1,47 @@
+{% extends 'artelApp/base_site.html' %}
+{% block title %} Delete {% endblock title %}
+
+<!-- main -->
+{% block content %}
+  
+<div class="right_col" role="main">
+
+  <h2>Good section description Delete</h2>
+  <div class="table-responsive">
+
+    <!-- Category -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Good section description Delete table </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="font-weight-bold">Delete item name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><p>Are you want to delete <strong>"{{ goodSectionDescription }}"</strong></p></td>
+                  <td>
+                    <a href="{% url 'goodSectionDescriptions' %}">Cancel</a> 
+                    <form method="POST">
+                      {% csrf_token %}
+                      {{form.section_description_uz}}
+                      <input type="submit" value="Confirm">
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

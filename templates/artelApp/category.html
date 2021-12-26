@@ -21,10 +21,8 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>UZ</th>
-                  <th>RU</th>
-                  <th>US</th>
-                  <th>TR</th>
+                  <th>Category name UZ</th>
+                  <th>Categore name RU</th>
                   <th>Image</th>
                   <th>Actions</th>
                 </tr>
@@ -34,8 +32,6 @@
                 <tr>
                   <td>{{ categorie.category_name_uz }}</td>
                   <td>{{ categorie.category_name_ru }}</td>
-                  <td>{{ categorie.category_name_us }}</td>
-                  <td>{{ categorie.category_name_tr }}</td>
                   <td>{{ categorie.category_img }}</td>
                   <td>
                     <a href="{% url 'updateCategory' categorie.id %}" class='btn btn-info'>Update</a>

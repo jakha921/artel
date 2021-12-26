@@ -51,14 +51,6 @@ class goods(models.Model):
     title_ru = models.CharField(max_length=150)
     title_us = models.CharField(max_length=150, blank=True)
     title_tr = models.CharField(max_length=150, blank=True)
-    section_name_uz_list = ArrayField(models.CharField(max_length=150))
-    section_name_ru_list = ArrayField(models.CharField(max_length=150))
-    section_name_us_list = ArrayField(models.CharField(max_length=150), blank=True)
-    section_name_tr_list = ArrayField(models.CharField(max_length=150), blank=True)
-    section_description_uz_list = ArrayField(models.CharField(max_length=150))
-    section_description_ru_list = ArrayField(models.CharField(max_length=150))
-    section_description_us_list = ArrayField(models.CharField(max_length=150), blank=True)
-    section_description_tr_list = ArrayField(models.CharField(max_length=150), blank=True)
     good_create_date = models.DateField(auto_now=True)
 
     class Meta:
@@ -72,12 +64,43 @@ class goods(models.Model):
 # good_sections 
 class good_images(models.Model):
     good_id = models.ForeignKey(goods, on_delete=models.CASCADE)
-    good_img = models.ImageField(upload_to='goods/')
-    good_badge = models.ImageField(upload_to='badges/')
+    good_img = models.ImageField(upload_to='goods/', blank=True)
+    good_badge = models.ImageField(upload_to='badges/', blank=True)
 
     class Meta:
         verbose_name = "Картина Товара"
         verbose_name_plural = "2.2 Картинки Товара"
+    
+    
+# good_sections 
+class good_section(models.Model):
+    """show good(product) sections"""
+    good_id = models.ForeignKey(goods, on_delete=models.CASCADE)
+    section_name_uz = models.CharField(max_length=150)
+    section_name_ru = models.CharField(max_length=150)
+    section_name_us = models.CharField(max_length=150, blank=True)
+    section_name_tr = models.CharField(max_length=150, blank=True)
+
+    class Meta:
+        verbose_name = "Секция Товара"
+        verbose_name_plural = "2.3 Секции Товара"
+    
+    def __str__(self):
+        return str(self.good_id) + " -> " + str(self.section_name_uz)
+    
+    
+# good_sections 
+class good_section_description(models.Model):
+    """show good(product) sections"""
+    good_section_id = models.ForeignKey(good_section, on_delete=models.CASCADE)
+    section_description_uz = models.CharField(max_length=250)
+    section_description_ru = models.CharField(max_length=250)
+    section_description_us = models.CharField(max_length=250, blank=True)
+    section_description_tr = models.CharField(max_length=250, blank=True)
+
+    class Meta:
+        verbose_name = "Описания Секции"
+        verbose_name_plural = "2.4 Описании Секции"
 
 
 # about -> company
@@ -130,8 +153,8 @@ class exports(models.Model):
     description_tr = models.TextField(blank=True)
     export_percent_before = models.FloatField(default=0, max_length=100)
     export_percent_after = models.FloatField(default=0, max_length=100)
-    export_year_before = models.CharField(max_length=4)
-    export_year_after = models.CharField(max_length=4)
+    export_year_before = models.DateField()
+    export_year_after = models.DateField()
     export_category_create_date = models.DateField(auto_now=True)
     
     class Meta:

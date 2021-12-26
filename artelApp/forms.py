@@ -33,8 +33,6 @@ class goodForm(ModelForm):
         model = goods
         fields = ["category_id", 
                     "title_uz", "title_ru", "title_us", "title_tr",
-                    "section_name_uz_list", "section_name_ru_list", "section_name_us_list", "section_name_tr_list",
-                    "section_description_uz_list", "section_description_ru_list", "section_description_us_list", "section_description_tr_list",
                     ]
         widgets = {
             "category_id": Select(attrs={
@@ -55,39 +53,7 @@ class goodForm(ModelForm):
             "title_tr": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
                 'placeholder': 'Enter title of good'
-            }),  
-            "section_name_uz_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification (list ex: func, size and etc)'
-            }),  
-            "section_name_ru_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification (list ex: func, size and etc)'
-            }),   
-            "section_name_us_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification (list ex: func, size and etc)'
-            }),   
-            "section_name_tr_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'specification (list ex: func, size and etc)'
-            }),    
-            "section_description_uz_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description (list ex: quality, easy and etc)'
-            }),    
-            "section_description_ru_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description (list ex: quality, easy and etc)'
-            }),    
-            "section_description_us_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description (list ex: quality, easy and etc)'
-            }),    
-            "section_description_tr_list": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description (list ex: quality, easy and etc)'
-            }),    
+            }), 
         }
         
 
@@ -102,6 +68,60 @@ class goodImageForm(ModelForm):
             }),   
         }
 
+class goodSectionForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = good_section
+        fields = ["good_id","section_name_uz", "section_name_ru", "section_name_us", "section_name_tr",] 
+        widgets = {
+            "good_id": Select(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+            }),
+            "section_name_uz": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'specification name'
+            }),  
+            "section_name_ru": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'specification name'
+            }),   
+            "section_name_us": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'specification name'
+            }),   
+            "section_name_tr": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'specification name'
+            }),    
+        }
+
+
+class goodSectionDescriptionForm(ModelForm):
+    """form for taking from fronend info & record to the base"""
+    class Meta:
+        model = good_section_description
+        fields = ["good_section_id","section_description_uz", "section_description_ru", "section_description_us", "section_description_tr"] 
+        widgets = {
+            "good_section_id": Select(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+            }),
+            "section_description_uz": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'description for section',
+            }),    
+            "section_description_ru": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'description for section',
+            }),    
+            "section_description_us": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'description for section',
+            }),    
+            "section_description_tr": TextInput(attrs={
+                'class': 'form-control col-md-7 col-xs-12',
+                'placeholder': 'description for section',
+            }),    
+        }
 
 class stockForm(ModelForm):
     """form for taking from fronend info & record to the base"""
@@ -254,13 +274,13 @@ class exportForm(ModelForm):
             }),
             "export_year_before": TextInput(attrs={
                 'class': 'date-picker form-control col-md-7 col-xs-12',
-                'placeholder': 'export year before',
-                'type' :"number"
+                'placeholder': 'stock end date',
+                'type' :"date"
             }),
             "export_year_after": TextInput(attrs={
                 'class': 'date-picker form-control col-md-7 col-xs-12',
-                'placeholder': 'export year before',
-                'type' :"number"
+                'placeholder': 'stock end date',
+                'type' :"date"
             }),
         }
 
