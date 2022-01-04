@@ -3,3 +3,4 @@ artelApp.zip
 .vscode
 .pytest_cache
 db.sqlite3
+draw.txt

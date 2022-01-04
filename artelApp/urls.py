@@ -47,10 +47,7 @@ router.register('languagesAPI', languageAPIView, basename="languagesAPI")
 router.register('categoriesAPI', categorieAPIView, basename="categoriesAPI")
 router.register('goodsAPI', goodAPIView, basename="goodsAPI")
 router.register('goodImageAPI', goodImageAPIView, basename="goodImageAPI")
-router.register('goodSectionAPIView', goodSectionAPIView, basename="goodSectionAPIView")
-router.register('goodSectionDescriptionAPIView', goodSectionDescriptionAPIView, basename="goodSectionDescriptionAPIView")
 router.register('companiesAPI', companiesAPIView, basename="companiesAPI")
-router.register('infoAPI', infoAPIView, basename="infoAPI")
 router.register('partnersAPI', partnersAPIView, basename="partnersAPI")
 router.register('exportsAPI', exportsAPIView, basename="exportsAPI")
 router.register('ecologyAPI', ecologiesAPIView, basename="ecologyAPI")
@@ -71,9 +68,6 @@ urlpatterns = [
         # drf
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-        # JWT
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
         # view
     path('', index, name='index'),
     path('category/', category, name='category'),
@@ -85,12 +79,6 @@ urlpatterns = [
     path('goodImage/', goodImage, name='goodImage'),
     path('goodImage/update/<int:pk>/', updateGoodImage, name='updateGoodImage'),
     path('goodImage/delete/<int:pk>/', deleteGoodImage, name='deleteGoodImage'),
-    path('goodSection/', goodSections, name='goodSections'),
-    path('goodSection/update/<int:pk>/', updateGoodSections, name='updateGoodSections'),
-    path('goodSection/delete/<int:pk>/', deleteGoodSections, name='deleteGoodSections'),
-    path('goodSectionDescription/', goodSectionDescriptions, name='goodSectionDescriptions'),
-    path('goodSectionDescription/update/<int:pk>/', updateGoodSectionDescriptions, name='updateGoodSectionDescriptions'),
-    path('goodSectionDescription/delete/<int:pk>/', deleteGoodSectionDescriptions, name='deleteGoodSectionDescriptions'),
     path('feedbacks/', feedbacks, name='feedbacks'),
     path('report/', report, name='report'),
     path('stock/', stock, name='stock'),

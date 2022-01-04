@@ -49,13 +49,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework_swagger',
-    'rest_framework_simplejwt',
-    'rest_framework.authtoken',
     'drf_yasg',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-    'allauth',
-    'allauth.account',
     'storages', 
     
     'artelApp',
@@ -123,6 +117,8 @@ WSGI_APPLICATION = 'artel.wsgi.application'
 DATABASES = {
     'default': env.dj_db_url("DATABASE_URL")
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
