@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('artelApp.urls')),
+    path('', admin.site.urls),
+    path('app/', include('artelApp.urls')),
     # path('api-auth/', include('rest_framework.urls')),
     # path('api/auth/', include('dj_rest_auth.urls')),
 ]
