@@ -191,7 +191,7 @@ class exports(models.Model):
         else:
             return 'No Image Found'
         
-    image_export.short_description = 'Просмотр иконы'
+    image_export.short_description = 'Просмотр значка'
     image_export.allow_tags = True
     
 
