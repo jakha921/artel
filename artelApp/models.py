@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.utils import tree
 from django.utils.safestring import mark_safe
 import datetime
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 
@@ -42,11 +43,15 @@ class categories(models.Model):
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.category_img.url)
         else:
             return 'No Image Found'
-    image_category.short_description = ''
+    image_category.short_description = 'Просмотр иконы'
     image_category.allow_tags = True
     
-
+    def get_num_product(self):
+        return goods.objects.filter(category_id=self).count()
     
+    counter_total_product = get_num_product
+
+    image_category.short_description = 'Просмотр иконы'
     class Meta:
         verbose_name = "Категорию"
         verbose_name_plural = "1. Категории"
@@ -56,21 +61,21 @@ class categories(models.Model):
     
     
 
-# goods
+# goods or good... is mean product
 class goods(models.Model):
     category_id = models.ForeignKey(categories, on_delete=models.CASCADE, verbose_name='Категория')
-    title_uz = models.CharField(max_length=250)
-    title_ru = models.CharField(max_length=250)
-    title_us = models.CharField(max_length=250, blank=True)
-    title_tr = models.CharField(max_length=250, blank=True)
-    section_name_uz = ArrayField(ArrayField(models.CharField(max_length=999)))
-    section_name_ru = ArrayField(ArrayField(models.CharField(max_length=999)))
-    section_name_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True)
-    section_name_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True)
-    section_description_uz = ArrayField(ArrayField(models.CharField(max_length=999, null=True)))
-    section_description_ru = ArrayField(ArrayField(models.CharField(max_length=999, null=True)))
-    section_description_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True)
-    section_description_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True)
+    title_uz = models.CharField('Загл. Узб', max_length=250)
+    title_ru = models.CharField('Загл. Рус', max_length=250)
+    title_us = models.CharField('Загл. Анг', max_length=250, blank=True)
+    title_tr = models.CharField('Загл. Тур', max_length=250, blank=True)
+    section_name_uz = ArrayField(ArrayField(models.CharField(max_length=999)), verbose_name='Разд Узб')
+    section_name_ru = ArrayField(ArrayField(models.CharField(max_length=999)), verbose_name='Разд Рус')
+    section_name_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Разд Анг')
+    section_name_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Разд Тур')
+    section_description_uz = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Узбекский')
+    section_description_ru = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Русский')
+    section_description_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Английский')
+    section_description_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Турецкий')
     good_create_date = models.DateField(auto_now=True)
 
     class Meta:
@@ -103,10 +108,10 @@ class good_images(models.Model):
         else:
             return 'No Image Found'
         
-    image_good.short_description = ''
+    image_good.short_description = 'Просмотр изображение'
     image_good.allow_tags = True
         
-    image_badge.short_description = ''
+    image_badge.short_description = 'Просмотр иконы'
     image_badge.allow_tags = True
     
     def __str__(self):
@@ -134,7 +139,7 @@ class company(models.Model):
         else:
             return 'No Image Found'
         
-    image_icon.short_description = ''
+    image_icon.short_description = 'Просмотр иконы'
     image_icon.allow_tags = True
 
 
@@ -149,7 +154,7 @@ class partners(models.Model):
         else:
             return 'No Image Found'
         
-    image_partner.short_description = ''
+    image_partner.short_description = 'Просмотр изображение'
     image_partner.allow_tags = True
     
     class Meta:
@@ -186,7 +191,7 @@ class exports(models.Model):
         else:
             return 'No Image Found'
         
-    image_export.short_description = ''
+    image_export.short_description = 'Просмотр иконы'
     image_export.allow_tags = True
     
 
@@ -211,7 +216,7 @@ class ecology(models.Model):
         else:
             return 'No Image Found'
         
-    image_ecology.short_description = ''
+    image_ecology.short_description = 'Просмотр изображение'
     image_ecology.allow_tags = True
     
     
@@ -233,7 +238,7 @@ class innovations(models.Model):
         else:
             return 'No Image Found'
         
-    image_innovation.short_description = ""
+    image_innovation.short_description = "Просмотр изображение"
     image_innovation.allow_tags = True
     
 
@@ -243,7 +248,8 @@ class feedback(models.Model):
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     phone  = models.IntegerField()      # max_length=12
-    starts = models.IntegerField()
+    starts = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField()
     feedback_category_create_date = models.DateField(auto_now=True)
     
@@ -275,7 +281,7 @@ class product_bases(models.Model):
         else:
             return 'No Image Found'
         
-    image_prod_base.short_description = ''
+    image_prod_base.short_description = 'Просмотр изображение'
     image_prod_base.allow_tags = True
 
 
@@ -283,7 +289,7 @@ class product_bases(models.Model):
 class services(models.Model):
     """give info about centers from regions it is addres & phone number"""
     service_city = models.CharField('Название города', max_length=150)
-    service_address_list = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)))
+    service_address_list = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса")
     service_phone = models.IntegerField("Номер телефона", blank=True)
     
     class Meta:
@@ -372,10 +378,10 @@ class stocks(models.Model):
         else:
             return 'No Image Found'
         
-    icon_stock.short_description = ''
+    icon_stock.short_description = 'Просмотр иконы'
     icon_stock.allow_tags = True
         
-    banner_stock.short_description = ''
+    banner_stock.short_description = 'Просмотр баннера'
     banner_stock.allow_tags = True
 
 

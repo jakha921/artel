@@ -15,7 +15,7 @@ admin.site.register(reportsOfGood)
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us", "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
-    list_display = ("category_name_uz", "category_name_ru","category_name_us", "category_name_tr", 'image_category', 'counter_total_product')
+    list_display = ("category_name_uz", "category_name_ru","category_name_us", "category_name_tr", 'image_category',) #'counter_total_product'
     list_filter = (
         ('category_name_us', admin.EmptyFieldListFilter), 
         ('category_name_tr', admin.EmptyFieldListFilter), 
@@ -23,46 +23,17 @@ class categoryAdmin(admin.ModelAdmin):
     readonly_fields = ('image_category', 'counter_total_product')
     
     
-    def counter_total_product(self):
-        count = goods.id.count()
+    def counter(self, obj):
+        count = obj.Good_set.count()
         return count
 
-
-# 2 models show in 1
-class goodsType(admin.TabularInline):
-    model = goods
-    extra = 3
-    list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
-                    'section_name_uz', 'section_name_ru',
-                    'section_description_uz', 'section_description_ru',)
-    list_filter = (
-        ('title_us', admin.EmptyFieldListFilter), 
-        ('title_tr', admin.EmptyFieldListFilter), 
-    )
-    search_fields  = ('category_id', 'title_uz', 'title_ru')
-    
-    def English():
-        return ('title_us', admin.EmptyFieldListFilter), 
-
-class goodImageType(admin.TabularInline):
-    model = good_images
-    extra = 3
-    fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
-    list_display = ('good_id', 'image_good', 'image_badge')
-    readonly_fields = ('image_good', 'image_badge')
-
-    inlines = [
-        goodsType,
-    ]
-class goodsAdmin(admin.ModelAdmin):    
-    inlines = [
-        goodImageType,
-    ]
-admin.site.register(goods, goodsAdmin)
+    counter.short_description = ""
 
 
-# @admin.register(goods)
-# class goodAdmin(admin.ModelAdmin):
+# # 2 models show in 1
+# class goodsType(admin.TabularInline):
+#     model = goods
+#     extra = 3
 #     list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
 #                     'section_name_uz', 'section_name_ru',
 #                     'section_description_uz', 'section_description_ru',)
@@ -74,14 +45,45 @@ admin.site.register(goods, goodsAdmin)
     
 #     def English():
 #         return ('title_us', admin.EmptyFieldListFilter), 
-        
 
-
-# @admin.register(good_images)
-# class goodImagesAdmin(admin.ModelAdmin):
+# class goodImageType(admin.TabularInline):
+#     model = good_images
+#     extra = 3
 #     fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
 #     list_display = ('good_id', 'image_good', 'image_badge')
 #     readonly_fields = ('image_good', 'image_badge')
+
+#     inlines = [
+#         goodsType,
+#     ]
+# class goodsAdmin(admin.ModelAdmin):    
+#     inlines = [
+#         goodImageType,
+#     ]
+# admin.site.register(goods, goodsAdmin)
+
+# filter test
+from .custom_filters import LanguageListFilter
+@admin.register(goods)
+class goodAdmin(admin.ModelAdmin):
+    list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
+                    'section_name_uz', 'section_name_ru',
+                    'section_description_uz', 'section_description_ru',)
+    list_filter = (
+        ('title_us', admin.EmptyFieldListFilter), 
+        ('title_tr', admin.EmptyFieldListFilter), 
+        (LanguageListFilter )
+    )
+    search_fields  = ('category_id', 'title_uz', 'title_ru')
+    
+        
+
+
+@admin.register(good_images)
+class goodImagesAdmin(admin.ModelAdmin):
+    fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
+    list_display = ('good_id', 'image_good', 'image_badge')
+    readonly_fields = ('image_good', 'image_badge')
 
 
 @admin.register(feedback)
