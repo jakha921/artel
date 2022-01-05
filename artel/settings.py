@@ -114,11 +114,20 @@ WSGI_APPLICATION = 'artel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': env.dj_db_url("DATABASE_URL")
+# }
+
 DATABASES = {
-    'default': env.dj_db_url("DATABASE_URL")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'artelTest',
+                'USER': 'postgres',
+                'PASSWORD': 'admin',
+                'HOST': 'localhost',
+                'PORT': '5434',
+    }
 }
-
-
 
 
 

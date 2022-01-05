@@ -51,7 +51,7 @@ class categories(models.Model):
     
     counter_total_product = get_num_product
 
-    image_category.short_description = 'Просмотр иконы'
+    get_num_product.short_description = 'Cчетчик продуктов'
     class Meta:
         verbose_name = "Категорию"
         verbose_name_plural = "1. Категории"

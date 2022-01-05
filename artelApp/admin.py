@@ -15,7 +15,7 @@ admin.site.register(reportsOfGood)
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us", "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
-    list_display = ("category_name_uz", "category_name_ru","category_name_us", "category_name_tr", 'image_category',) #'counter_total_product'
+    list_display = ("category_name_uz", "category_name_ru","category_name_us", "category_name_tr", 'image_category', 'counter_total_product')
     list_filter = (
         ('category_name_us', admin.EmptyFieldListFilter), 
         ('category_name_tr', admin.EmptyFieldListFilter), 
