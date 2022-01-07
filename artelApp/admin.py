@@ -62,8 +62,7 @@ class categoryAdmin(admin.ModelAdmin):
 #     ]
 # admin.site.register(goods, goodsAdmin)
 
-# filter test
-from .custom_filters import LanguageListFilter
+
 @admin.register(goods)
 class goodAdmin(admin.ModelAdmin):
     list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
@@ -72,9 +71,11 @@ class goodAdmin(admin.ModelAdmin):
     list_filter = (
         ('title_us', admin.EmptyFieldListFilter), 
         ('title_tr', admin.EmptyFieldListFilter), 
-        (LanguageListFilter )
     )
     search_fields  = ('category_id', 'title_uz', 'title_ru')
+    
+    def get_list_display(self, request):
+        return super().get_list_display(request)
     
         
 

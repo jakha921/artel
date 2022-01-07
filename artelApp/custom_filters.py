@@ -1,4 +1,5 @@
 from django.contrib.admin import SimpleListFilter
+# from .admin import get_list_display
 
 class LanguageListFilter(SimpleListFilter):
     title = 'Языки'
@@ -12,6 +13,10 @@ class LanguageListFilter(SimpleListFilter):
             ('title_us', 'Английский'),
             ('title_tr', 'Турецкий'),
         )
+        
+    def hide_field(self, *args):
+        
+        pass
     
     def queryset(self, request, queryset):
         if self.value() == 'title_uz':
@@ -19,6 +24,6 @@ class LanguageListFilter(SimpleListFilter):
         if self.value() == 'title_ru':
             return queryset.filter(title_ru__isnull=False)
         if self.value() == 'title_us':
-            return queryset.filter(title_us__isnull=False)
+            return queryset.list_display(filter(title_us__isnull=False))
         if self.value() == 'title_tr':
             return queryset.filter(title_tr__isnull=True)
