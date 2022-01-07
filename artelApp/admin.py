@@ -30,10 +30,52 @@ class categoryAdmin(admin.ModelAdmin):
     counter.short_description = ""
 
 
-# # 2 models show in 1
-# class goodsType(admin.TabularInline):
-#     model = goods
-#     extra = 3
+# 2 models show in 1
+class goodImageInline(admin.TabularInline):
+    model = good_images
+    extra = 1
+    fields = ('good_img', 'image_good'), ('good_badge','image_badge')
+    # list_display = ('image_good', 'image_badge')
+    readonly_fields = ('image_good', 'image_badge')
+
+@admin.register(goods)
+class goodsInline(admin.ModelAdmin):
+    model = goods
+    inlines = [
+        goodImageInline,
+    ]
+    list_display  = ('category_id', 'title_uz', 'title_ru',
+                    'section_description_uz', 'section_name_ru',
+                    'section_description_uz', 'section_description_ru',
+                    'get_images', 'get_badge'
+                    )
+    list_filter = (
+        ('title_us', admin.EmptyFieldListFilter), 
+        ('title_tr', admin.EmptyFieldListFilter), 
+    )
+    
+    search_fields  = ('category_id', 'title_uz', 'title_ru')
+    
+    def get_images(self, obj):
+        preview = [s.good_img.url for s in good_images.objects.filter(good_id = obj)]
+        image_preview = mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
+        return image_preview
+
+    
+    get_images.short_description = 'Изображение'
+    
+    def get_badge(self, obj):
+        preview = [s.good_badge.url for s in good_images.objects.filter(good_id = obj)] 
+        badge_preview = mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
+        return badge_preview
+
+    get_badge.short_description = 'Бадже'
+
+
+
+# working tamplate
+# @admin.register(goods)
+# class goodAdmin(admin.ModelAdmin):
 #     list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
 #                     'section_name_uz', 'section_name_ru',
 #                     'section_description_uz', 'section_description_ru',)
@@ -43,48 +85,13 @@ class categoryAdmin(admin.ModelAdmin):
 #     )
 #     search_fields  = ('category_id', 'title_uz', 'title_ru')
     
-#     def English():
-#         return ('title_us', admin.EmptyFieldListFilter), 
 
-# class goodImageType(admin.TabularInline):
-#     model = good_images
-#     extra = 3
+
+# @admin.register(good_images)
+# class goodImagesAdmin(admin.ModelAdmin):
 #     fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
 #     list_display = ('good_id', 'image_good', 'image_badge')
 #     readonly_fields = ('image_good', 'image_badge')
-
-#     inlines = [
-#         goodsType,
-#     ]
-# class goodsAdmin(admin.ModelAdmin):    
-#     inlines = [
-#         goodImageType,
-#     ]
-# admin.site.register(goods, goodsAdmin)
-
-
-@admin.register(goods)
-class goodAdmin(admin.ModelAdmin):
-    list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
-                    'section_name_uz', 'section_name_ru',
-                    'section_description_uz', 'section_description_ru',)
-    list_filter = (
-        ('title_us', admin.EmptyFieldListFilter), 
-        ('title_tr', admin.EmptyFieldListFilter), 
-    )
-    search_fields  = ('category_id', 'title_uz', 'title_ru')
-    
-    def get_list_display(self, request):
-        return super().get_list_display(request)
-    
-        
-
-
-@admin.register(good_images)
-class goodImagesAdmin(admin.ModelAdmin):
-    fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
-    list_display = ('good_id', 'image_good', 'image_badge')
-    readonly_fields = ('image_good', 'image_badge')
 
 
 @admin.register(feedback)
