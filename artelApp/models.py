@@ -35,7 +35,7 @@ class categories(models.Model):
     category_name_us = models.CharField('Английский', max_length=200, blank=True)
     category_name_tr = models.CharField('Турецкий', max_length=200, blank=True)
     category_img = ImageField('Икона' ,upload_to='categories/')
-    counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0)
+    counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0, blank=True)
     category_category_create_date = models.DateField(auto_now=True)
     
     def image_category(self):

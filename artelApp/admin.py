@@ -70,6 +70,9 @@ class goodsInline(admin.ModelAdmin):
         return badge_preview
 
     get_badge.short_description = 'Бадже'
+    
+    def get_section_description(self):
+        pass
 
 
 
