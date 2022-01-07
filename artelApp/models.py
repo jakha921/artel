@@ -80,7 +80,7 @@ class goods(models.Model):
 
     class Meta:
         verbose_name = "Продукт"
-        verbose_name_plural = "2.1 Продукты"
+        verbose_name_plural = "2 Продукты"
 
     def __str__(self):
         return str(self.category_id) + " -> " + str(self.title_uz)

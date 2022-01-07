@@ -45,7 +45,7 @@ class goodsInline(admin.ModelAdmin):
         goodImageInline,
     ]
     list_display  = ('category_id', 'title_uz', 'title_ru',
-                    'section_description_uz', 'section_name_ru',
+                    'section_name_uz', 'section_name_ru',
                     'section_description_uz', 'section_description_ru',
                     'get_images', 'get_badge'
                     )
@@ -75,30 +75,9 @@ class goodsInline(admin.ModelAdmin):
         pass
 
 
-
-# working tamplate
-# @admin.register(goods)
-# class goodAdmin(admin.ModelAdmin):
-#     list_display = ('category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
-#                     'section_name_uz', 'section_name_ru',
-#                     'section_description_uz', 'section_description_ru',)
-#     list_filter = (
-#         ('title_us', admin.EmptyFieldListFilter), 
-#         ('title_tr', admin.EmptyFieldListFilter), 
-#     )
-#     search_fields  = ('category_id', 'title_uz', 'title_ru')
-    
-
-
-# @admin.register(good_images)
-# class goodImagesAdmin(admin.ModelAdmin):
-#     fields = ('good_id', ('good_img', 'image_good'), ('good_badge','image_badge'))
-#     list_display = ('good_id', 'image_good', 'image_badge')
-#     readonly_fields = ('image_good', 'image_badge')
-
-
 @admin.register(feedback)
 class feedbackAdmin(admin.ModelAdmin):
+    list_display = ('name', 'lastname', 'phone', 'starts', 'comment')
     readonly_fields = ('name', 'lastname', 'phone', 'starts', 'comment')
 
 
@@ -151,10 +130,11 @@ class stockAdmin(admin.ModelAdmin):
 
 @admin.register(exports)
 class exportAdmin(admin.ModelAdmin):
-    fields = (("country", "country_icon"), 'image_export', 
-                    "description_uz", "description_ru", "description_us", "description_tr",
-                    "export_percent_before", "export_percent_after", 
-                    "export_year_before", "export_year_after")
+    fields = ("country", 
+                ("country_icon", 'image_export'), 
+                "description_uz", "description_ru", "description_us", "description_tr",
+                "export_percent_before", "export_percent_after", 
+                "export_year_before", "export_year_after")
     list_display = ("country", 'image_export', 
                     "description_uz", "description_ru", "description_us", "description_tr", 
                     "export_year_before", "export_percent_before", 

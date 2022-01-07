@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     
     'rest_framework',
     'rest_framework_swagger',
@@ -118,16 +117,6 @@ DATABASES = {
     'default': env.dj_db_url("DATABASE_URL")
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'artelTest',
-#                 'USER': 'postgres',
-#                 'PASSWORD': 'admin',
-#                 'HOST': 'localhost',
-#                 'PORT': '5434',
-#     }
-# }
 
 
 
