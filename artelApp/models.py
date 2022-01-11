@@ -137,7 +137,7 @@ class company(models.Model):
         verbose_name_plural = "5. О нас -> Информацию компании"
     
     def __str__(self):
-        return str(self.company_short_info)
+        return str(self.company_short_info_uz)
     
     def image_icon(self):
         if self.company_icon:
@@ -191,7 +191,7 @@ class exports(models.Model):
         verbose_name_plural = "6.1 О нас -> Информации -> Экспорты"
     
     def __str__(self):
-        return str(self.country)
+        return str(self.country_uz)
     
     def image_export(self):
         """show image in admin panel on table"""
@@ -218,7 +218,7 @@ class ecology(models.Model):
         verbose_name_plural = "6.2 О нас -> Информации -> Экологии"
 
     def __str__(self):
-        return self.ecology_desc
+        return self.ecology_desc_uz
     
     
     def image_ecology(self):
@@ -290,7 +290,7 @@ class product_bases(models.Model):
         verbose_name_plural = "6.4 О нас -> Информации -> База продуктов"
     
     def __str__(self):
-        return str(self.product_bases_desc)
+        return str(self.product_bases_desc_uz)
     
     def image_prod_base(self):
         """show image in admin panel on table"""

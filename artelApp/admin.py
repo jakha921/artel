@@ -91,8 +91,14 @@ class partnerAdmin(admin.ModelAdmin):
 @admin.register(company)
 class companyAdmin(admin.ModelAdmin):
     fields = (("company_icon", 'image_icon'), 'company_short_info_uz', 'company_short_info_ru', 'company_short_info_us', 'company_short_info_tr', 'company_info_uz', 'company_info_ru', 'company_info_us', 'company_info_tr', )
-    list_display = ( "company_short_info_uz", "company_short_info_ru", "company_info_uz", "company_info_ru")
+    list_display = ( "company_short_info_uz", "company_short_info_ru", "company_info_uz", "company_info_ru", 'image_icon')
     readonly_fields = ('image_icon',)
+    list_filter = (
+        ('company_short_info_us', admin.EmptyFieldListFilter),
+        ('company_short_info_tr', admin.EmptyFieldListFilter),
+        ('company_info_us', admin.EmptyFieldListFilter),
+        ('company_info_tr', admin.EmptyFieldListFilter),
+    )
 
 
 @admin.register(ecology)
@@ -100,20 +106,32 @@ class ecologAdmin(admin.ModelAdmin):
     fields = ('ecology_desc_uz', 'ecology_desc_ru', 'ecology_desc_us',  'ecology_desc_tr', ("ecology_img", 'image_ecology'))
     list_display = ("ecology_desc_uz", "ecology_desc_ru", 'image_ecology')
     readonly_fields = ('image_ecology',)
+    list_filter = (
+        ('ecology_desc_us', admin.EmptyFieldListFilter),
+        ('ecology_desc_tr', admin.EmptyFieldListFilter),
+    )
 
 
 @admin.register(innovations)
 class innovationAdmin(admin.ModelAdmin):
-    fields = ('innovation_desc_uz', 'innovation_desc_ru', 'innovation_desc_us', ('innovation_img', 'image_innovation'))
+    fields = ('innovation_desc_uz', 'innovation_desc_ru', 'innovation_desc_us', 'innovation_desc_tr', ('innovation_img', 'image_innovation'))
     list_display = ('innovation_desc_uz', 'innovation_desc_ru', 'image_innovation')
     readonly_fields = ('image_innovation',)
+    list_filter = (
+        ('innovation_desc_us', admin.EmptyFieldListFilter),
+        ('innovation_desc_tr', admin.EmptyFieldListFilter),
+    )
 
 
 @admin.register(product_bases)
 class productBaseAdmin(admin.ModelAdmin):
-    fields = ('product_bases_desc_uz', 'product_bases_desc_ru', 'product_bases_desc_us', ('product_bases_img', 'image_prod_base'))
+    fields = ('product_bases_desc_uz', 'product_bases_desc_ru', 'product_bases_desc_us', 'product_bases_desc_tr', ('product_bases_img', 'image_prod_base'))
     list_display = ('product_bases_desc_uz', 'product_bases_desc_ru',  'image_prod_base')
     readonly_fields = ('image_prod_base',)
+    list_filter = (
+        ('product_bases_desc_us', admin.EmptyFieldListFilter),
+        ('product_bases_desc_tr', admin.EmptyFieldListFilter),
+    )
 
 
 @admin.register(stocks)
@@ -135,12 +153,14 @@ class exportAdmin(admin.ModelAdmin):
                 "description_uz", "description_ru", "description_us", "description_tr",
                 "export_percent_before", "export_percent_after", 
                 "export_year_before", "export_year_after")
-    list_display = ('country_uz', 'country_ru', 'country_us', 'country_tr', 'image_export', 
-                    "description_uz", "description_ru", "description_us", "description_tr", 
+    list_display = ('country_uz', 'country_ru',   'image_export', 
+                    "description_uz", "description_ru",
                     "export_year_before", "export_percent_before", 
                     'export_year_after', "export_percent_after",)
     readonly_fields = ('image_export', )
     list_filter = (
+        ('country_us', admin.EmptyFieldListFilter), 
+        ('country_tr', admin.EmptyFieldListFilter), 
         ("description_us", admin.EmptyFieldListFilter), 
         ("description_tr", admin.EmptyFieldListFilter),
     )
