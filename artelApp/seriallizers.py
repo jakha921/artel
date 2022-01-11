@@ -40,7 +40,7 @@ class goodSerializer(serializers.ModelSerializer):
 # companies serializer
 class companySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "company_icon", "company_short_info", "company_info",)
+        fields = ('id', 'company_icon', 'company_short_info_uz', 'company_short_info_ru', 'company_short_info_us', 'company_short_info_tr', 'company_info_uz', 'company_info_ru', 'company_info_us', 'company_info_tr', 'company_category_create_date', )
         model = company
 
 
@@ -54,7 +54,9 @@ class partnerSerializer(serializers.ModelSerializer):
 # export serializer
 class exportSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "country", "country_icon", 
+        fields = ('id', 
+                    'country_uz', 'country_ru', 'country_us', 'country_tr',
+                    "country_icon", 
                     "description_uz", "description_ru", "description_us", "description_tr",
                     "export_percent_before", "export_percent_after", 
                     "export_year_before", "export_year_after")
@@ -64,14 +66,17 @@ class exportSerializer(serializers.ModelSerializer):
 # ecologies serializer
 class ecologySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "ecology_img", "ecology_desc")
+        fields = ('id', "ecology_img", 
+                    'ecology_desc_uz', 'ecology_desc_ru', 'ecology_desc_us', 'ecology_desc_tr',
+                    )
         model = ecology
 
 
 # innovations serializer
 class innovationSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "innovation_img", "innovation_desc")
+        fields = ('id', "innovation_img", 
+                    'innovation_desc_uz', 'innovation_desc_ru', 'innovation_desc_us', 'innovation_desc_tr', )
         model = innovations
 
 
@@ -85,14 +90,19 @@ class feedbackSerializer(serializers.ModelSerializer):
 # product_bases serializer
 class productBaseSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "product_bases_img", "product_bases_desc")
+        fields = ('id', "product_bases_img", 
+                    'product_bases_desc_uz', 'product_bases_desc_ru', 'product_bases_desc_us', 'product_bases_desc_tr', 
+                    )
         model = product_bases
 
 
 # services serializer
 class serviceSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', "service_city", "service_address_list", "service_phone")
+        fields = ('id', 
+                    'service_city_uz', 'service_city_ru', 'service_city_us', 'service_city_tr',
+                    'service_address_list_uz', 'service_address_list_ru', 'service_address_list_us', 'service_address_list_tr',
+                    "service_phone")
         model = services
 
 

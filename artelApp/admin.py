@@ -90,29 +90,29 @@ class partnerAdmin(admin.ModelAdmin):
 
 @admin.register(company)
 class companyAdmin(admin.ModelAdmin):
-    fields = (("company_icon", 'image_icon'), "company_short_info", "company_info")
-    list_display = ('company_short_info', 'company_info', 'image_icon')
+    fields = (("company_icon", 'image_icon'), 'company_short_info_uz', 'company_short_info_ru', 'company_short_info_us', 'company_short_info_tr', 'company_info_uz', 'company_info_ru', 'company_info_us', 'company_info_tr', )
+    list_display = ( "company_short_info_uz", "company_short_info_ru", "company_info_uz", "company_info_ru")
     readonly_fields = ('image_icon',)
 
 
 @admin.register(ecology)
 class ecologAdmin(admin.ModelAdmin):
-    fields = ("ecology_desc", ("ecology_img", 'image_ecology'))
-    list_display = ('ecology_desc', 'image_ecology')
+    fields = ('ecology_desc_uz', 'ecology_desc_ru', 'ecology_desc_us',  'ecology_desc_tr', ("ecology_img", 'image_ecology'))
+    list_display = ("ecology_desc_uz", "ecology_desc_ru", 'image_ecology')
     readonly_fields = ('image_ecology',)
 
 
 @admin.register(innovations)
 class innovationAdmin(admin.ModelAdmin):
-    fields = ('innovation_desc', ('innovation_img', 'image_innovation'))
-    list_display = ('innovation_desc', 'image_innovation')
+    fields = ('innovation_desc_uz', 'innovation_desc_ru', 'innovation_desc_us', ('innovation_img', 'image_innovation'))
+    list_display = ('innovation_desc_uz', 'innovation_desc_ru', 'image_innovation')
     readonly_fields = ('image_innovation',)
 
 
 @admin.register(product_bases)
 class productBaseAdmin(admin.ModelAdmin):
-    fields = ('product_bases_desc', ('product_bases_img', 'image_prod_base'))
-    list_display = ('product_bases_desc', 'image_prod_base')
+    fields = ('product_bases_desc_uz', 'product_bases_desc_ru', 'product_bases_desc_us', ('product_bases_img', 'image_prod_base'))
+    list_display = ('product_bases_desc_uz', 'product_bases_desc_ru',  'image_prod_base')
     readonly_fields = ('image_prod_base',)
 
 
@@ -130,12 +130,12 @@ class stockAdmin(admin.ModelAdmin):
 
 @admin.register(exports)
 class exportAdmin(admin.ModelAdmin):
-    fields = ("country", 
+    fields = ( 'country_uz', 'country_ru', 'country_us', 'country_tr',
                 ("country_icon", 'image_export'), 
                 "description_uz", "description_ru", "description_us", "description_tr",
                 "export_percent_before", "export_percent_after", 
                 "export_year_before", "export_year_after")
-    list_display = ("country", 'image_export', 
+    list_display = ('country_uz', 'country_ru', 'country_us', 'country_tr', 'image_export', 
                     "description_uz", "description_ru", "description_us", "description_tr", 
                     "export_year_before", "export_percent_before", 
                     'export_year_after', "export_percent_after",)
@@ -147,4 +147,5 @@ class exportAdmin(admin.ModelAdmin):
 
 @admin.register(services)
 class servic(admin.ModelAdmin):
-    list_display = ('service_city', 'service_address_list', 'service_phone', )
+    list_display = ('service_city_uz', 'service_city_ru','service_address_list_uz', 'service_address_list_ru', 'service_phone', )
+    ('service_city_uz', 'service_city_ru', 'service_city_us', 'service_city_tr', 'service_address_list_uz',)

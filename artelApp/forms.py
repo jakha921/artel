@@ -136,7 +136,8 @@ class companiesForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = company
-        fields = ["company_icon", "company_short_info", "company_info"] 
+        # fields = ["company_icon", "company_short_info", "company_info"] 
+        fields = '__all__'
         widgets = {
             "company_short_info": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
@@ -163,7 +164,7 @@ class exportForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = exports
-        fields = ["country", "country_icon", 
+        fields = ['country_uz', 'country_ru', 'country_us', 'country_tr', "country_icon", 
                     "description_uz", "description_ru", "description_us", "description_tr",
                     "export_percent_before", "export_percent_after", 
                     "export_year_before", "export_year_after"
@@ -219,7 +220,7 @@ class ecologyForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = ecology
-        fields = ["ecology_img", "ecology_desc"]
+        fields = ["ecology_img", 'ecology_desc_uz', 'ecology_desc_ru', 'ecology_desc_us', 'ecology_desc_tr',]
         widgets = {
             "ecology_desc": Textarea(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
@@ -234,7 +235,7 @@ class innovationForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = innovations
-        fields = ["innovation_img", "innovation_desc"]
+        fields = ["innovation_img", 'innovation_desc_uz', 'innovation_desc_ru', 'innovation_desc_us', 'innovation_desc_tr', ]
         widgets = {
             "innovation_desc": Textarea(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
@@ -249,7 +250,7 @@ class productBaseForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = product_bases
-        fields = ["product_bases_img", "product_bases_desc"]
+        fields = ["product_bases_img", 'product_bases_desc_uz', 'product_bases_desc_ru', 'product_bases_desc_us', 'product_bases_desc_tr',]
         widgets = {
             "product_bases_desc": Textarea(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
@@ -264,7 +265,9 @@ class serviceForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:
         model = services
-        fields = ["service_city", "service_address_list", "service_phone"]
+        fields = [ 'service_city_uz', 'service_city_ru', 'service_city_us', 'service_city_tr',
+                    'service_address_list_uz', 'service_address_list_ru', 'service_address_list_us', 'service_address_list_tr',
+                    "service_phone" ]
         widgets = {
             "service_city": TextInput(attrs={
                 'class': 'form-control col-md-7 col-xs-12',

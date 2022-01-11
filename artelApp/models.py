@@ -122,8 +122,14 @@ class good_images(models.Model):
 # about -> company
 class company(models.Model):
     company_icon = models.ImageField('значок компании', upload_to="company/")
-    company_short_info = models.CharField('Название', max_length=150)
-    company_info = models.TextField('Информация')
+    company_short_info_uz = models.CharField('Название Узб', max_length=150, null=True)
+    company_short_info_ru = models.CharField('Название Рус', max_length=150, null=True)
+    company_short_info_us = models.CharField('Название Анг', max_length=150, blank=True)
+    company_short_info_tr = models.CharField('Название Тур', max_length=150, blank=True)
+    company_info_uz = models.TextField('Информация Узб', null=True)
+    company_info_ru = models.TextField('Информация Рус', null=True)
+    company_info_us = models.TextField('Информация Анг', blank=True)
+    company_info_tr = models.TextField('Информация Тур', blank=True)
     company_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -165,7 +171,10 @@ class partners(models.Model):
 
 # about -> info -> export (countries & info about export)
 class exports(models.Model):
-    country = models.CharField('Страна', max_length=50)
+    country_uz = models.CharField('Страна Узб', max_length=50, null=True)
+    country_ru = models.CharField('Страна Рус', max_length=50, null=True)
+    country_us = models.CharField('Страна Анг', max_length=50, blank=True)
+    country_tr = models.CharField('Страна Тур', max_length=50, blank=True)
     country_icon = models.ImageField('Значок страны', upload_to="exports/")
     description_uz = models.TextField('Описание на Узбекском', blank=True)
     description_ru = models.TextField('Описание на Русском', blank=True)
@@ -198,7 +207,10 @@ class exports(models.Model):
 # about -> info -> ecology (posts img & desc)
 class ecology(models.Model):
     ecology_img = models.ImageField("Изображениe", upload_to="ecology/")
-    ecology_desc = models.TextField("Описание")
+    ecology_desc_uz = models.TextField("Описание Узб", null=True)
+    ecology_desc_ru = models.TextField("Описание Рус", null=True)
+    ecology_desc_us = models.TextField("Описание Анг", blank=True)
+    ecology_desc_tr = models.TextField("Описание Тур", blank=True)
     ecology_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -224,7 +236,10 @@ class ecology(models.Model):
 # about -> info -> innovation (posts img & desc)
 class innovations(models.Model):
     innovation_img = models.ImageField("Изображениe", upload_to="innovations/")
-    innovation_desc = models.TextField("Описание")
+    innovation_desc_uz = models.TextField("Описание Узб", null=True)
+    innovation_desc_ru = models.TextField("Описание Рус", null=True)
+    innovation_desc_us = models.TextField("Описание Анг", blank=True)
+    innovation_desc_tr = models.TextField("Описание Тур", blank=True)
     innovation_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -264,7 +279,10 @@ class feedback(models.Model):
 # about -> info -> product base (posts img & desc)
 class product_bases(models.Model):
     product_bases_img = models.ImageField("Изображениe", upload_to="ecology/")
-    product_bases_desc = models.CharField("Описание", max_length=150)
+    product_bases_desc_uz = models.TextField("Описание Узб", null=True)
+    product_bases_desc_ru = models.TextField("Описание Рус", null=True)
+    product_bases_desc_us = models.TextField("Описание Анг", blank=True)
+    product_bases_desc_tr = models.TextField("Описание Тур", blank=True)
     product_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -288,8 +306,14 @@ class product_bases(models.Model):
 # about -> info -> services
 class services(models.Model):
     """give info about centers from regions it is addres & phone number"""
-    service_city = models.CharField('Название города', max_length=150)
-    service_address_list = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса")
+    service_city_uz = models.CharField('Название города Узб', max_length=150, null=True)
+    service_city_ru = models.CharField('Название города Рус', max_length=150, null=True)
+    service_city_us = models.CharField('Название города Анг', max_length=150, blank=True)
+    service_city_tr = models.CharField('Название города Тур', max_length=150, blank=True)
+    service_address_list_uz = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Узб", null=True)
+    service_address_list_ru = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Рус", null=True)
+    service_address_list_us = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Анг", blank=True, null=True)
+    service_address_list_tr = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Тур", blank=True, null=True)
     service_phone = models.IntegerField("Номер телефона", blank=True)
     
     class Meta:
