@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.postgres import fields
 from .models import *
+from .forms import goodSectionForm
 
 
 admin.site.register(reportsOfLanguage)
@@ -31,22 +32,41 @@ class categoryAdmin(admin.ModelAdmin):
 
 
 # 2 models show in 1
-class goodImageInline(admin.TabularInline):
+class goodImageAdmin(admin.StackedInline):
     model = good_images
     extra = 1
     fields = ('good_img', 'image_good'), ('good_badge','image_badge')
     # list_display = ('image_good', 'image_badge')
     readonly_fields = ('image_good', 'image_badge')
 
+# class goodSectionDescriptionAdmin(admin.StackedInline):
+#     model = good_section_description
+#     extra = 1
+#     fields = ('good_section_id', 'section_description_uz', 'section_description_ru', 'section_description_us', 'section_description_tr')
+#     list_filter = (
+#         ('section_description_us', admin.EmptyFieldListFilter), 
+#         ('section_description_tr', admin.EmptyFieldListFilter), 
+#     )
+
+# class goodSectionAdmin(admin.StackedInline):
+#     model = good_section
+#     extra = 1
+#     raw_id_fields = ('good_id', )
+#     list_display = ('good_id', 'section_name_uz', 'section_name_ru', 'section_name_us', 'section_name_tr')
+#     list_filter = (
+#         ('section_name_us', admin.EmptyFieldListFilter),
+#         ('section_name_tr', admin.EmptyFieldListFilter),
+#     )
+
 @admin.register(goods)
 class goodsInline(admin.ModelAdmin):
     model = goods
     inlines = [
-        goodImageInline,
+        goodImageAdmin,
     ]
     list_display  = ('category_id', 'title_uz', 'title_ru',
-                    'section_name_uz', 'section_name_ru',
-                    'section_description_uz', 'section_description_ru',
+                    # 'section_name_uz', 'section_name_ru',
+                    # 'section_description_uz', 'section_description_ru',
                     'get_images', 'get_badge'
                     )
     list_filter = (
@@ -70,9 +90,25 @@ class goodsInline(admin.ModelAdmin):
         return badge_preview
 
     get_badge.short_description = 'Бадже'
-    
-    def get_section_description(self):
-        pass
+
+
+# demo
+@admin.register(good_section)
+class goodSectionAdmin(admin.ModelAdmin):
+    form = goodSectionForm
+    list_display = ('good_id', 'section_name_uz', 'section_name_ru', 'section_name_us', 'section_name_tr')
+    list_filter = (
+        ('section_name_us', admin.EmptyFieldListFilter),
+        ('section_name_tr', admin.EmptyFieldListFilter),
+    )
+
+@admin.register(good_section_description)
+class goodSectionDescriptionAdmin(admin.ModelAdmin):
+    list_display = ('good_section_id', 'section_description_uz', 'section_description_ru', 'section_description_us', 'section_description_tr')
+    list_filter = (
+        ('section_description_us', admin.EmptyFieldListFilter), 
+        ('section_description_tr', admin.EmptyFieldListFilter), 
+    )
 
 
 @admin.register(feedback)

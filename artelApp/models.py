@@ -17,7 +17,7 @@ lang = (
 )
 
 class languages(models.Model):
-    choose_lang = models.CharField(max_length=20, choices=lang)
+    choose_lang = models.CharField(max_length=20, choices=lang, null=True)
     language_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -30,12 +30,12 @@ class languages(models.Model):
 
 # categories
 class categories(models.Model):
-    category_name_uz = models.CharField('Узбекский', max_length=200)
-    category_name_ru = models.CharField('Русский', max_length=200)
-    category_name_us = models.CharField('Английский', max_length=200, blank=True)
-    category_name_tr = models.CharField('Турецкий', max_length=200, blank=True)
-    category_img = ImageField('Икона' ,upload_to='categories/')
-    counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0, blank=True)
+    category_name_uz = models.CharField('Узбекский', max_length=200, null=True)
+    category_name_ru = models.CharField('Русский', max_length=200, null=True)
+    category_name_us = models.CharField('Английский', max_length=200, blank=True, null=True)
+    category_name_tr = models.CharField('Турецкий', max_length=200, blank=True, null=True)
+    category_img = ImageField('Икона' ,upload_to='categories/', null=True)
+    counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0, blank=True, null=True)
     category_category_create_date = models.DateField(auto_now=True)
     
     def image_category(self):
@@ -64,18 +64,10 @@ class categories(models.Model):
 # goods or good... is mean product
 class goods(models.Model):
     category_id = models.ForeignKey(categories, on_delete=models.CASCADE, verbose_name='Категория')
-    title_uz = models.CharField('Загл. Узб', max_length=250)
-    title_ru = models.CharField('Загл. Рус', max_length=250)
-    title_us = models.CharField('Загл. Анг', max_length=250, blank=True)
-    title_tr = models.CharField('Загл. Тур', max_length=250, blank=True)
-    section_name_uz = ArrayField(ArrayField(models.CharField(max_length=999)), verbose_name='Разд Узб')
-    section_name_ru = ArrayField(ArrayField(models.CharField(max_length=999)), verbose_name='Разд Рус')
-    section_name_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Разд Анг')
-    section_name_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Разд Тур')
-    section_description_uz = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Узбекский')
-    section_description_ru = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Русский')
-    section_description_us = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Английский')
-    section_description_tr = ArrayField(ArrayField(models.CharField(max_length=999)), blank=True, verbose_name='Опис Турецкий')
+    title_uz = models.CharField('Загл. Узб', max_length=250, null=True)
+    title_ru = models.CharField('Загл. Рус', max_length=250, null=True)
+    title_us = models.CharField('Загл. Анг', max_length=250, blank=True, null=True)
+    title_tr = models.CharField('Загл. Тур', max_length=250, blank=True, null=True)
     good_create_date = models.DateField(auto_now=True)
 
     class Meta:
@@ -84,17 +76,17 @@ class goods(models.Model):
 
     def __str__(self):
         return str(self.category_id) + " -> " + str(self.title_uz)
-    
-    
+
+
 # good_sections 
 class good_images(models.Model):
     good_id = models.ForeignKey(goods, on_delete=models.CASCADE, verbose_name='Название продукта', related_name='goodImage')
-    good_img = models.ImageField('Изображения', upload_to='goods/', blank=True)
-    good_badge = models.ImageField('Значок', upload_to='badges/', blank=True)
+    good_img = models.ImageField('Изображения', upload_to='goods/', blank=True, null=True)
+    good_badge = models.ImageField('Значок', upload_to='badges/', blank=True, null=True)
 
     class Meta:
         verbose_name = "Изображение продукту"
-        verbose_name_plural = "2.2 Продукты -> Картинки "
+        verbose_name_plural = "2.2 Продукты -> Изображении "
         
     def image_good(self):
         if self.good_img:
@@ -116,20 +108,94 @@ class good_images(models.Model):
     
     def __str__(self):
         return 'image: ' + 'https://artel-catalog.s3.amazonaws.com/media/' + str(self.good_img) + '  ' + ' badge: ' + 'https://artel-catalog.s3.amazonaws.com/media/'+ str(self.good_badge)
+
+
+# good_sections 
+class good_section(models.Model):
+    """show good(product) sections"""
+    good_id = models.ForeignKey(goods, on_delete=models.CASCADE, verbose_name='Название продукта', related_name='goodSection')
+    section_name_uz = ArrayField(models.TextField(), verbose_name='Секции Узб', null=True)
+    section_name_ru = ArrayField(models.TextField(), verbose_name='Секции Рус', null=True)
+    section_name_us = ArrayField(models.TextField(blank=True), verbose_name='Секции Анг', blank=True, null=True )
+    section_name_tr = ArrayField(models.TextField(blank=True), verbose_name='Секции Тур', blank=True, null=True )
+
+    class Meta:
+        verbose_name = "Раздел продуктов"
+        verbose_name_plural = "2.3 Продукты -> Раздел"
     
+    def __str__(self):
+        return str(self.good_id) + " -> " + str(self.section_name_uz)
+    
+    
+# good_sections 
+class good_section_description(models.Model):
+    """show good(product) sections"""
+    good_section_id = models.ForeignKey(goods, on_delete=models.CASCADE, verbose_name = 'Название раздела', related_name='sectionDescrition')
+    section_description_uz = ArrayField(models.TextField(), verbose_name='Описание Узб', null=True)
+    section_description_ru = ArrayField(models.TextField(), verbose_name='Описание Рус', null=True)
+    section_description_us = ArrayField(models.TextField(blank=True), verbose_name='Описание Анг', null=True, blank=True)
+    section_description_tr = ArrayField(models.TextField(blank=True), verbose_name='Описание Тур', null=True, blank=True) 
+
+    class Meta:
+        verbose_name = "Описание раздела"
+        verbose_name_plural = "2.4 Продукты -> Раздел -> Описании"
+    
+    def __str__(self):
+        return str(self.good_section_id) + " -> " + str(self.section_description_uz)
+
+
+# stocks
+class stocks(models.Model):    
+    title_uz = models.CharField('Узбекский', max_length=150)
+    title_ru = models.CharField('Русский', max_length=150)
+    title_us = models.CharField('Английский', max_length=150, blank=True)
+    title_tr = models.CharField('Турецкий', max_length=150, blank=True)
+    icon = models.ImageField('Икона', upload_to="stocks/icon/")
+    banner = models.ImageField('Баннер', upload_to="stocks/banner/",)
+    description_uz = models.TextField('Описание на узбекском',)
+    description_ru = models.TextField('Описание на русском',)
+    description_us = models.TextField('Описание на английском',blank=True)
+    description_tr = models.TextField('Описание на турецком', blank=True)
+    start_date = models.DateField('Дата стратра')
+    end_date = models.DateField('Дата окончания')
+    stock_category_create_date = models.DateField(auto_now=True)
+    class Meta:
+        verbose_name = "Акцию"
+        verbose_name_plural = "3. Акции"
+    
+    def __str__(self):
+        return str(self.title_uz)
+    
+    def icon_stock(self):
+        if self.icon:
+            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.icon.url)
+        else:
+            return 'No Image Found'
+        
+    def banner_stock(self):
+        if self.banner:
+            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.banner.url)
+        else:
+            return 'No Image Found'
+        
+    icon_stock.short_description = 'Просмотр иконы'
+    icon_stock.allow_tags = True
+        
+    banner_stock.short_description = 'Просмотр баннера'
+    banner_stock.allow_tags = True
 
 
 # about -> company
 class company(models.Model):
     company_icon = models.ImageField('значок компании', upload_to="company/")
-    company_short_info_uz = models.CharField('Название Узб', max_length=150, null=True)
-    company_short_info_ru = models.CharField('Название Рус', max_length=150, null=True)
-    company_short_info_us = models.CharField('Название Анг', max_length=150, blank=True)
-    company_short_info_tr = models.CharField('Название Тур', max_length=150, blank=True)
+    company_short_info_uz = models.CharField('Название Узб', max_length=250, null=True)
+    company_short_info_ru = models.CharField('Название Рус', max_length=250, null=True)
+    company_short_info_us = models.CharField('Название Анг', max_length=250, null=True, blank=True)
+    company_short_info_tr = models.CharField('Название Тур', max_length=250, null=True, blank=True)
     company_info_uz = models.TextField('Информация Узб', null=True)
     company_info_ru = models.TextField('Информация Рус', null=True)
-    company_info_us = models.TextField('Информация Анг', blank=True)
-    company_info_tr = models.TextField('Информация Тур', blank=True)
+    company_info_us = models.TextField('Информация Анг', null=True, blank=True)
+    company_info_tr = models.TextField('Информация Тур', null=True, blank=True)
     company_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -171,17 +237,17 @@ class partners(models.Model):
 
 # about -> info -> export (countries & info about export)
 class exports(models.Model):
-    country_uz = models.CharField('Страна Узб', max_length=50, null=True)
-    country_ru = models.CharField('Страна Рус', max_length=50, null=True)
-    country_us = models.CharField('Страна Анг', max_length=50, blank=True)
-    country_tr = models.CharField('Страна Тур', max_length=50, blank=True)
+    country_uz = models.CharField('Страна Узб', max_length=250, null=True)
+    country_ru = models.CharField('Страна Рус', max_length=250, null=True)
+    country_us = models.CharField('Страна Анг', max_length=250, blank=True)
+    country_tr = models.CharField('Страна Тур', max_length=250, blank=True)
     country_icon = models.ImageField('Значок страны', upload_to="exports/")
     description_uz = models.TextField('Описание на Узбекском', blank=True)
     description_ru = models.TextField('Описание на Русском', blank=True)
     description_us = models.TextField('Описание на Английском', blank=True)
     description_tr = models.TextField('Описание на Турецком', blank=True)
-    export_percent_before = models.FloatField('Проценты до', default=0, max_length=100)
-    export_percent_after = models.FloatField('Проценты после', default=0, max_length=100)
+    export_percent_before = models.FloatField('Проценты до', default=0, validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
+    export_percent_after = models.FloatField('Проценты после', default=0, validators=[MinValueValidator(0.0), MaxValueValidator(100.0)])
     export_year_before = models.CharField('Годом ранее', max_length=4)
     export_year_after = models.CharField('Год спустя', max_length=4)
     export_category_create_date = models.DateField(auto_now=True)
@@ -209,8 +275,8 @@ class ecology(models.Model):
     ecology_img = models.ImageField("Изображениe", upload_to="ecology/")
     ecology_desc_uz = models.TextField("Описание Узб", null=True)
     ecology_desc_ru = models.TextField("Описание Рус", null=True)
-    ecology_desc_us = models.TextField("Описание Анг", blank=True)
-    ecology_desc_tr = models.TextField("Описание Тур", blank=True)
+    ecology_desc_us = models.TextField("Описание Анг", null=True, blank=True)
+    ecology_desc_tr = models.TextField("Описание Тур", null=True, blank=True)
     ecology_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -238,8 +304,8 @@ class innovations(models.Model):
     innovation_img = models.ImageField("Изображениe", upload_to="innovations/")
     innovation_desc_uz = models.TextField("Описание Узб", null=True)
     innovation_desc_ru = models.TextField("Описание Рус", null=True)
-    innovation_desc_us = models.TextField("Описание Анг", blank=True)
-    innovation_desc_tr = models.TextField("Описание Тур", blank=True)
+    innovation_desc_us = models.TextField("Описание Анг", null=True, blank=True)
+    innovation_desc_tr = models.TextField("Описание Тур", null=True, blank=True)
     innovation_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -260,12 +326,12 @@ class innovations(models.Model):
 
 # about -> info -> feedback (from clients get feedback to base)
 class feedback(models.Model):
-    name = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    phone  = models.IntegerField()      # max_length=12
+    name = models.CharField(max_length=5, null=True)
+    lastname = models.CharField(max_length=50, null=True)
+    phone  = models.IntegerField(null=True)      # max_length=12
     starts = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(5)])
-    comment = models.TextField()
+        validators=[MinValueValidator(0), MaxValueValidator(5)], null=True)
+    comment = models.TextField(null=True)
     feedback_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -281,8 +347,8 @@ class product_bases(models.Model):
     product_bases_img = models.ImageField("Изображениe", upload_to="ecology/")
     product_bases_desc_uz = models.TextField("Описание Узб", null=True)
     product_bases_desc_ru = models.TextField("Описание Рус", null=True)
-    product_bases_desc_us = models.TextField("Описание Анг", blank=True)
-    product_bases_desc_tr = models.TextField("Описание Тур", blank=True)
+    product_bases_desc_us = models.TextField("Описание Анг", null=True, blank=True)
+    product_bases_desc_tr = models.TextField("Описание Тур", null=True, blank=True)
     product_category_create_date = models.DateField(auto_now=True)
     
     class Meta:
@@ -306,14 +372,14 @@ class product_bases(models.Model):
 # about -> info -> services
 class services(models.Model):
     """give info about centers from regions it is addres & phone number"""
-    service_city_uz = models.CharField('Название города Узб', max_length=150, null=True)
-    service_city_ru = models.CharField('Название города Рус', max_length=150, null=True)
-    service_city_us = models.CharField('Название города Анг', max_length=150, blank=True)
-    service_city_tr = models.CharField('Название города Тур', max_length=150, blank=True)
-    service_address_list_uz = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Узб", null=True)
-    service_address_list_ru = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Рус", null=True)
-    service_address_list_us = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Анг", blank=True, null=True)
-    service_address_list_tr = ArrayField(ArrayField(models.CharField(max_length=250, blank=True)), verbose_name="Адресса Тур", blank=True, null=True)
+    service_city_uz = models.CharField('Название города Узб', max_length=250, null=True)
+    service_city_ru = models.CharField('Название города Рус', max_length=250, null=True)
+    service_city_us = models.CharField('Название города Анг', max_length=250, null=True, blank=True)
+    service_city_tr = models.CharField('Название города Тур', max_length=250, null=True, blank=True)
+    service_address_list_uz = ArrayField(models.TextField(blank=True), verbose_name="Адресса Узб", null=True)
+    service_address_list_ru = ArrayField(models.TextField(blank=True), verbose_name="Адресса Рус", null=True)
+    service_address_list_us = ArrayField(models.TextField(blank=True), verbose_name="Адресса Анг", blank=True, null=True)
+    service_address_list_tr = ArrayField(models.TextField(blank=True), verbose_name="Адресса Тур", blank=True, null=True)
     service_phone = models.IntegerField("Номер телефона", blank=True)
     
     class Meta:
@@ -368,45 +434,6 @@ class reportsOfGood(models.Model):
         return str(self.good_id) + " " + str(self.click_good)
 
 
-# stocks
-class stocks(models.Model):    
-    title_uz = models.CharField('Узбекский', max_length=150)
-    title_ru = models.CharField('Русский', max_length=150)
-    title_us = models.CharField('Английский', max_length=150, blank=True)
-    title_tr = models.CharField('Турецкий', max_length=150, blank=True)
-    icon = models.ImageField('Икона', upload_to="stocks/icon/")
-    banner = models.ImageField('Баннер', upload_to="stocks/banner/",)
-    description_uz = models.TextField('Описание на узбекском',)
-    description_ru = models.TextField('Описание на русском',)
-    description_us = models.TextField('Описание на английском',blank=True)
-    description_tr = models.TextField('Описание на турецком', blank=True)
-    start_date = models.DateField('Дата стратра')
-    end_date = models.DateField('Дата окончания')
-    stock_category_create_date = models.DateField(auto_now=True)
-    class Meta:
-        verbose_name = "Акцию"
-        verbose_name_plural = "3. Акции"
-    
-    def __str__(self):
-        return str(self.title_uz)
-    
-    def icon_stock(self):
-        if self.icon:
-            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.icon.url)
-        else:
-            return 'No Image Found'
-        
-    def banner_stock(self):
-        if self.banner:
-            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.banner.url)
-        else:
-            return 'No Image Found'
-        
-    icon_stock.short_description = 'Просмотр иконы'
-    icon_stock.allow_tags = True
-        
-    banner_stock.short_description = 'Просмотр баннера'
-    banner_stock.allow_tags = True
 
 
 

@@ -28,13 +28,36 @@ class goodImageSerializer(serializers.ModelSerializer):
 
 
 # goods serializer
+class goodSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = good_section
+        fields = ('good_id',
+                    "section_name_uz", "section_name_ru", 
+                    "section_name_us", "section_name_tr", 
+                    )
+
+# class goodSectionSerializer(serializers.RelatedField):
+#     def to_representation(self, value):
+#         return 'Track %d: %s (%s)' % (value.order, value.name, duration)
+
+
+class goodSectionDescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = good_section_description
+        fields = ('good_section_id',
+                    "section_description_uz", "section_description_ru", 
+                    "section_description_us", "section_description_tr", 
+                    )
+
 class goodSerializer(serializers.ModelSerializer):
     goodImage = serializers.StringRelatedField(many=True, read_only=True)
+    goodSection = serializers.SlugRelatedField(many=True, read_only=True, slug_field='section_name_uz',)
+    sectionDescrition = serializers.SlugRelatedField(many=True, read_only=True, slug_field='section_description_uz')
     
     class Meta:
         model = goods
-        fields = ('id', 'category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 'section_name_uz', 'section_name_ru', 'section_name_us', 'section_name_tr', 'section_description_uz', 'section_description_ru', 'section_description_us', 'section_description_tr', 
-                    'goodImage')
+        fields = ('id', 'category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
+                    'goodImage', 'goodSection', 'sectionDescrition')
 
 
 # companies serializer
