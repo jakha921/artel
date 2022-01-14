@@ -36,11 +36,6 @@ class goodSectionSerializer(serializers.ModelSerializer):
                     "section_name_us", "section_name_tr", 
                     )
 
-# class goodSectionSerializer(serializers.RelatedField):
-#     def to_representation(self, value):
-#         return 'Track %d: %s (%s)' % (value.order, value.name, duration)
-
-
 class goodSectionDescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = good_section_description
@@ -57,7 +52,7 @@ class goodSerializer(serializers.ModelSerializer):
     class Meta:
         model = goods
         fields = ('id', 'category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
-                    'goodImage', 'goodSection', 'sectionDescrition')
+                    'goodImage', 'goodSection', 'sectionDescrition',)
 
 
 # companies serializer

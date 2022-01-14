@@ -117,6 +117,7 @@ DATABASES = {
     'default': env.dj_db_url("DATABASE_URL")
 }
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -127,7 +128,6 @@ DATABASES = {
 #                 'PORT': '5434',
 #     }
 # }
-
 
 
 
