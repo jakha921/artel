@@ -79,10 +79,17 @@ class goodSectionForm(ModelForm):
     section_name_ru = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
     section_name_us = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
     section_name_tr = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    section_description_uz = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    section_description_ru = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    section_description_us = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    section_description_tr = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    
 
     class Meta:
         model = good_section
-        fields = ["good_id","section_name_uz", "section_name_ru", "section_name_us", "section_name_tr",] 
+        fields = ["good_id",
+                    "section_name_uz", "section_name_ru", "section_name_us", "section_name_tr", 
+                    "section_description_uz", "section_description_ru", "section_description_us", "section_description_tr"]
         widgets = {
             "good_id": Select(attrs={
                 'class': 'form-control col-md-7 col-xs-12',
@@ -105,38 +112,7 @@ class goodSectionForm(ModelForm):
             }),    
         }
 
-# goodSectionDescription
-class goodSectionDescriptionForm(ModelForm):
-    """form for taking from fronend info & record to the base"""
-    section_description_uz = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_ru = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_us = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_tr = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    
-    class Meta:
-        model = good_section_description
-        fields = ["good_section_id","section_description_uz", "section_description_ru", "section_description_us", "section_description_tr"] 
-        widgets = {
-            "good_section_id": Select(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-            }),
-            "section_description_uz": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description for section',
-            }),    
-            "section_description_ru": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description for section',
-            }),    
-            "section_description_us": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description for section',
-            }),    
-            "section_description_tr": TextInput(attrs={
-                'class': 'form-control col-md-7 col-xs-12',
-                'placeholder': 'description for section',
-            }),    
-        }
+
 class stockForm(ModelForm):
     """form for taking from fronend info & record to the base"""
     class Meta:

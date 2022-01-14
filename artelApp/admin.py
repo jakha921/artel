@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.postgres import fields
 from .models import *
-from .forms import goodSectionForm, goodSectionDescriptionForm
+from .forms import goodSectionForm
 
 
 admin.site.register(reportsOfLanguage)
@@ -39,35 +39,35 @@ class goodImageAdmin(admin.StackedInline):
     # list_display = ('image_good', 'image_badge')
     readonly_fields = ('image_good', 'image_badge')
 
-class goodSectionDescriptionAdmin(admin.StackedInline):
-    model = good_section_description
-    form = goodSectionDescriptionForm
-    extra = 1
-    fields = ('good_section_id', 'section_description_uz', 'section_description_ru', 'section_description_us', 'section_description_tr')
-    list_filter = (
-        ('section_description_us', admin.EmptyFieldListFilter), 
-        ('section_description_tr', admin.EmptyFieldListFilter), 
-    )
-
 class goodSectionAdmin(admin.StackedInline):
     model = good_section
     form = goodSectionForm
     extra = 1
-    raw_id_fields = ('good_id', )
-    list_display = ('good_id', 'section_name_uz', 'section_name_ru', 'section_name_us', 'section_name_tr')
+    list_display = ('good_id', 
+                    'section_name_uz', 'section_description_uz', 'section_name_ru', 'section_name_us', 'section_name_tr',
+                        'section_description_ru', 'section_description_us', 'section_description_tr',
+                    )
+    fields = ('good_id', 
+                    ('section_name_uz', 'section_description_uz'), 
+                    ('section_name_ru', 'section_description_ru'),
+                    ('section_name_us', 'section_description_us'),
+                    ('section_name_tr', 'section_description_tr'),
+                    )
     list_filter = (
         ('section_name_us', admin.EmptyFieldListFilter),
         ('section_name_tr', admin.EmptyFieldListFilter),
+        ('section_description_us', admin.EmptyFieldListFilter), 
+        ('section_description_tr', admin.EmptyFieldListFilter), 
     )
 
 @admin.register(goods)
 class goodsInline(admin.ModelAdmin):
     model = goods
     inlines = [
-        goodImageAdmin,goodSectionAdmin, goodSectionDescriptionAdmin
+        goodImageAdmin,goodSectionAdmin,
     ]
     list_display  = ('category_id', 'title_uz', 'title_ru',
-                    # 'get_images', 'get_badge',
+                    'get_images', #'get_badge',
                     )
     list_filter = (
         ('title_us', admin.EmptyFieldListFilter), 
@@ -80,7 +80,6 @@ class goodsInline(admin.ModelAdmin):
         preview = [s.good_img.url for s in good_images.objects.filter(good_id = obj)]
         if preview:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
-
     
     get_images.short_description = 'Изображение'
     
@@ -88,6 +87,7 @@ class goodsInline(admin.ModelAdmin):
         preview = [s.good_badge.url for s in good_images.objects.filter(good_id = obj)] 
         if preview:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
+
 
     get_badge.short_description = 'Бадже'
     

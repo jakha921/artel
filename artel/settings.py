@@ -118,16 +118,16 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'artel',
-#                 'USER': 'postgres',
-#                 'PASSWORD': 'admin',
-#                 'HOST': 'localhost',
-#                 'PORT': '5434',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'artel',
+                'USER': 'postgres',
+                'PASSWORD': 'admin',
+                'HOST': 'localhost',
+                'PORT': '5434',
+    }
+}
 
 
 

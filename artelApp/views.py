@@ -625,11 +625,6 @@ class goodSectionAPIView(ModelViewSet):
     queryset = good_section.objects.all()
     serializer_class = goodSectionSerializer
 
-class goodSectionDescriptionAPIView(ModelViewSet):
-    queryset = good_section_description.objects.all()
-    serializer_class = goodSectionDescriptionSerializer
-
-
 
 class companiesAPIView(ModelViewSet):
     queryset = company.objects.all()

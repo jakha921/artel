@@ -23,7 +23,7 @@ class categorySerializer(serializers.ModelSerializer):
 
 class goodImageSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('good_id', 'good_img', 'good_badge')
+        fields = ('good_img', 'good_badge')
         model = good_images
 
 
@@ -31,28 +31,21 @@ class goodImageSerializer(serializers.ModelSerializer):
 class goodSectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = good_section
-        fields = ('good_id',
-                    "section_name_uz", "section_name_ru", 
-                    "section_name_us", "section_name_tr", 
-                    )
-
-class goodSectionDescriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = good_section_description
-        fields = ('good_section_id',
+        fields = ("section_name_uz", "section_name_ru", 
+                    "section_name_us", "section_name_tr",
                     "section_description_uz", "section_description_ru", 
                     "section_description_us", "section_description_tr", 
                     )
 
+
 class goodSerializer(serializers.ModelSerializer):
-    goodImage = serializers.StringRelatedField(many=True, read_only=True)
-    goodSection = serializers.SlugRelatedField(many=True, read_only=True, slug_field='section_name_uz',)
-    sectionDescrition = serializers.SlugRelatedField(many=True, read_only=True, slug_field='section_description_uz')
+    goodImage = goodImageSerializer(many=True, read_only=True)
+    goodSection = goodSectionSerializer(many=True,)
     
     class Meta:
         model = goods
         fields = ('id', 'category_id', 'title_uz', 'title_ru', 'title_us', 'title_tr', 
-                    'goodImage', 'goodSection', 'sectionDescrition',)
+                    'goodImage', 'goodSection',)
 
 
 # companies serializer

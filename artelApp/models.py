@@ -92,13 +92,13 @@ class good_images(models.Model):
         if self.good_img:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.good_badge.url)
         else:
-            return 'No Image Found'
+            return 'Изображение еще не загружено'
         
     def image_badge(self):
         if self.good_badge:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.good_badge.url)
         else:
-            return 'No Image Found'
+            return 'Икона еще не загружено'
         
     image_good.short_description = 'Просмотр изображение'
     image_good.allow_tags = True
@@ -106,8 +106,6 @@ class good_images(models.Model):
     image_badge.short_description = 'Просмотр иконы'
     image_badge.allow_tags = True
     
-    def __str__(self):
-        return 'image: ' + 'https://artel-catalog.s3.amazonaws.com/media/' + str(self.good_img) + '  ' + ' badge: ' + 'https://artel-catalog.s3.amazonaws.com/media/'+ str(self.good_badge)
 
 
 # good_sections 
@@ -116,8 +114,13 @@ class good_section(models.Model):
     good_id = models.ForeignKey(goods, on_delete=models.CASCADE, verbose_name='Название продукта', related_name='goodSection')
     section_name_uz = ArrayField(models.TextField(), verbose_name='Секции Узб', null=True)
     section_name_ru = ArrayField(models.TextField(), verbose_name='Секции Рус', null=True)
-    section_name_us = ArrayField(models.TextField(blank=True), verbose_name='Секции Анг', blank=True, null=True )
-    section_name_tr = ArrayField(models.TextField(blank=True), verbose_name='Секции Тур', blank=True, null=True )
+    section_name_us = ArrayField(models.TextField(blank=True), verbose_name='Секции Анг', null=True )
+    section_name_tr = ArrayField(models.TextField(blank=True), verbose_name='Секции Тур', null=True )
+    section_description_uz = ArrayField(models.TextField(), verbose_name='Описание Узб', null=True)
+    section_description_ru = ArrayField(models.TextField(), verbose_name='Описание Рус', null=True)
+    section_description_us = ArrayField(models.TextField(blank=True), verbose_name='Описание Анг', null=True)
+    section_description_tr = ArrayField(models.TextField(blank=True), verbose_name='Описание Тур', null=True) 
+
 
     class Meta:
         verbose_name = "Раздел продуктов"
@@ -125,23 +128,6 @@ class good_section(models.Model):
     
     def __str__(self):
         return str(self.good_id) + " -> " + str(self.section_name_uz)
-    
-    
-# good_sections 
-class good_section_description(models.Model):
-    """show good(product) sections"""
-    good_section_id = models.ForeignKey(goods, on_delete=models.CASCADE, verbose_name = 'Название раздела', related_name='sectionDescrition')
-    section_description_uz = ArrayField(models.TextField(), verbose_name='Описание Узб', null=True)
-    section_description_ru = ArrayField(models.TextField(), verbose_name='Описание Рус', null=True)
-    section_description_us = ArrayField(models.TextField(blank=True), verbose_name='Описание Анг', null=True, blank=True)
-    section_description_tr = ArrayField(models.TextField(blank=True), verbose_name='Описание Тур', null=True, blank=True) 
-
-    class Meta:
-        verbose_name = "Описание раздела"
-        verbose_name_plural = "2.4 Продукты -> Раздел -> Описании"
-    
-    def __str__(self):
-        return str(self.good_section_id) + " -> " + str(self.section_description_uz)
 
 
 # stocks
