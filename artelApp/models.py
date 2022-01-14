@@ -42,7 +42,7 @@ class categories(models.Model):
         if self.category_img:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.category_img.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
     image_category.short_description = 'Просмотр иконы'
     image_category.allow_tags = True
     
@@ -156,13 +156,13 @@ class stocks(models.Model):
         if self.icon:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.icon.url)
         else:
-            return 'No Image Found'
+            return 'Икона еще не загружено'
         
     def banner_stock(self):
         if self.banner:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.banner.url)
         else:
-            return 'No Image Found'
+            return 'Баннер еще не загружено'
         
     icon_stock.short_description = 'Просмотр иконы'
     icon_stock.allow_tags = True
@@ -195,7 +195,7 @@ class company(models.Model):
         if self.company_icon:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.company_icon.url)
         else:
-            return 'No Image Found'
+            return 'Икона еще не загружено'
         
     image_icon.short_description = 'Просмотр иконы'
     image_icon.allow_tags = True
@@ -210,7 +210,7 @@ class partners(models.Model):
         if self.partner_img:
             return mark_safe('<img src="%s" style="width: 80px; height:60px;" />' % self.partner_img.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
         
     image_partner.short_description = 'Просмотр изображение'
     image_partner.allow_tags = True
@@ -250,7 +250,7 @@ class exports(models.Model):
         if self.country_icon:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.country_icon.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
         
     image_export.short_description = 'Просмотр значка'
     image_export.allow_tags = True
@@ -278,7 +278,7 @@ class ecology(models.Model):
         if self.ecology_img:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.ecology_img.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
         
     image_ecology.short_description = 'Просмотр изображение'
     image_ecology.allow_tags = True
@@ -303,7 +303,7 @@ class innovations(models.Model):
         if self.innovation_img:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.innovation_img.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
         
     image_innovation.short_description = "Просмотр изображение"
     image_innovation.allow_tags = True
@@ -349,7 +349,7 @@ class product_bases(models.Model):
         if self.product_bases_img:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.product_bases_img.url)
         else:
-            return 'No Image Found'
+            return 'Изобрадение еще не загружено'
         
     image_prod_base.short_description = 'Просмотр изображение'
     image_prod_base.allow_tags = True

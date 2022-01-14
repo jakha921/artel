@@ -85,6 +85,7 @@ class goodsInline(admin.ModelAdmin):
     
     get_images.short_description = 'Изображение'
     
+    
     def get_badge(self, obj):
         preview = [s.good_badge.url for s in good_images.objects.filter(good_id = obj)] 
         if preview:
@@ -92,14 +93,7 @@ class goodsInline(admin.ModelAdmin):
         else:
             return 'Нет изображении'
 
-
     get_badge.short_description = 'Бадже'
-    
-    # def get_section(self, obj):
-    #     """show description"""
-    #     sectionUZ = [s.section_name_uz for s in good_section.objects.filter(good_id = obj)] 
-    #     section_display = mark_safe('<p>"%s"</p>' % sectionUZ[0])
-    #     return section_display
         
         
 
