@@ -67,7 +67,7 @@ class goodsInline(admin.ModelAdmin):
         goodImageAdmin,goodSectionAdmin,
     ]
     list_display  = ('category_id', 'title_uz', 'title_ru',
-                    'get_images', #'get_badge',
+                    'get_images', 'get_badge',
                     )
     list_filter = (
         ('title_us', admin.EmptyFieldListFilter), 
