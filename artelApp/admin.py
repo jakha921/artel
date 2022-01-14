@@ -80,6 +80,8 @@ class goodsInline(admin.ModelAdmin):
         preview = [s.good_img.url for s in good_images.objects.filter(good_id = obj)]
         if preview:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
+        else:
+            return 'Нет изображении'
     
     get_images.short_description = 'Изображение'
     
@@ -87,6 +89,8 @@ class goodsInline(admin.ModelAdmin):
         preview = [s.good_badge.url for s in good_images.objects.filter(good_id = obj)] 
         if preview:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
+        else:
+            return 'Нет изображении'
 
 
     get_badge.short_description = 'Бадже'
