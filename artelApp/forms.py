@@ -75,14 +75,14 @@ class goodImageForm(ModelForm):
 
 class goodSectionForm(ModelForm):
     """form for taking from fronend info & record to the base"""
-    section_name_uz = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_name_ru = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_name_us = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_name_tr = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_uz = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_ru = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_us = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
-    section_description_tr = SimpleArrayField(CharField(), delimiter='|', widget=Textarea())
+    section_name_uz = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_name_ru = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_name_us = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_name_tr = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_description_uz = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_description_ru = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_description_us = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
+    section_description_tr = SimpleArrayField(CharField(), delimiter='</>', widget=Textarea())
     
 
     class Meta:

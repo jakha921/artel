@@ -88,23 +88,23 @@ class good_images(models.Model):
         verbose_name = "Изображение продукту"
         verbose_name_plural = "2.2 Продукты -> Изображении "
         
-    def image_good(self):
+    def get_image(self):
         if self.good_img:
-            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.good_badge.url)
+            return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.good_img.url)
         else:
             return 'Изображение еще не загружено'
         
-    def image_badge(self):
+    def get_badge(self):
         if self.good_badge:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % self.good_badge.url)
         else:
             return 'Икона еще не загружено'
         
-    image_good.short_description = 'Просмотр изображение'
-    image_good.allow_tags = True
+    get_image.short_description = 'Просмотр изображение'
+    get_image.allow_tags = True
         
-    image_badge.short_description = 'Просмотр иконы'
-    image_badge.allow_tags = True
+    get_badge.short_description = 'Просмотр иконы'
+    get_badge.allow_tags = True
     
 
 

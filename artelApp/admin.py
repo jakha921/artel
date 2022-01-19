@@ -16,7 +16,7 @@ admin.site.register(reportsOfGood)
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us", "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
-    list_display = ("category_name_uz", "category_name_ru","category_name_us", "category_name_tr", 'image_category', 'counter_total_product')
+    list_display = ("category_name_uz", "category_name_ru", "category_name_us", "category_name_tr", 'image_category', 'counter_total_product')
     list_filter = (
         ('category_name_us', admin.EmptyFieldListFilter), 
         ('category_name_tr', admin.EmptyFieldListFilter), 
@@ -35,9 +35,9 @@ class categoryAdmin(admin.ModelAdmin):
 class goodImageAdmin(admin.StackedInline):
     model = good_images
     extra = 1
-    fields = ('good_img', 'image_good'), ('good_badge','image_badge')
-    # list_display = ('image_good', 'image_badge')
-    readonly_fields = ('image_good', 'image_badge')
+    fields = ('good_img', 'get_image'), ('good_badge','get_badge')
+    list_display = ('get_image', 'get_badge')
+    readonly_fields = ('get_image', 'get_badge')
 
 class goodSectionAdmin(admin.StackedInline):
     model = good_section
@@ -61,10 +61,10 @@ class goodSectionAdmin(admin.StackedInline):
     )
 
 @admin.register(goods)
-class goodsInline(admin.ModelAdmin):
+class goodsAdmin(admin.ModelAdmin):
     model = goods
     inlines = [
-        goodImageAdmin,goodSectionAdmin,
+        goodImageAdmin, goodSectionAdmin,
     ]
     list_display  = ('category_id', 'title_uz', 'title_ru',
                     # 'get_images', 'get_badge',
@@ -72,9 +72,8 @@ class goodsInline(admin.ModelAdmin):
     list_filter = (
         ('title_us', admin.EmptyFieldListFilter), 
         ('title_tr', admin.EmptyFieldListFilter), 
-    )
-    
-    search_fields  = ('category_id', 'title_uz', 'title_ru')
+    )    
+    search_fields  = ('title_uz', 'title_ru')
     
     def get_images(self, obj):
         preview = [s.good_img.url for s in good_images.objects.filter(good_id = obj)]
@@ -91,30 +90,9 @@ class goodsInline(admin.ModelAdmin):
         if preview:
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
         else:
-            return 'Нет изображении'
+            return 'Нет бадже'
 
     get_badge.short_description = 'Бадже'
-        
-        
-
-
-# demo
-# @admin.register(good_section)
-# class goodSectionAdmin(admin.ModelAdmin):
-#     form = goodSectionForm
-#     list_display = ('good_id', 'section_name_uz', 'section_name_ru', 'section_name_us', 'section_name_tr')
-#     list_filter = (
-#         ('section_name_us', admin.EmptyFieldListFilter),
-#         ('section_name_tr', admin.EmptyFieldListFilter),
-#     )
-
-# @admin.register(good_section_description)
-# class goodSectionDescriptionAdmin(admin.ModelAdmin):
-#     list_display = ('good_section_id', 'section_description_uz', 'section_description_ru', 'section_description_us', 'section_description_tr')
-#     list_filter = (
-#         ('section_description_us', admin.EmptyFieldListFilter), 
-#         ('section_description_tr', admin.EmptyFieldListFilter), 
-#     )
 
 
 @admin.register(feedback)
