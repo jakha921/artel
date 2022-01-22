@@ -1,5 +1,6 @@
-from .models import *
-from django.forms import ModelForm, TextInput, Textarea, Select, DateField
+from .models import categories, goods, good_section, good_images, company, innovations, product_bases, exports, stocks, \
+                    stocks, partners, services, ecology
+from django.forms import ModelForm, TextInput, Textarea, Select
 from django.contrib.postgres.forms import SimpleArrayField
 from django.forms.fields import CharField
 from django.forms.widgets import Textarea
