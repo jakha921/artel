@@ -322,7 +322,7 @@ class feedback(models.Model):
     
     class Meta:
         verbose_name = "Отзыв"
-        verbose_name_plural = "8. Отзывы"
+        verbose_name_plural = "7. Отзывы"
     
     def __str__(self):
         return str(self.name) + ' ' + str(self.lastname)
@@ -384,7 +384,7 @@ class reportsOfLanguage(models.Model):
     
     class Meta:
         verbose_name = "Отчет по языку"
-        verbose_name_plural = "7.1 Отчеты по языкам"
+        verbose_name_plural = "8.1 Отчеты по языкам"
     
     def __str__(self):
         return str(self.language_id) + " " + str(self.click_language)
@@ -399,7 +399,7 @@ class reportsOfCategory(models.Model):
     
     class Meta:
         verbose_name = "Отчет по категорие"
-        verbose_name_plural = "7.2 Отчеты по категории"
+        verbose_name_plural = "8.2 Отчеты по категории"
     
     def __str__(self):
         return str(self.category_id) + " " + str(self.click_category)
@@ -414,7 +414,7 @@ class reportsOfGood(models.Model):
     
     class Meta:
         verbose_name = "Отчет по продукту"
-        verbose_name_plural = "7.3 Отчеты по продуктам"
+        verbose_name_plural = "8.3 Отчеты по продуктам"
     
     def __str__(self):
         return str(self.good_id) + " " + str(self.click_good)

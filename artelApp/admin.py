@@ -4,9 +4,9 @@ from .models import *
 from .forms import goodSectionForm
 
 
-admin.site.register(reportsOfLanguage)
-admin.site.register(reportsOfCategory)
-admin.site.register(reportsOfGood)
+# admin.site.register(reportsOfLanguage)
+# admin.site.register(reportsOfCategory)
+# admin.site.register(reportsOfGood)
 
 
 # custimize admin panel
@@ -15,7 +15,7 @@ admin.site.register(reportsOfGood)
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us",
-              "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
+                "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
     list_display = ("category_name_uz", "category_name_ru", "category_name_us",
                     "category_name_tr", 'image_category', 'counter_total_product')
     list_filter = (
