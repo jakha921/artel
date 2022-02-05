@@ -308,7 +308,7 @@ class innovations(models.Model):
 class feedback(models.Model):
     name = models.CharField(max_length=5, null=True)
     lastname = models.CharField(max_length=50, null=True)
-    phone  = models.IntegerField(null=True)      # max_length=12
+    phone  = models.CharField(max_length=15, null=True)
     starts = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)], null=True)
     comment = models.TextField(null=True)
@@ -356,10 +356,10 @@ class services(models.Model):
     service_city_ru = models.CharField('Название города Рус', max_length=250, null=True)
     service_city_us = models.CharField('Название города Анг', max_length=250, null=True, blank=True)
     service_city_tr = models.CharField('Название города Тур', max_length=250, null=True, blank=True)
-    service_address_list_uz = ArrayField(models.TextField(blank=True), verbose_name="Адресса Узб", null=True)
-    service_address_list_ru = ArrayField(models.TextField(blank=True), verbose_name="Адресса Рус", null=True)
-    service_address_list_us = ArrayField(models.TextField(blank=True), verbose_name="Адресса Анг", blank=True, null=True)
-    service_address_list_tr = ArrayField(models.TextField(blank=True), verbose_name="Адресса Тур", blank=True, null=True)
+    service_address_list_uz = ArrayField(models.TextField(blank=True), verbose_name="Адреса Узб", null=True)
+    service_address_list_ru = ArrayField(models.TextField(blank=True), verbose_name="Адреса Рус", null=True)
+    service_address_list_us = ArrayField(models.TextField(blank=True), verbose_name="Адреса Анг", blank=True, null=True)
+    service_address_list_tr = ArrayField(models.TextField(blank=True), verbose_name="Адреса Тур", blank=True, null=True)
     service_phone = models.IntegerField("Номер телефона", blank=True)
 
     class Meta:
