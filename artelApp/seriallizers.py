@@ -25,6 +25,17 @@ class goodImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('good_img', 'good_badge')
         model = good_images
+    
+    # def to_representation(self, instance):
+    #         fields = {'good_img', 'good_badge'}
+    #         data = super().to_representation(instance)
+    #         for field in fields:
+    #             try:
+    #                 if not data[field]:
+    #                     data[field] = ""
+    #             except KeyError:
+    #                 pass
+    #         return data
 
 
 # goods serializer

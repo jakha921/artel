@@ -9,9 +9,9 @@ from .forms import goodSectionForm
 # admin.site.register(reportsOfGood)
 
 
-# custimize admin panel
+# customize admin panel
 
-# tabele
+# table
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us",
@@ -85,7 +85,7 @@ class goodsAdmin(admin.ModelAdmin):
                 s.good_img.url for s in good_images.objects.filter(good_id=obj).exclude(good_img='')]
             return mark_safe('<img src="%s" style="width: 60px; height:60px;" />' % preview[0])
         else:
-            return 'Нет бадже'
+            return 'Нет изображение'
 
 
     get_images.short_description = 'Изображение'

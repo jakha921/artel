@@ -16,7 +16,7 @@ def index(request):
     return render(request, 'artelApp/index.html')
 
 
-# categorie
+# categories
 @login_required(login_url='/admin/login/')
 def category(request):
     categorie = categories.objects.all()
@@ -39,7 +39,7 @@ def category(request):
     return render(request, 'artelApp/category.html', {'dataCategory' : dataCategory})
 
 
-# update button for categorie
+# update button for categories
 @login_required(login_url='/admin/login/')
 def updateCategorie(request, pk):
     categorie = categories.objects.get(id = pk)

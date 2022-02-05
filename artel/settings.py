@@ -16,7 +16,7 @@ from environs import Env
 import os
 
 
-# Enviroment variable
+# Environment variable
 env = Env()
 env.read_env()
 
