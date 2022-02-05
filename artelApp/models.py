@@ -306,8 +306,8 @@ class innovations(models.Model):
 
 # about -> info -> feedback (from clients get feedback to base)
 class feedback(models.Model):
-    name = models.CharField(max_length=5, null=True)
-    lastname = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=100, null=True)
+    lastname = models.CharField(max_length=100, null=True)
     phone  = models.CharField(max_length=15, null=True)
     starts = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)], null=True)
@@ -370,7 +370,7 @@ class services(models.Model):
 # reports count click from users
 class reportsOfLanguage(models.Model):
     """count every click from user and write to the base
-    for showing most popular thinds"""
+    for showing most popular things"""
     language_id = models.ForeignKey(languages, on_delete=models.CASCADE, verbose_name='Язык')
     click_language = models.IntegerField('Количество кликов', default=0)
     lang_rep_category_create_date = models.DateField(auto_now=True)
