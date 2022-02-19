@@ -17,18 +17,24 @@ class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us",
                 "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
     list_display = ("category_name_uz", "category_name_ru", "category_name_us",
-                    "category_name_tr", 'image_category', 'counter_total_product')
+                    "category_name_tr", 'image_category', 'counter_total_product', 'get_artel_or_texno')
     list_filter = (
         ('category_name_us', admin.EmptyFieldListFilter),
         ('category_name_tr', admin.EmptyFieldListFilter),
+        ('artel_or_texno_park', admin.BooleanFieldListFilter),
     )
     readonly_fields = ('image_category', 'counter_total_product')
 
     def counter(self, obj):
         count = obj.Good_set.count()
         return count
+    
+    def get_artel_or_texno(self, obj):
+        """if boolen return True display Artel else Texno Park"""
+        return 'Artel' if obj.artel_or_texno_park else 'Texno Park'
 
     counter.short_description = ""
+    get_artel_or_texno.short_description = "Производитель"
 
 
 # 2 models show in 1
@@ -103,7 +109,6 @@ class goodsAdmin(admin.ModelAdmin):
 
     get_badge.short_description = 'Бадже'
 
-# print(goodsAdmin.get_images.preview())
 
 
 @admin.register(feedback)

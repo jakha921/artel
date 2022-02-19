@@ -37,6 +37,7 @@ class categories(models.Model):
     category_img = ImageField('Икона' ,upload_to='categories/', null=True)
     counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0, blank=True, null=True)
     category_category_create_date = models.DateField(auto_now=True)
+    artel_or_texno_park = models.BooleanField('Artel', default=True)
     
     def image_category(self):
         if self.category_img:

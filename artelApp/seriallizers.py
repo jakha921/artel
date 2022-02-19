@@ -17,7 +17,7 @@ class categorySerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 
                     "category_name_uz", "category_name_ru", "category_name_us", "category_name_tr",
-                    "category_img", "counter_total_product")
+                    "category_img", "counter_total_product", "artel_or_texno_park") 
         model = categories
 
 
@@ -25,17 +25,7 @@ class goodImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('good_img', 'good_badge')
         model = good_images
-    
-    # def to_representation(self, instance):
-    #         fields = {'good_img', 'good_badge'}
-    #         data = super().to_representation(instance)
-    #         for field in fields:
-    #             try:
-    #                 if not data[field]:
-    #                     data[field] = ""
-    #             except KeyError:
-    #                 pass
-    #         return data
+
 
 
 # goods serializer
