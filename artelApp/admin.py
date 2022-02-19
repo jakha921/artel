@@ -15,7 +15,7 @@ from .forms import goodSectionForm
 @admin.register(categories)
 class categoryAdmin(admin.ModelAdmin):
     fields = ("category_name_uz", "category_name_ru", "category_name_us",
-                "category_name_tr", ('category_img', 'image_category'), 'counter_total_product')
+                "category_name_tr", ('category_img', 'image_category'), 'counter_total_product', 'artel_or_texno_park',)
     list_display = ("category_name_uz", "category_name_ru", "category_name_us",
                     "category_name_tr", 'image_category', 'counter_total_product', 'get_artel_or_texno')
     list_filter = (
