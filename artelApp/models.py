@@ -29,6 +29,11 @@ class languages(models.Model):
 
 
 # categories
+
+artel_or_texno_park_choose = (
+    ('artel', "Artel"),
+    ('texno', "Texno Park"),
+) 
 class categories(models.Model):
     category_name_uz = models.CharField('Узбекский', max_length=200, null=True)
     category_name_ru = models.CharField('Русский', max_length=200, null=True)
@@ -37,7 +42,7 @@ class categories(models.Model):
     category_img = ImageField('Икона' ,upload_to='categories/', null=True)
     counter_total_product = models.IntegerField('Cчетчик продуктов' , default=0, blank=True, null=True)
     category_category_create_date = models.DateField(auto_now=True)
-    artel_or_texno_park = models.BooleanField('Artel', default=True)
+    artel_or_texno_park = models.CharField('Производитель', default='artel', max_length=20, choices=artel_or_texno_park_choose)
     
     def image_category(self):
         if self.category_img:
