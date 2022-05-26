@@ -63,11 +63,6 @@ SITE_ID = 1
 
 # rest framework permission
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated'
-    # ],
     # JWT & other 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -116,20 +111,6 @@ WSGI_APPLICATION = 'artel.wsgi.application'
 DATABASES = {
     'default': env.dj_db_url("DATABASE_URL")
 }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'artel',
-#                 'USER': 'postgres',
-#                 'PASSWORD': 'admin',
-#                 'HOST': 'localhost',
-#                 'PORT': '5434',
-#     }
-# }
-
-
 
 
 # Password validation
